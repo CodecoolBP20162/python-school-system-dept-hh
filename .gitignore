@@ -95,3 +95,6 @@ ENV/
 .idea/modules.xml
 .idea/python-school-system-dept-hh.iml
 .idea/workspace.xml
+
+#connection txt
+parameter.txt
