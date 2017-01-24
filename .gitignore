@@ -87,3 +87,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#.idea folder
+.idea/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/python-school-system-dept-hh.iml
+.idea/workspace.xml
