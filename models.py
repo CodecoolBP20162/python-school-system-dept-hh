@@ -50,14 +50,15 @@ class Interview(BaseModel):
     applicant = ForeignKeyField(Applicant, related_name="interviews")
     interviewslot = ForeignKeyField(InterviewSlot, related_name="interviews")
 
-class Questions(BaseModel):
+class Question(BaseModel):
     question = CharField()
-    applicant = ForeignKeyField(Applicant, related_name="question")
+    applicant = ForeignKeyField(Applicant, related_name="questions")
+    status = CharField()
+    chosenmentor = ForeignKeyField(Mentor, related_name="questions")
 
 
-
-class Answers(BaseModel):
+class Answer(BaseModel):
     answer = CharField()
-    question = ForeignKeyField(Questions, related_name="questions")
-    mentor = ForeignKeyField(Mentor, related_name="mentorquested")
+    question = ForeignKeyField(Question, related_name="questions")
+
 
