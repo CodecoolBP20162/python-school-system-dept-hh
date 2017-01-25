@@ -28,7 +28,7 @@ def create_dummy_city(cities):
 
 def csv_reader(filename):
     current_file_path = os.path.dirname(os.path.abspath(__file__))
-    filename = current_file_path + "/data/" + str(filename)
+    filename = current_file_path + "/example_csv_files/" + str(filename)
     table = []
     with open(filename, "r", encoding='utf-8') as f:
         csvfile = csv.reader(f, delimiter=';')
@@ -37,17 +37,7 @@ def csv_reader(filename):
             table.append(line)
         return table
 
-def create_by_csv(school, mentor_table):
+def create_mentor_by_csv(mentor_table):
     for mentor in mentor_table:
-        Mentor.create(nickname=mentor[5],
-                      first_name=mentor[0],
-                      last_name=mentor[1],
-                      year_of_birth=datetime.datetime.strptime(
-                          mentor[2], '%Y%m%d'),
-                      gender=mentor[3],
-                      codecool_class=school)
-
-
-create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
-
-create_dummy_city(["Budapest", "Székesfehérvár", "Tata", "Miskolc", "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
+        school=School.select().where(School.name== mentor[1]).get()
+        Mentor.create(name=mentor[0],related_school=school)
