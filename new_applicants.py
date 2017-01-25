@@ -36,8 +36,7 @@ class Newapplicants:
     @staticmethod
     def new_applicant(app_data_list):
         new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
-        applicant_school= new_applicant_city.related_school
-
+        applicant_school = new_applicant_city.related_school
 
         new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
                                          status="new", code=Newapplicants.random_app_code())
@@ -47,6 +46,7 @@ class Newapplicants:
 
         new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
         interview_slot.reserved=True
+
         interview_slot.save()
 
         return [new_applicant, new_interview]
