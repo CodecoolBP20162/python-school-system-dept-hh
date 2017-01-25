@@ -6,6 +6,7 @@ from models import *
 
 
 class Newapplicants:
+
     @staticmethod
     def check_applicant(code_input):
 

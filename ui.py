@@ -2,6 +2,7 @@ from new_applicants import Newapplicants
 import os
 
 class Ui:
+
     @staticmethod
     def interface():
 
