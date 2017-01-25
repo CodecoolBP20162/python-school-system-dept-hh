@@ -15,7 +15,7 @@ def build_tables(tables):
     db.create_tables(tables, safe=True)
 
 
-build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview])
+build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Questions, Answers])
 
 example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
 
