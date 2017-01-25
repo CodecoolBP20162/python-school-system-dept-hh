@@ -50,6 +50,7 @@ class Interview(BaseModel):
     applicant = ForeignKeyField(Applicant, related_name="interviews")
     interviewslot = ForeignKeyField(InterviewSlot, related_name="interviews")
 
+
 class Question(BaseModel):
     question = CharField()
     applicant = ForeignKeyField(Applicant, related_name="questions")
@@ -60,5 +61,3 @@ class Question(BaseModel):
 class Answer(BaseModel):
     answer = CharField()
     question = ForeignKeyField(Question, related_name="questions")
-
-

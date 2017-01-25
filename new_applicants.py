@@ -5,7 +5,6 @@ from models import *
 
 
 class Newapplicants:
-
     @staticmethod
     def check_applicant(code_input):
 
@@ -17,14 +16,12 @@ class Newapplicants:
     def check_applicant_interview(code_input):
 
         app_interview_datas = (InterviewSlot
-                   .select()
-                   .join(Interview)
-                   .join(Applicant)
-                   .where(Applicant.code == code_input)).get()
+                               .select()
+                               .join(Interview)
+                               .join(Applicant)
+                               .where(Applicant.code == code_input)).get()
 
         return app_interview_datas
-
-
 
     @staticmethod
     def data_collection():
@@ -45,7 +42,7 @@ class Newapplicants:
             InterviewSlot.start).limit(1).get()
 
         new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
-        interview_slot.reserved=True
+        interview_slot.reserved = True
 
         interview_slot.save()
 

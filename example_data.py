@@ -18,6 +18,7 @@ def csv_reader(filename):
             table.append(line)
         return table
 
+
 def create_dummy_schools(schools):
     for school in schools:
         School.create(name=school)
@@ -38,9 +39,6 @@ def create_dummy_cities(cities):
         elif city in krakow_cities:
             related_school = School.select().where(School.name == "Krakow").get()
             City.create(name=city, related_school=related_school)
-
-
-
 
 
 def create_dummy_mentors_by_csv(mentor_table):
@@ -71,5 +69,5 @@ def create_dummy_applicants_by_csv(applicants_table):
 def create_dummy_interview_slots_by_csv(interviewslot_table):
     for slot in interviewslot_table:
         mentors = Mentor.select().order_by(fn.Random()).limit(1)
-        InterviewSlot.create(start=datetime.strptime(slot[0],'%Y-%m-%d %H:%M'), end = datetime.strptime(
-            slot[1],'%Y-%m-%d %H:%M'), reserved = False, mentor = mentors)
+        InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'), end=datetime.strptime(
+            slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentors)

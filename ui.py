@@ -1,8 +1,8 @@
 from new_applicants import Newapplicants
 import os
 
-class Ui:
 
+class Ui:
     @staticmethod
     def interface():
 
@@ -30,7 +30,8 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
-                    print("Your new application code: {code}\nDate of your interview:{date}".format(code=new_applicant_datas[0].code, date = new_applicant_datas[1].interviewslot.start))
+                    print("Your new application code: {code}\nDate of your interview:{date}".format(
+                        code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
                     print("Please don't forget to save or write down your code!\n")
 
 
@@ -45,7 +46,8 @@ class Ui:
                         Status: {_0}
                         City: {_1}
                         Code: {_2}
-                        School: {_3}\n""".format(_0=app_datas.status,_1=app_datas.city.name,_2=app_datas.code,_3=app_datas.school.name))
+                        School: {_3}\n""".format(_0=app_datas.status, _1=app_datas.city.name, _2=app_datas.code,
+                                                 _3=app_datas.school.name))
                     except:
                         print("You did not register yet or your code is wrong!\n")
 
@@ -61,7 +63,8 @@ class Ui:
                         print("Your interview's start at {date}".format(date=app_datas.start))
 
                     except:
-                        print("You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
+                        print(
+                            "You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
             elif choose == "2":
                 pass
 

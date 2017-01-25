@@ -20,7 +20,7 @@ build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Questio
 example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
 
 example_data.create_dummy_cities(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
-                                "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
+                                  "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
 
 example_data.create_dummy_mentors_by_csv(example_data.csv_reader("mentors.csv"))
 
