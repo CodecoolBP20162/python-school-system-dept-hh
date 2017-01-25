@@ -2,10 +2,25 @@
 # You can run it anytime to generate new data!
 import random
 from models import *
-import ui
+
 
 
 class Newapplicants:
+
+    @staticmethod
+    def check_applicant(code_input):
+
+        app_datas = Applicant.select().where(Applicant.code == code_input).get()
+
+        return app_datas
+
+    @staticmethod
+    def data_collection():
+        app_inputs_list = []
+        app_inputs_list.append(str(input("Please enter your name:")))
+        app_inputs_list.append(str(input("Please enter your city:")))
+        return app_inputs_list
+
 
     @staticmethod
     def new_applicant(app_data_list):
@@ -23,14 +38,14 @@ class Newapplicants:
             related_school = School.select().where(School.name == "Krakow").get()
 
 
-        Applicant.create(name=app_data_list[0], city=new_applicant_city, school = related_school, status="new",
+        new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school = related_school, status="new",
                          code=Newapplicants.random_app_code())
 
+        return new_applicant
 
 
-    # -------------------> Tomi make a city-school relation method
     @staticmethod
-    def random_app_code():  # ----------argument will be the app_table
+    def random_app_code():
         symbols = "#$%&'()*+,-./?@^_`{|}~"
         digits = "0123456789"
         lowercase = "abcdefghijklmnopqrstuvwxyz"
