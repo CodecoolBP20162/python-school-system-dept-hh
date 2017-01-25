@@ -6,6 +6,7 @@ import ui
 
 
 class Newapplicants:
+
     @staticmethod
     def new_applicant(app_data_list):
         new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
@@ -28,9 +29,15 @@ class Newapplicants:
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
 
-        # CHECK EQUAL CODE OCCURENCE
-        # for  in range(len(app_table)):
-        #   if generated == app_table[something]:
-        #     generate_random() --->again
+        code_table = Applicant.select(Applicant.code)
+
+        #ANOTHER THECNIC
+        # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
+        #   if code_table = None:
+        #       generate_random()
+
+        for code in code_table:
+            if rand_code == code:
+                generate_random()
 
         return rand_code
