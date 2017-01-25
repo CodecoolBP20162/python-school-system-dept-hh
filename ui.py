@@ -1,5 +1,4 @@
 
-from new_applicants import *
 
 class Ui:
 
@@ -23,7 +22,7 @@ class Ui:
                 app_inputs_list.append(str(input("Please enter your last name:")))
                 app_inputs_list.append(str(input("Please enter your city:")))
                 print(app_inputs_list)
-                return new_applicant(app_inputs_list)
+                return app_inputs_list
 
 
             elif choose == "2":
@@ -37,4 +36,3 @@ class Ui:
 
 
 
-Ui.interface()
