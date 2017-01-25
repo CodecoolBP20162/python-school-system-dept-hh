@@ -12,7 +12,7 @@ def build_tables(tables):
             table.drop_table(fail_silently=True, cascade=True)
     db.create_tables(tables, safe=True)
 
-build_tables([School, City, Mentor, Applicant])
+build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview])
 
 example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
 

@@ -39,13 +39,15 @@ class Applicant(BaseModel):
     status = CharField()
     code = CharField()
 
-class Interview(BaseModel):
-    applicant = ForeignKeyField(Applicant, related_name="interviews")
-    interviewslot = ForeignKeyField(InterviewSlot, related_name="interviews")
-
-
 class InterviewSlot(BaseModel):
     start = DateField()
     end = DateField()
     reserved = BooleanField()
     mentor = ForeignKeyField(Mentor, related_name="mentors")
+
+
+class Interview(BaseModel):
+    applicant = ForeignKeyField(Applicant, related_name="interviews")
+    interviewslot = ForeignKeyField(InterviewSlot, related_name="interviews")
+
+
