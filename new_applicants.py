@@ -6,30 +6,14 @@ import ui
 
 
 class Newapplicants:
+
     @staticmethod
     def new_applicant(app_data_list):
-        budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
-        miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
-        krakow_cities = ["Krakow", "Warsaw", "Katovice"]
-        related_school = ""
-        new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
-
-        if app_data_list[1] in budapest_cities:
-            related_school = School.select().where(School.name == "Budapest").get()
-        elif app_data_list[1] in miskolc_cities:
-            related_school = School.select().where(School.name == "Miskolc").get()
-        elif app_data_list[1] in krakow_cities:
-            related_school = School.select().where(School.name == "Krakow").get()
-
-
-        Applicant.create(name=app_data_list[0], city=new_applicant_city, school = related_school, status="new",
-                         code=Newapplicants.random_app_code())
-
-
-
-    # -------------------> Tomi make a city-school relation method
+        new_applicant_city=City.select().where(City.name == app_data_list[1]).get()
+        Applicant.create(name = app_data_list[0], new_applicant_city, status = "NEW", code = Newapplicants.random_app_code())
+# -------------------> Tomi make a city-school relation method
     @staticmethod
-    def random_app_code():  # ----------argument will be the app_table
+    def random_app_code():  #----------argument will be the app_table
         symbols = "#$%&'()*+,-./?@^_`{|}~"
         digits = "0123456789"
         lowercase = "abcdefghijklmnopqrstuvwxyz"
@@ -43,15 +27,10 @@ class Newapplicants:
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
 
-        code_table = Applicant.select(Applicant.code)
 
-        # ANOTHER THECNIC
-        # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
-        #   if code_table = None:
-        #       generate_random()
+    #CHECK EQUAL CODE OCCURENCE
+        #for  in range(len(app_table)):
+         #   if generated == app_table[something]:
+          #     generate_random() --->again
 
-        for code in code_table:
-            if rand_code == code:
-                generate_random()
-
-        return rand_code
+        return rand_codeZ

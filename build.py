@@ -19,11 +19,11 @@ build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview])
 
 example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
 
-example_data.create_dummy_city(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
+example_data.create_dummy_cities(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
                                 "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
 
-example_data.create_dummy_mentor_by_csv(example_data.csv_reader("mentors.csv"))
+example_data.create_dummy_mentors_by_csv(example_data.csv_reader("mentors.csv"))
 
 example_data.create_dummy_applicants_by_csv(example_data.csv_reader("applicants.csv"))
 
-example_data.create_dummy_interviewslot_by_csv(example_data.csv_reader("interviewslot.csv"))
+example_data.create_dummy_interview_slots_by_csv(example_data.csv_reader("interviewslot.csv"))
