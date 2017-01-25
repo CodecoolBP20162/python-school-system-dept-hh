@@ -9,9 +9,24 @@ class Newapplicants:
 
     @staticmethod
     def new_applicant(app_data_list):
+        budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
+        miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
+        krakow_cities = ["Krakow", "Warsaw", "Katovice"]
+        related_school = ""
         new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
-        Applicant.create(name=app_data_list[0], city=new_applicant_city, status="new",
+
+        if app_data_list[1] in budapest_cities:
+            related_school = School.select().where(School.name == "Budapest").get()
+        elif app_data_list[1] in miskolc_cities:
+            related_school = School.select().where(School.name == "Miskolc").get()
+        elif app_data_list[1] in krakow_cities:
+            related_school = School.select().where(School.name == "Krakow").get()
+
+
+        Applicant.create(name=app_data_list[0], city=new_applicant_city, school = related_school, status="new",
                          code=Newapplicants.random_app_code())
+
+
 
     # -------------------> Tomi make a city-school relation method
     @staticmethod
