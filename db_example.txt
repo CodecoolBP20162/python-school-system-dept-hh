@@ -1,1 +1,3 @@
-dbname='x' user='y'
+#create a parameter.txt
+#In this case tour db name and your username have to be the same
+#Its a one liner with
