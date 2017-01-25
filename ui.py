@@ -3,6 +3,7 @@ import os
 
 
 class Ui:
+
     @staticmethod
     def interface():
 
@@ -20,13 +21,15 @@ class Ui:
             if choose == "1":
                 print("Choose an option:\n")
 
-                print("1. New applicant registration\n2. Application details\n3. Interview details")
+                print(
+                    "1. New applicant registration\n2. Application details\n3. Interview details\n4. Questions")
 
                 app_menu_choice = input("Your choice:")
 
                 if app_menu_choice == "1":
                     collected_datas = Newapplicants.data_collection()
-                    new_applicant_datas = Newapplicants.new_applicant(collected_datas)
+                    new_applicant_datas = Newapplicants.new_applicant(
+                        collected_datas)
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -34,14 +37,14 @@ class Ui:
                         code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
                     print("Please don't forget to save or write down your code!\n")
 
-
                 elif app_menu_choice == "2":
                     app_code_check = input("Your application code:")
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
                     try:
-                        app_datas = Newapplicants.check_applicant(app_code_check)
+                        app_datas = Newapplicants.check_applicant(
+                            app_code_check)
                         print("""\nYour registered data:
                         Status: {_0}
                         City: {_1}
@@ -58,13 +61,31 @@ class Ui:
 
                     try:
 
-                        app_datas = Newapplicants.check_applicant_interview(app_interview_check)
+                        app_datas = Newapplicants.check_applicant_interview(
+                            app_interview_check)
 
-                        print("Your interview's start at {date}".format(date=app_datas.start))
+                        print("Your interview's start at {date}".format(
+                            date=app_datas.start))
 
                     except:
                         print(
                             "You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
+
+                elif app_menu_choice == "4":
+                    print(
+                        "\n1. Ask a question\n2. Question status\n3. Back to main menu")
+                    choose2 = input("Your choice:")
+                    if choose2 == "1":
+
+                        Newapplicants.add_question_to_database()
+
+                    elif choose2 == "2":
+                        pass
+                    elif choose2 == "3":
+                        pass
+                    else:
+                        print("That is not a valid option!")
+
             elif choose == "2":
                 pass
 

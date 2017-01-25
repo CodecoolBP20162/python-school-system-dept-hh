@@ -55,7 +55,7 @@ class Question(BaseModel):
     question = CharField()
     applicant = ForeignKeyField(Applicant, related_name="questions")
     status = CharField()
-    chosenmentor = ForeignKeyField(Mentor, related_name="questions")
+    choosenmentor = ForeignKeyField(Mentor, related_name="questions")
 
 
 class Answer(BaseModel):
