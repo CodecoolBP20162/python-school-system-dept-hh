@@ -6,7 +6,6 @@ from models import *
 
 
 class Newapplicants:
-
     @staticmethod
     def check_applicant(code_input):
 
@@ -24,12 +23,6 @@ class Newapplicants:
 
     @staticmethod
     def new_applicant(app_data_list):
-        new_applicant_city=City.select().where(City.name == app_data_list[1]).get()
-        Applicant.create(name = app_data_list[0], new_applicant_city, status = "NEW", code = Newapplicants.random_app_code())
-# -------------------> Tomi make a city-school relation method
-    @staticmethod
-    def random_app_code():  #----------argument will be the app_table
-=======
         budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
         miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
         krakow_cities = ["Krakow", "Warsaw", "Katovice"]
@@ -65,10 +58,15 @@ class Newapplicants:
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
 
+        code_table = Applicant.select(Applicant.code)
 
-    #CHECK EQUAL CODE OCCURENCE
-        #for  in range(len(app_table)):
-         #   if generated == app_table[something]:
-          #     generate_random() --->again
+        # ANOTHER THECNIC
+        # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
+        #   if code_table = None:
+        #       generate_random()
 
-        return rand_codeZ
+        for code in code_table:
+            if rand_code == code:
+                generate_random()
+
+        return rand_code
