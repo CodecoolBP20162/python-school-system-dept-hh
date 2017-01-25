@@ -47,7 +47,19 @@ def create_dummy_mentor_by_csv(mentor_table):
 
 
 def create_dummy_applicants_by_csv(applicants_table):
+    budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
+    miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
+    krakow_cities = ["Krakow", "Warsaw", "Katovice"]
+
     for applicant in applicants_table:
         applicant_city = City.select().where(City.name == applicant[1]).get()
+        related_school=""
+        if applicant[1] in budapest_cities:
+            related_school = School.select().where(School.name == "Budapest").get()
+        elif applicant[1] in miskolc_cities:
+            related_school = School.select().where(School.name == "Miskolc").get()
+        elif applicant[1] in krakow_cities:
+            related_school = School.select().where(School.name == "Krakow").get()
+
         Applicant.create(name=applicant[0], city=applicant_city, status=applicant[2],
-                         code=Newapplicants.random_app_code())
+                         code=Newapplicants.random_app_code(),school=related_school)
