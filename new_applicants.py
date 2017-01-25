@@ -4,7 +4,6 @@ import random
 from models import *
 
 
-
 class Newapplicants:
     @staticmethod
     def check_applicant(code_input):
@@ -19,7 +18,6 @@ class Newapplicants:
         app_inputs_list.append(str(input("Please enter your name:")))
         app_inputs_list.append(str(input("Please enter your city:")))
         return app_inputs_list
-
 
     @staticmethod
     def new_applicant(app_data_list):
@@ -36,12 +34,16 @@ class Newapplicants:
         elif app_data_list[1] in krakow_cities:
             related_school = School.select().where(School.name == "Krakow").get()
 
+        new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=related_school,
+                                         status="new", code=Newapplicants.random_app_code())
 
-        new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school = related_school, status="new",
-                         code=Newapplicants.random_app_code())
+        interview_slot = InterviewSlot.select().where(InterviewSlot.reserved == False).order_by(
+            InterviewSlot.start).limit(1).get()
+        Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+        interview_slot.reserved=True
+        interview_slot.save()
 
         return new_applicant
-
 
     @staticmethod
     def random_app_code():
