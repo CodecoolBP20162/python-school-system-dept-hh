@@ -2,6 +2,7 @@ from models import *
 import csv
 import os
 from new_applicants import Newapplicants
+from datetime import date
 
 
 # This script can generate example data for "City" and "InterviewSlot" models.
@@ -53,7 +54,7 @@ def create_dummy_applicants_by_csv(applicants_table):
 
     for applicant in applicants_table:
         applicant_city = City.select().where(City.name == applicant[1]).get()
-        related_school=""
+        related_school = ""
         if applicant[1] in budapest_cities:
             related_school = School.select().where(School.name == "Budapest").get()
         elif applicant[1] in miskolc_cities:
@@ -62,4 +63,16 @@ def create_dummy_applicants_by_csv(applicants_table):
             related_school = School.select().where(School.name == "Krakow").get()
 
         Applicant.create(name=applicant[0], city=applicant_city, status=applicant[2],
-                         code=Newapplicants.random_app_code(),school=related_school)
+                         code=Newapplicants.random_app_code(), school=related_school)
+
+
+def create_dummy_interviewslot_by_csv(interviewslot_table):
+
+    for slot in interviewslot_table:
+        mentors = Mentor.select().order_by(fn.Random()).limit(1)
+        InterviewSlot.create(start=date(slot[0],), end=date(slot[1]),reserved=False, mentor = mentors)
+
+
+
+
+

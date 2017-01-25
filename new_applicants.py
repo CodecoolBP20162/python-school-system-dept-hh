@@ -6,7 +6,6 @@ import ui
 
 
 class Newapplicants:
-
     @staticmethod
     def new_applicant(app_data_list):
         new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
@@ -31,7 +30,7 @@ class Newapplicants:
 
         code_table = Applicant.select(Applicant.code)
 
-        #ANOTHER THECNIC
+        # ANOTHER THECNIC
         # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
         #   if code_table = None:
         #       generate_random()

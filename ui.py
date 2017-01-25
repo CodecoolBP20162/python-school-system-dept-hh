@@ -1,10 +1,6 @@
-
-
 class Ui:
-
     @staticmethod
     def interface():
-
 
         while True:
 
@@ -33,6 +29,3 @@ class Ui:
 
             elif choose == "0":
                 exit()
-
-
-
