@@ -40,8 +40,8 @@ class Applicant(BaseModel):
     code = CharField()
 
 class InterviewSlot(BaseModel):
-    start = DateField()
-    end = DateField()
+    start = DateTimeField()
+    end = DateTimeField()
     reserved = BooleanField()
     mentor = ForeignKeyField(Mentor, related_name="mentors")
 

@@ -39,5 +39,11 @@ def csv_reader(filename):
 
 def create_mentor_by_csv(mentor_table):
     for mentor in mentor_table:
-        school=School.select().where(School.name== mentor[1]).get()
+        school=School.select().where(School.name == mentor[1]).get()
         Mentor.create(name=mentor[0],related_school=school)
+
+def create_student_by_csv(student_table):
+    for student in student_table:
+        student_city=City.select().where(City.name == student[1]).get()
+        Student.create(name=student[0],city=student_city;status=student[2])
+

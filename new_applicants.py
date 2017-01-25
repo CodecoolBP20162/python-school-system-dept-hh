@@ -6,13 +6,15 @@ import ui
 
 
 class Newapplicants:
-
     @staticmethod
     def new_applicant(app_data_list):
-        Applicant.create(name = app_data_list[1], #city = "Kecskemét", status = "NEW", code = Newapplicants.random_app_code())
-# -------------------> Tomi make a city-school relation method
+        new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
+        Applicant.create(name=app_data_list[0], city=new_applicant_city, status="new",
+                         code=Newapplicants.random_app_code())
+
+    # -------------------> Tomi make a city-school relation method
     @staticmethod
-    def random_app_code():  #----------argument will be the app_table
+    def random_app_code():  # ----------argument will be the app_table
         symbols = "#$%&'()*+,-./?@^_`{|}~"
         digits = "0123456789"
         lowercase = "abcdefghijklmnopqrstuvwxyz"
@@ -26,10 +28,9 @@ class Newapplicants:
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
 
-
-    #CHECK EQUAL CODE OCCURENCE
-        #for  in range(len(app_table)):
-         #   if generated == app_table[something]:
-          #     generate_random() --->again
+        # CHECK EQUAL CODE OCCURENCE
+        # for  in range(len(app_table)):
+        #   if generated == app_table[something]:
+        #     generate_random() --->again
 
         return rand_code
