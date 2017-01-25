@@ -4,6 +4,8 @@ from models import *
 import example_data
 
 db.connect()
+
+
 # List the tables here what you want to create...
 
 def build_tables(tables):
@@ -12,14 +14,16 @@ def build_tables(tables):
             table.drop_table(fail_silently=True, cascade=True)
     db.create_tables(tables, safe=True)
 
-build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview])
+
+build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Questions, Answers])
 
 example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
 
 example_data.create_dummy_city(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
-                   "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
+                                "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
 
 example_data.create_dummy_mentor_by_csv(example_data.csv_reader("mentors.csv"))
 
 example_data.create_dummy_applicants_by_csv(example_data.csv_reader("applicants.csv"))
 
+example_data.create_dummy_interviewslot_by_csv(example_data.csv_reader("interviewslot.csv"))

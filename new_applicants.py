@@ -6,7 +6,6 @@ from models import *
 
 
 class Newapplicants:
-
     @staticmethod
     def check_applicant(code_input):
 
@@ -61,7 +60,7 @@ class Newapplicants:
 
         code_table = Applicant.select(Applicant.code)
 
-        #ANOTHER THECNIC
+        # ANOTHER THECNIC
         # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
         #   if code_table = None:
         #       generate_random()

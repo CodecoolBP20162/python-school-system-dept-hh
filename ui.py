@@ -2,10 +2,8 @@ from new_applicants import Newapplicants
 import os
 
 class Ui:
-
     @staticmethod
     def interface():
-
 
         while True:
 
@@ -58,6 +56,3 @@ class Ui:
 
             elif choose == "0":
                 exit()
-
-
-
