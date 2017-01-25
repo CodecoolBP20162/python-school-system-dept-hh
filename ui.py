@@ -20,7 +20,7 @@ class Ui:
             if choose == "1":
                 print("Choose an option:\n")
 
-                print("1. New applicant registration\n2. Application details:\n")
+                print("1. New applicant registration\n2. Application details\n3. Interview details")
 
                 app_menu_choice = input("Your choice:")
 
@@ -30,7 +30,7 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
-                    print("Your new application code: {0}\nDate of your interview:XXXX".format(new_applicant_datas.code))
+                    print("Your new application code: {code}\nDate of your interview:{date}".format(code=new_applicant_datas[0].code, date = new_applicant_datas[1].interviewslot.start))
                     print("Please don't forget to save or write down your code!\n")
 
 
@@ -49,6 +49,19 @@ class Ui:
                     except:
                         print("You did not register yet or your code is wrong!\n")
 
+                elif app_menu_choice == "3":
+                    app_interview_check = input("Your application code:")
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
+
+                    try:
+
+                        app_datas = Newapplicants.check_applicant_interview(app_interview_check)
+
+                        print("Your interview's start at {date}".format(date=app_datas.start))
+
+                    except:
+                        print("You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
             elif choose == "2":
                 pass
 

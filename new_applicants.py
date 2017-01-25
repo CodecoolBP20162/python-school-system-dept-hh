@@ -14,6 +14,19 @@ class Newapplicants:
         return app_datas
 
     @staticmethod
+    def check_applicant_interview(code_input):
+
+        app_interview_datas = (InterviewSlot
+                   .select()
+                   .join(Interview)
+                   .join(Applicant)
+                   .where(Applicant.code == code_input)).get()
+
+        return app_interview_datas
+
+
+
+    @staticmethod
     def data_collection():
         app_inputs_list = []
         app_inputs_list.append(str(input("Please enter your name:")))
@@ -31,11 +44,12 @@ class Newapplicants:
 
         interview_slot = InterviewSlot.select().where(InterviewSlot.reserved == False).order_by(
             InterviewSlot.start).limit(1).get()
-        Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+
+        new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
         interview_slot.reserved=True
         interview_slot.save()
 
-        return new_applicant
+        return [new_applicant, new_interview]
 
     @staticmethod
     def random_app_code():
