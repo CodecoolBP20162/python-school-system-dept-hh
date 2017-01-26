@@ -57,6 +57,7 @@ class Question(BaseModel):
     applicant = ForeignKeyField(Applicant, related_name="questions")
     status = CharField()
     chosenmentor = ForeignKeyField(Mentor, related_name="questions", null = True)
+    submissiondate = DateTimeField()
 
 
 class Answer(BaseModel):

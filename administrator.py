@@ -55,6 +55,7 @@ class Administrator:
 
         Administrator.prettytable(interview_list, tags)
 
+    @staticmethod
     def listing_interviews_by_date(filter):
         interview_list = []
         filter_transfer=datetime.strptime(filter, '%Y-%m-%d %H:%M')
@@ -108,8 +109,6 @@ class Administrator:
                 print("|", "{text:^{width}}".format(
                     text=table[i][y], width=length[y]), sep='', end='')
             print("|")
-
-        # lower grid
         print("\\", startend_line, "/", sep='')
 
 

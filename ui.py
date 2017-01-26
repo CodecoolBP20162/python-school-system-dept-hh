@@ -1,10 +1,10 @@
 from new_applicants import Newapplicants
 from mentors import Mentors
+from administrator import Administrator
 import os
 
 
 class Ui:
-
     @staticmethod
     def interface():
 
@@ -81,7 +81,11 @@ class Ui:
                         Newapplicants.add_question_to_database()
 
                     elif choose2 == "2":
-                        pass
+
+                        table = Newapplicants.get_question_info()
+                        tablelist = ["Question", "Status", "Answer"]
+                        Administrator.prettytable(table, tablelist)
+
                     elif choose2 == "3":
                         pass
                     else:
@@ -90,23 +94,29 @@ class Ui:
             elif choose == "2":
                 print("Choose an option:\n")
 
-                print("1. Interviews\n")
+                print("1. Interviews\n2. Questions")
 
                 mentors_menu_choice = input("Your choice:")
 
                 if mentors_menu_choice == "1":
-                    mentor_id= input("Your ID:")
+                    mentor_id = input("Your ID:")
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
 
                     Mentors.check_mentors_interviews(mentor_id)
 
+                elif mentors_menu_choice == "2":
+                    table = Mentors.question_displayer()
+                    tablelist = ["Submission date", "Question", "Applicant code"]
+                    Administrator.prettytable(table, tablelist)
+
+
 
             elif choose == "3":
                 print("Choose an option:\n")
 
-                print("1. Applicants\n")
+                print("1. Applicants\n2.Interviews")
 
                 admin_menu_choice = input("Your choice:")
 
@@ -115,6 +125,21 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
+
+                    print("Choose an option:")
+
+                    print("""1.Aplicants personal data""")
+
+                    admin_app_menu_choice = input("Your choice:")
+
+                    if admin_app_menu_choice == "1":
+                        Administrator.applicants_personal_data()
+
+
+                if admin_menu_choice == "2":
+                    #mentor_id = input("Your ID:") -----> space for admin identity check
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 
