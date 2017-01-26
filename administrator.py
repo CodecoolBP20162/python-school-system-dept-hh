@@ -110,14 +110,3 @@ class Administrator:
                     text=table[i][y], width=length[y]), sep='', end='')
             print("|")
         print("\\", startend_line, "/", sep='')
-
-
-Administrator.listing_all_interviews()
-print("\n")
-Administrator.listing_interviews_by_mentor("Tony Hawk")
-print("\n")
-Administrator.listing_interviews_by_applicant_code("61DExq")
-print("\n")
-Administrator.listing_interviews_by_school("Krakow")
-print("\n")
-Administrator.listing_interviews_by_date("2017-05-18 12:00")
