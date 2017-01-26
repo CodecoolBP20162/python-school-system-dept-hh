@@ -136,7 +136,7 @@ class Ui:
             elif choose == "3":
                 print("Choose an option:\n")
 
-                print("1.Applicants\n2.Interviews")
+                print("1. Applicants\n2. Interviews\n3. Questions")
 
                 admin_menu_choice = input("Your choice:")
 
@@ -147,7 +147,7 @@ class Ui:
 
                     print("Choose an option:")
 
-                    print("""1.Applicants personal data\n2.Applicants filtered by...""")
+                    print("""1. Applicants personal data\n2. Applicants filtered by...""")
 
                     admin_app_menu_choice = input("Your choice:")
 
@@ -158,7 +158,9 @@ class Ui:
                     elif admin_app_menu_choice == "2":
 
                         print("Choose a filter requirement:")
+
                         print("""1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email\n0. Quit""")
+
                         admin_filter_choice = input("Your choice:")
 
                         if admin_filter_choice == "1":
@@ -191,14 +193,14 @@ class Ui:
                         elif choose == "0":
                             exit()
 
-                if admin_menu_choice == "2":
+                elif admin_menu_choice == "2":
                     # mentor_id = input("Your ID:") -----> space for admin identity check
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
                     print("Choose an option: ")
 
-                    print("""1.Listing all interviews\n2.Listing interviews filtered by...""")
+                    print("""1. Listing all interviews\n2. Listing interviews filtered by...""")
 
                     admin_app_menu_choice = input("Your choice: ")
 
@@ -216,23 +218,51 @@ class Ui:
                         if admin_filter_choice == "1":
                             admin_filter = input("Please write mentor's name: ")
                             Administrator.listing_interviews_by_mentor(admin_filter)
-                        if admin_filter_choice == "2":
+                        elif admin_filter_choice == "2":
                             admin_filter = input("Please write an applicant's code: ")
                             Administrator.listing_interviews_by_applicant_code(admin_filter)
-                        if admin_filter_choice == "3":
+                        elif admin_filter_choice == "3":
                             admin_filter = input("Please give a School: ")
                             Administrator.listing_interviews_by_school(admin_filter)
-                        if admin_filter_choice == "4":
+                        elif admin_filter_choice == "4":
                             admin_filter = input("Please give a specific date in the following format:\n"
                                                  "Example format: 2015-01-01 00:00: ")
                             Administrator.listing_interviews_by_date(admin_filter)
 
+                elif admin_menu_choice == "3":
 
+                    os.system('cls' if os.name == 'nt' else 'clear')
 
+                    print("1. Assign a mentor to answer a question (get mentor and question ID ready!)\n2. Listing questions filtered by...\n")
 
+                    admin_submenu_choice = input("Your choice:")
 
+                    if admin_submenu_choice == "1":
+                        Administrator.mentor_assigning()
 
+                    elif admin_submenu_choice == "2":
 
+                        print("Choose a filter requirement:")
+
+                        print("""1.Questions by status\n2.Questions by applicants\n3.Questions by school\n4.Questions by mentor\n6. Applicant name and email\n0. Quit""")
+
+                        question_filter_choice = input("Your choice:")
+
+                        if question_filter_choice == "1":
+                            admin_subfilter_choice = input("Your choice(Answered/szar)")
+                            Administrator.question_by_status(admin_subfilter_choice)
+
+                        elif question_filter_choice == "2":
+                            Administrator.question_by_applicants()
+
+                        elif question_filter_choice == "3":
+                            Administrator.question_by_school()
+
+                        elif question_filter_choice == "4":
+                            admin_filter = input("Please write mentor's name: ")
+                            Administrator.question_by_mentor(admin_filter)
+
+                        
 
             elif choose == "0":
                 exit()

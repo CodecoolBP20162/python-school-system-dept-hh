@@ -168,6 +168,77 @@ class Administrator:
 
         Administrator.prettytable(interview_list, tags)
 
+
+    @staticmethod
+    def mentor_assigning():
+
+        identify_mentor = input("Choose mentor ID:")
+        identify_question = input("Choose question ID:")
+
+        mentor = Mentor.get(Mentor.id == int(identify_mentor))
+        question = Question.get(Question.id == int(identify_question))
+
+        question.chosenmentor = mentor
+        question.status = "waiting for answer"
+        question.save()
+
+    @staticmethod
+    def question_by_status(status_filter):
+
+        tags = ["Status", "Question"]
+
+        questions_data = []
+
+        questions = Question.select().where(Question.status == status_filter)
+
+        for question in questions:
+            questions_data.append([question.status, question.question])
+
+        Administrator.prettytable(questions_data, tags)
+
+    @staticmethod
+    def question_by_applicants():
+
+        tags = ["QuestionID", "Question","Application name","Application code"]
+
+        questions_data = []
+
+        questions = Question.select().join(Applicant)
+
+        for question in questions:
+            questions_data.append([question.id, question.question, question.applicant.name,question.applicant.code])
+
+        Administrator.prettytable(questions_data, tags)
+
+    @staticmethod
+    def question_by_school():
+
+        tags = ["QuestionID", "Question","School"]
+
+        questions_data = []
+
+        questions = Question.select().join(Applicant)
+
+        for question in questions:
+            questions_data.append([question.id, question.question, question.applicant.school.name])
+
+        Administrator.prettytable(questions_data, tags)
+
+    @staticmethod
+    def question_by_mentor(mentor_filter):
+
+        tags = ["QuestionID", "Question", "Mentor"]
+
+        questions_data = []
+
+        questions = Question.select().join(Mentor).where(Mentor.name == mentor_filter)
+
+        for question in questions:
+            questions_data.append([question.id, question.question, question.chosenmentor.name])
+
+        Administrator.prettytable(questions_data, tags)
+
+
     @staticmethod
     def prettytable(table, title_list):
 
@@ -210,117 +281,10 @@ class Administrator:
             print("|")
 
         # lower grid
+
         print("\\", startend_line, "/", sep='')
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @staticmethod
-    def question_by_status(status_filter):
-
-        tags = ["Status", "Question]
-
-        questions_data = []
-
-        questions = Qu.select().where(Applicant.status == status_filter)
-
-        for apps in applicants:
-            apps_personal_data.append([apps.status, apps.name, apps.code, apps.school.name])
-
-        Administrator.prettytable(apps_personal_data, tags)
 

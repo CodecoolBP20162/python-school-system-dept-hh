@@ -65,7 +65,7 @@ class Newapplicants:
         code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
 
         if len(code_table) > 0:
-            generate_random()
+            Newapplicants.random_app_code()
 
 
         return rand_code
@@ -78,7 +78,7 @@ class Newapplicants:
 
         applicant = Applicant.get(Applicant.code == question_list[0])
 
-        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="waiting for answer",
+        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="new",
                                        chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     @staticmethod
