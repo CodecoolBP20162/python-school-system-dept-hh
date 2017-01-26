@@ -46,8 +46,14 @@ class Mentors:
         for question in questions:
 
             applicant = Applicant.get(question.applicant_id == Applicant.id)
-            questiondetailist.append([question.submissiondate, question.question, applicant.code])
+            questiondetailist.append([question.submissiondate, question.question, applicant.code, question.id])
 
 
         return questiondetailist
+
+
+    @staticmethod
+    def question_answering:
+
+        identifyquestion = input("Choose question ID:")
 
