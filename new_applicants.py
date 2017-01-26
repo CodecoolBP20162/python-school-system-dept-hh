@@ -75,3 +75,14 @@ class Newapplicants:
                 generate_random()
 
         return rand_code
+
+
+    @staticmethod
+    def add_question_to_database():
+        question_list = []
+        question_list.append(str(input("Add your code:")))
+        question_list.append(str(input("Your question:")))
+        print(question_list)
+        new_question = Question.create(question=question_list[1], applicant=question_list[
+                                       0], status="pending", chosenmentor="hjk")
+        new_question.save()
