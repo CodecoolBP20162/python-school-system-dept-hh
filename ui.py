@@ -1,5 +1,6 @@
 from new_applicants import Newapplicants
 from mentors import Mentors
+from administrator import Administrator
 import os
 
 
@@ -106,7 +107,7 @@ class Ui:
             elif choose == "3":
                 print("Choose an option:\n")
 
-                print("1. Applicants\n")
+                print("1. Applicants\n2.Interviews")
 
                 admin_menu_choice = input("Your choice:")
 
@@ -115,6 +116,21 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
+
+                    print("Choose an option:")
+
+                    print("""1.Aplicants personal data""")
+
+                    admin_app_menu_choice = input("Your choice:")
+
+                    if admin_app_menu_choice == "1":
+                        Administrator.applicants_personal_data()
+
+
+                if admin_menu_choice == "2":
+                    #mentor_id = input("Your ID:") -----> space for admin identity check
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 
