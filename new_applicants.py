@@ -62,14 +62,10 @@ class Newapplicants:
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
 
-        code_table = Applicant.select(Applicant.code)
+        code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
 
-
-        code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
-
-        for code in code_table:
-            if rand_code == code:
-                generate_random()
+        if len(code_table) > 0:
+            generate_random()
 
 
         return rand_code
