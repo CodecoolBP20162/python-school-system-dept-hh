@@ -6,7 +6,6 @@ import os
 
 
 class Ui:
-
     @staticmethod
     def interface():
 
@@ -159,7 +158,8 @@ class Ui:
 
                         print("Choose a filter requirement:")
 
-                        print("""1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email by ID\n0. Quit""")
+                        print(
+                            """1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email by ID\n0. Quit""")
 
                         admin_filter_choice = input("Your choice:")
 
@@ -235,7 +235,8 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
-                    print("1. Assign a mentor to answer a question (get mentor and question ID ready!)\n2. Listing questions filtered by...\n")
+                    print(
+                        "1. Assign a mentor to answer a question (get mentor and question ID ready!)\n2. Listing questions filtered by...\n")
 
                     admin_submenu_choice = input("Your choice:")
 
@@ -246,7 +247,8 @@ class Ui:
 
                         print("Choose a filter requirement:")
 
-                        print("""1.Questions by status\n2.Questions by applicants\n3.Questions by school\n4.Questions by mentor\n6. Question by date\n0. Quit""")
+                        print(
+                            """1.Questions by status\n2.Questions by applicants\n3.Questions by school\n4.Questions by mentor\n6. Question by date\n0. Quit""")
 
                         question_filter_choice = input("Your choice:")
 
@@ -270,7 +272,7 @@ class Ui:
                             admin_filter = input("Please give a specific date in the following format:\n"
                                                  "Example format: 2015-01-01 00:00: ")
                             Administrator.question_by_date(admin_filter)
-                        
+
 
             elif choose == "0":
                 exit()

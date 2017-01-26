@@ -67,7 +67,6 @@ class Newapplicants:
         if len(code_table) > 0:
             Newapplicants.random_app_code()
 
-
         return rand_code
 
     @staticmethod
@@ -79,7 +78,7 @@ class Newapplicants:
         applicant = Applicant.get(Applicant.code == question_list[0])
 
         Question.create(question=question_list[1], applicant_id=applicant, status="new",
-                                       chosenmentor_id=None, submissiondate=datetime.datetime.now())
+                        chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     @staticmethod
     def get_question_info():

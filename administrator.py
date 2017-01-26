@@ -238,7 +238,6 @@ class Administrator:
 
         Administrator.prettytable(questions_data, tags)
 
-
     @staticmethod
     def question_by_date(date_filter):
         question_list = []
@@ -248,11 +247,9 @@ class Administrator:
         questions = Question.select().where(Question.submissiondate == filter_transfer)
 
         for question in questions:
-            question_list.append([question.id,question.question])
+            question_list.append([question.id, question.question])
 
         Administrator.prettytable(question_list, tags)
-
-
 
     @staticmethod
     def prettytable(table, title_list):
