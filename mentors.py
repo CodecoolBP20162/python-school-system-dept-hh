@@ -37,7 +37,7 @@ class Mentors:
         identify = input("Add your mentor number:")
 
         mentor = Mentor.get(Mentor.id == int(identify))
-        questions = Question.select().where((Question.chosenmentor == mentor) & (Question.status != "waiting for answer"))
+        questions = Question.select().where((Question.chosenmentor == mentor) & (Question.status == "waiting for answer"))
             #.where(Question.status != "waiting for answer")
 
         questiondetailist = []
@@ -56,4 +56,10 @@ class Mentors:
     def question_answering():
 
         identifyquestion = input("Choose question ID:")
+        answerquestion = input("Add your answer:")
+
+        question = Question.get(Question.id == int(identifyquestion))
+        newanswer = Answer.create(answer=answerquestion, question=question)
+        question.status = "answered"
+        question.save()
 

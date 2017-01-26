@@ -108,17 +108,27 @@ class Ui:
                     Mentors.check_mentors_interviews(mentor_id)
 
                 elif mentors_menu_choice == "2":
-                    table = Mentors.question_displayer()
-                    for row in table:
-                        print("\nSubmission date:")
-                        print("\t{date}".format(date=row[0]))
-                        print("Question:")
-                        print("\t{question}".format(question=row[1]))
-                        print("Application code:")
-                        print("\t{code}".format(code=row[2]))
-                        print("ID:")
-                        print("\t{code}".format(code=row[3]))
-                    print()
+                    print("1. List questions\n2. Answer question (get the question ID ready!)")
+
+                    question_menu_choice = input("Your choice:")
+
+                    if question_menu_choice == "1":
+
+                        table = Mentors.question_displayer()
+                        for row in table:
+                            print("\nSubmission date:")
+                            print("\t{date}".format(date=row[0]))
+                            print("Question:")
+                            print("\t{question}".format(question=row[1]))
+                            print("Application code:")
+                            print("\t{code}".format(code=row[2]))
+                            print("ID:")
+                            print("\t{code}".format(code=row[3]))
+                        print()
+
+                    elif question_menu_choice == "2":
+
+                        Mentors.question_answering()
 
             elif choose == "3":
                 print("Choose an option:\n")
