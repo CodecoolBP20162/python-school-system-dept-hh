@@ -50,7 +50,7 @@ class Mentors:
         answer_question = input("Add your answer:")
 
         question = Question.get(Question.id == int(identify_question))
-        newanswer = Answer.create(answer=answer_question, question=question)
+        Answer.create(answer=answer_question, question=question)
 
         question.status = "answered"
         question.save()

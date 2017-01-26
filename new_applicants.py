@@ -78,7 +78,7 @@ class Newapplicants:
 
         applicant = Applicant.get(Applicant.code == question_list[0])
 
-        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="new",
+        Question.create(question=question_list[1], applicant_id=applicant, status="new",
                                        chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     @staticmethod
