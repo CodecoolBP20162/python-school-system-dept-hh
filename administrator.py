@@ -168,6 +168,21 @@ class Administrator:
 
         Administrator.prettytable(interview_list, tags)
 
+
+    @staticmethod
+    def mentor_assigning():
+
+        identify_mentor = input("Choose mentor ID:")
+        identify_question = input("Choose question ID:")
+
+        mentor = Mentor.get(Mentor.id == int(identify_mentor))
+        question = Question.get(Question.id == int(identify_question))
+
+        question.chosenmentor = mentor
+        question.status = "waiting for answer"
+        question.save()
+
+
     @staticmethod
     def prettytable(table, title_list):
 

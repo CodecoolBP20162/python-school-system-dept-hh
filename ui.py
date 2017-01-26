@@ -136,7 +136,7 @@ class Ui:
             elif choose == "3":
                 print("Choose an option:\n")
 
-                print("1. Applicants\n2.Interviews")
+                print("1. Applicants\n2. Interviews\n3. Questions")
 
                 admin_menu_choice = input("Your choice:")
 
@@ -147,7 +147,7 @@ class Ui:
 
                     print("Choose an option:")
 
-                    print("""1.Applicants personal data\n2.Applicants filtered by...""")
+                    print("""1. Applicants personal data\n2. Applicants filtered by...""")
 
                     admin_app_menu_choice = input("Your choice:")
 
@@ -158,11 +158,11 @@ class Ui:
                     elif admin_app_menu_choice == "2":
 
                         print("Choose a filter requirement:")
-                        print("""1.Applicants by status Status\n
-                            2.Applicants by interviews\n
-                            3.Applicants by location\n
-                            4.Applicants by city\n
-                            5.Interview with Mentor\n
+                        print("""1. Applicants by status Status\n
+                            2. Applicants by interviews\n
+                            3. Applicants by location\n
+                            4. Applicants by city\n
+                            5. Interview with Mentor\n
                             6. Applicant name and email\n
                             0. Quit""")
                         admin_filter_choice = input("Your choice:")
@@ -197,14 +197,14 @@ class Ui:
                         elif choose == "0":
                             exit()
 
-                if admin_menu_choice == "2":
+                elif admin_menu_choice == "2":
                     # mentor_id = input("Your ID:") -----> space for admin identity check
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
                     print("Choose an option: ")
 
-                    print("""1.Listing all interviews\n2.Listing interviews filtered by...""")
+                    print("""1. Listing all interviews\n2. Listing interviews filtered by...""")
 
                     admin_app_menu_choice = input("Your choice: ")
 
@@ -236,6 +236,19 @@ class Ui:
                                                  "Example format: 2015-01-01 00:00: ")
                             Administrator.listing_interviews_by_date(admin_filter)
 
+                elif admin_menu_choice == "3":
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
+
+                    print("1. Listing questions filtered by...\n2. Assign a mentor to answer a question (get mentor and question ID ready!)")
+
+                    admin_3rd_choice = input("Your choice:")
+
+                    if admin_3rd_choice == "1":
+                        pass
+
+                    elif admin_3rd_choice == "2":
+                        pass
 
 
 
