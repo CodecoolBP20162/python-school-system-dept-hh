@@ -241,7 +241,7 @@ class Ui:
                         pass
 
                     elif admin_3rd_choice == "2":
-                        pass
+                        Administrator.mentor_assigning()
 
 
 
