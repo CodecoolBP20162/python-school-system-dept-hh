@@ -1,6 +1,7 @@
 from new_applicants import Newapplicants
 from mentors import Mentors
 from administrator import Administrator
+
 import os
 
 
@@ -119,9 +120,6 @@ class Ui:
                         print("\t{code}".format(code=row[3]))
                     print()
 
-
-
-
             elif choose == "3":
                 print("Choose an option:\n")
 
@@ -148,7 +146,7 @@ class Ui:
                     elif admin_app_menu_choice == "2":
 
                         print("Choose a filter requirement:")
-                        print("""1.Applicants by status Status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor""")
+                        print("""1.Applicants by status Status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email\n0. Quit""")
                         admin_filter_choice = input("Your choice:")
 
                         if admin_filter_choice == "1":
@@ -159,24 +157,28 @@ class Ui:
                             Administrator.apps_by_interview()
 
                         elif admin_filter_choice == "3":
-                            try:
+
                                 admin_subfilter_choice = input("Write a school name:")
                                 Administrator.apps_by_location(admin_subfilter_choice)
-                            except TypeError:
-                                print("There isn't any school with this name in the database.")
+
                         elif admin_filter_choice == "4":
-                            try:
+
                                 admin_subfilter_choice = input("Write a city name:")
                                 Administrator.apps_by_city(admin_subfilter_choice)
-                            except TypeError:
-                                print("There isn't any city with this name in the database.")
+
 
                         elif admin_filter_choice == "5":
-                            try:
+
                                 admin_subfilter_choice = input("Write a name for mentor:")
                                 Administrator.apps_by_mentor(admin_subfilter_choice)
-                            except TypeError:
-                                print("There isn't any mentor with this name in the database.")
+
+                        elif admin_filter_choice == "6":
+
+                                Administrator.emails_by_names()
+
+                        elif choose == "0":
+                            exit()
+
 
 
 
@@ -185,6 +187,36 @@ class Ui:
                     #mentor_id = input("Your ID:") -----> space for admin identity check
 
                     os.system('cls' if os.name == 'nt' else 'clear')
+
+                    print("Choose an option: ")
+
+                    print("""1.Listing all interviews\n2.Listing interviews filtered by...""")
+
+                    admin_app_menu_choice = input("Your choice: ")
+
+                    if admin_app_menu_choice == "1":
+
+                        Administrator.listing_all_interviews()
+
+                    elif admin_app_menu_choice == "2":
+
+                        print("Choose a filter requirement: ")
+                        print(
+                            """1.Interviews by mentor\n2.Interviews by applicant code\n3.Interviews by school\n4.Interviews by date""")
+                        admin_filter_choice = input("Your choice:")
+                        if admin_filter_choice == "1":
+                            admin_filter = input("Please write mentor's name: ")
+                            Administrator.listing_interviews_by_mentor(admin_filter)
+                        if admin_filter_choice == "2":
+                            admin_filter = input("Please write an applicant's code: ")
+                            Administrator.listing_interviews_by_applicant_code(admin_filter)
+                        if admin_filter_choice == "3":
+                            admin_filter = input("Please give a School: ")
+                            Administrator.listing_interviews_by_school(admin_filter)
+                        if admin_filter_choice == "4":
+                            admin_filter = input("Please give a specific date in the following format:\n"
+                                                 "Example format: 2015-01-01 00:00: ")
+                            Administrator.listing_interviews_by_date(admin_filter)
 
 
 

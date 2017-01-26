@@ -1,4 +1,6 @@
 from models import *
+from datetime import datetime
+
 
 class Administrator:
 
@@ -77,12 +79,24 @@ class Administrator:
 
         interviews = Interview.select(Applicant,Interview,InterviewSlot,Mentor).join(Applicant).switch(Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == filter)
 
-        print(apps_personal_data)
 
         for interview in interviews:
-            apps_personal_data.append([interview.InterviewSlot.mentor.name, interview.applicant.name, interview.applicant.code])
+            apps_personal_data.append([interview.interviewslot.mentor.name, interview.applicant.name, interview.applicant.code])
 
         Administrator.prettytable(apps_personal_data, tags)
+
+    @staticmethod
+    def emails_by_names():
+
+        tags = ["Name","Email"]
+        apps_personal_data = []
+
+        applicants = Applicant.select()
+
+        for apps in applicants:
+                apps_personal_data.append([apps.name,apps.email])
+
+        Administrator.prettytable(apps_personal_data,tags)
 
 
     @staticmethod
