@@ -30,17 +30,18 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def apps_by_interview():
+    def apps_by_interview(date_filter):
 
-        tags = ["Interview starts", "Name", "Code", "School"]
+        tags = ["Name", "Code", "School"]
+        filter_transfer = datetime.strptime(date_filter, '%Y-%m-%d %H:%M')
         apps_personal_data = []
 
         interviews = Interview.select(Interview, InterviewSlot, Applicant, School).join(InterviewSlot).switch(
-            Interview).join(Applicant).switch(Applicant).join(School).where(InterviewSlot.reserved == True)
+            Interview).join(Applicant).switch(Applicant).join(School).where(InterviewSlot.start == filter_transfer)
 
         for interview in interviews:
             apps_personal_data.append(
-                [str(interview.interviewslot.start), interview.applicant.name, interview.applicant.code,
+                [interview.applicant.name, interview.applicant.code,
                  interview.applicant.school.name])
 
         Administrator.prettytable(apps_personal_data, tags)
@@ -87,12 +88,12 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def emails_by_names():
+    def emails_by_names(app_id):
 
         tags = ["Name", "Email"]
         apps_personal_data = []
 
-        applicants = Applicant.select()
+        applicants = Applicant.select().where(Applicant.id == app_id)
 
         for apps in applicants:
             apps_personal_data.append([apps.name, apps.email])
@@ -196,13 +197,13 @@ class Administrator:
         Administrator.prettytable(questions_data, tags)
 
     @staticmethod
-    def question_by_applicants():
+    def question_by_applicants(app_filter):
 
         tags = ["QuestionID", "Question", "Application name", "Application code"]
 
         questions_data = []
 
-        questions = Question.select().join(Applicant)
+        questions = Question.select().join(Applicant).where(Applicant.name == app_filter)
 
         for question in questions:
             questions_data.append([question.id, question.question, question.applicant.name, question.applicant.code])
@@ -210,13 +211,13 @@ class Administrator:
         Administrator.prettytable(questions_data, tags)
 
     @staticmethod
-    def question_by_school():
+    def question_by_school(school_filter):
 
         tags = ["QuestionID", "Question", "School"]
 
         questions_data = []
 
-        questions = Question.select().join(Applicant)
+        questions = Question.select().join(Applicant).join(School).where(School.name == school_filter)
 
         for question in questions:
             questions_data.append([question.id, question.question, question.applicant.school.name])
@@ -236,6 +237,22 @@ class Administrator:
             questions_data.append([question.id, question.question, question.chosenmentor.name])
 
         Administrator.prettytable(questions_data, tags)
+
+
+    @staticmethod
+    def question_by_date(date_filter):
+        question_list = []
+        filter_transfer = datetime.strptime(date_filter, '%Y-%m-%d %H:%M')
+        tags = ["QuestionID", "Question"]
+
+        questions = Question.select().where(Question.submissiondate == filter_transfer)
+
+        for question in questions:
+            question_list.append([question.id,question.question])
+
+        Administrator.prettytable(question_list, tags)
+
+
 
     @staticmethod
     def prettytable(table, title_list):

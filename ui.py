@@ -159,7 +159,7 @@ class Ui:
 
                         print("Choose a filter requirement:")
 
-                        print("""1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email\n0. Quit""")
+                        print("""1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email by ID\n0. Quit""")
 
                         admin_filter_choice = input("Your choice:")
 
@@ -168,7 +168,9 @@ class Ui:
                             Administrator.apps_by_status(admin_subfilter_choice)
 
                         elif admin_filter_choice == "2":
-                            Administrator.apps_by_interview()
+                            admin_filter = input("Please give a specific date in the following format:\n"
+                                                 "Example format: 2015-01-01 00:00: ")
+                            Administrator.apps_by_interview(admin_filter)
 
                         elif admin_filter_choice == "3":
 
@@ -187,8 +189,8 @@ class Ui:
                             Administrator.apps_by_mentor(admin_subfilter_choice)
 
                         elif admin_filter_choice == "6":
-
-                            Administrator.emails_by_names()
+                            admin_subfilter_choice = input("ApplicantID:")
+                            Administrator.emails_by_names(admin_subfilter_choice)
 
                         elif choose == "0":
                             exit()
@@ -244,7 +246,7 @@ class Ui:
 
                         print("Choose a filter requirement:")
 
-                        print("""1.Questions by status\n2.Questions by applicants\n3.Questions by school\n4.Questions by mentor\n6. Applicant name and email\n0. Quit""")
+                        print("""1.Questions by status\n2.Questions by applicants\n3.Questions by school\n4.Questions by mentor\n6. Question by date\n0. Quit""")
 
                         question_filter_choice = input("Your choice:")
 
@@ -253,15 +255,21 @@ class Ui:
                             Administrator.question_by_status(admin_subfilter_choice)
 
                         elif question_filter_choice == "2":
-                            Administrator.question_by_applicants()
+                            admin_filter = input("Please write an application's name: ")
+                            Administrator.question_by_applicants(admin_filter)
 
                         elif question_filter_choice == "3":
-                            Administrator.question_by_school()
+                            admin_filter = input("Please give a School: ")
+                            Administrator.question_by_school(admin_filter)
 
                         elif question_filter_choice == "4":
                             admin_filter = input("Please write mentor's name: ")
                             Administrator.question_by_mentor(admin_filter)
 
+                        elif question_filter_choice == "5":
+                            admin_filter = input("Please give a specific date in the following format:\n"
+                                                 "Example format: 2015-01-01 00:00: ")
+                            Administrator.question_by_date(admin_filter)
                         
 
             elif choose == "0":
