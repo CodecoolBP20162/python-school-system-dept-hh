@@ -62,7 +62,7 @@ def create_dummy_applicants_by_csv(applicants_table):
         elif applicant[1] in krakow_cities:
             related_school = School.select().where(School.name == "Krakow").get()
 
-        Applicant.create(name=applicant[0], city=applicant_city, status=applicant[2],
+        Applicant.create(name=applicant[0], city=applicant_city,email=applicant[2],status=applicant[3],
                          code=Newapplicants.random_app_code(), school=related_school)
 
 

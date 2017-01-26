@@ -2,6 +2,8 @@
 # You can run it anytime to generate new data!
 import random
 from models import *
+import datetime
+
 
 
 class Newapplicants:
@@ -38,9 +40,8 @@ class Newapplicants:
         new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
                                          status="new", code=Newapplicants.random_app_code())
 
-        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,Mentor.related_school==applicant_school).get()
-
-
+        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
+                                                                   Mentor.related_school == applicant_school).get()
 
         new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
         interview_slot.reserved = True
@@ -69,35 +70,46 @@ class Newapplicants:
         #   if code_table = None:
         #       generate_random()
 
+        # REFACTOR!!
         for code in code_table:
             if rand_code == code:
-                generate_random()
+                #generate_random()
+                pass
 
         return rand_code
-
 
     @staticmethod
     def add_question_to_database():
         question_list = []
         question_list.append(str(input("Add your code:")))
         question_list.append(str(input("Your question:")))
-        print(question_list)
-        """
-        applicantx = Applicant.select().where(Applicant.code == question_list[
-            0])
-        print(applicant)
-        new_question = Question.create(question=question_list[1], applicant=applicantx.id, status="pending", chosenmentor="no mentor yet")
-
-        questionx = Question.select().where(Question.question == question_list[1])
-        new_answer = Answer.create(answer="no answer yet", question_id=questionx.id)
-        """
-
-        getapplicant = (Applicant
-                               .select()
-                               .where(question_list[0] == Applicant.code))
-        print(getapplicant.get())
-
-        new_question = Question.create(question=question_list[1], applicant_id=getapplicant, status="pending", chosenmentor_id = None)
 
 
+        applicant = Applicant.get(Applicant.code == question_list[0])
+
+        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="waiting for answer", chosenmentor_id = None, submissiondate=datetime.datetime.now())
+
+
+
+
+
+    @staticmethod
+    def get_question_info():
+
+        identify = input(str("Add your code:"))
+        applicant = Applicant.get(Applicant.code == identify)
+
+        #        questions = Question.select().where(Question.applicant == applicant)
+
+# MAYBE REFACTORING??? N+1 QUERY
+        questiondata = []
+        for question in applicant.questions:
+
+            try:
+                answer = Answer.get(Answer.question_id == question)
+                questiondata.append([question.question, question.status, answer.answer])
+            except:
+                questiondata.append([question.question, question.status, "no answer yet"])
+
+        return questiondata
 
