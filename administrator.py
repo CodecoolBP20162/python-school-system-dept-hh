@@ -3,19 +3,18 @@ from datetime import datetime
 
 
 class Administrator:
-
     @staticmethod
     def applicants_personal_data():
 
-        tags = ["ID","Name","City","Status","Code","School"]
+        tags = ["ID", "Name", "City", "Status", "Code", "School"]
         apps_personal_data = []
 
         applicants = Applicant.select()
 
         for apps in applicants:
-                apps_personal_data.append([apps.id,apps.name,apps.city.name,apps.status,apps.code,apps.school.name])
+            apps_personal_data.append([apps.id, apps.name, apps.city.name, apps.status, apps.code, apps.school.name])
 
-        Administrator.prettytable(apps_personal_data,tags)
+        Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
     def apps_by_status(filter):
@@ -30,18 +29,19 @@ class Administrator:
 
         Administrator.prettytable(apps_personal_data, tags)
 
-
-
     @staticmethod
     def apps_by_interview():
 
         tags = ["Interview starts", "Name", "Code", "School"]
         apps_personal_data = []
 
-        interviews = Interview.select(Interview,InterviewSlot,Applicant,School).join(InterviewSlot).switch(Interview).join(Applicant).switch(Applicant).join(School).where(InterviewSlot.reserved == True)
+        interviews = Interview.select(Interview, InterviewSlot, Applicant, School).join(InterviewSlot).switch(
+            Interview).join(Applicant).switch(Applicant).join(School).where(InterviewSlot.reserved == True)
 
         for interview in interviews:
-            apps_personal_data.append([str(interview.interviewslot.start), interview.applicant.name, interview.applicant.code, interview.applicant.school.name])
+            apps_personal_data.append(
+                [str(interview.interviewslot.start), interview.applicant.name, interview.applicant.code,
+                 interview.applicant.school.name])
 
         Administrator.prettytable(apps_personal_data, tags)
 
@@ -77,27 +77,27 @@ class Administrator:
         tags = ["Mentor", "Applicant name", "Code"]
         apps_personal_data = []
 
-        interviews = Interview.select(Applicant,Interview,InterviewSlot,Mentor).join(Applicant).switch(Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == filter)
-
+        interviews = Interview.select(Applicant, Interview, InterviewSlot, Mentor).join(Applicant).switch(
+            Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == filter)
 
         for interview in interviews:
-            apps_personal_data.append([interview.interviewslot.mentor.name, interview.applicant.name, interview.applicant.code])
+            apps_personal_data.append(
+                [interview.interviewslot.mentor.name, interview.applicant.name, interview.applicant.code])
 
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
     def emails_by_names():
 
-        tags = ["Name","Email"]
+        tags = ["Name", "Email"]
         apps_personal_data = []
 
         applicants = Applicant.select()
 
         for apps in applicants:
-                apps_personal_data.append([apps.name,apps.email])
+            apps_personal_data.append([apps.name, apps.email])
 
-        Administrator.prettytable(apps_personal_data,tags)
-
+        Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
     def listing_all_interviews():
@@ -155,18 +155,16 @@ class Administrator:
     @staticmethod
     def listing_interviews_by_date(filter):
         interview_list = []
-        filter_transfer=datetime.strptime(filter, '%Y-%m-%d %H:%M')
+        filter_transfer = datetime.strptime(filter, '%Y-%m-%d %H:%M')
         tags = ["School", "Applicant code", "Mentor"]
 
         interview_query_list = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(filter_transfer==filter)
+            School).switch(Interview).join(InterviewSlot).join(Mentor).where(filter_transfer == filter)
         for interview in interview_query_list:
             interview_list.append([interview.interviewslot.mentor.related_school.name, interview.applicant.code,
-                                       interview.interviewslot.mentor.name])
+                                   interview.interviewslot.mentor.name])
 
         Administrator.prettytable(interview_list, tags)
-
-
 
     @staticmethod
     def prettytable(table, title_list):
