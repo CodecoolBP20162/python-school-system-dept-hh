@@ -5,7 +5,6 @@ import os
 
 
 class Ui:
-
     @staticmethod
     def interface():
 
@@ -82,7 +81,9 @@ class Ui:
                         Newapplicants.add_question_to_database()
 
                     elif choose2 == "2":
-                        pass
+
+                        Newapplicants.get_question_info()
+
                     elif choose2 == "3":
                         pass
                     else:
@@ -96,12 +97,13 @@ class Ui:
                 mentors_menu_choice = input("Your choice:")
 
                 if mentors_menu_choice == "1":
-                    mentor_id= input("Your ID:")
+                    mentor_id = input("Your ID:")
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
 
                     Mentors.check_mentors_interviews(mentor_id)
+
 
 
             elif choose == "3":
