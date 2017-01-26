@@ -64,7 +64,7 @@ class Ui:
                         app_datas = Newapplicants.check_applicant_interview(
                             app_interview_check)
 
-                        print("Your interview's start at {date}".format(
+                        print("Your interview starts at {date}".format(
                             date=app_datas.start))
 
                     except:
@@ -100,11 +100,30 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
-                    interview = Mentors.check_mentors_interviews(mentor_id)
+
+                    Mentors.check_mentors_interviews(mentor_id)
+
 
 
             elif choose == "3":
-                pass
+                print("Choose an option:\n")
+
+                print("1. Applicants\n")
+
+                admin_menu_choice = input("Your choice:")
+
+                if admin_menu_choice == "1":
+                    #mentor_id = input("Your ID:") -----> space for admin identity check
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+
+
+
+
+
+
 
             elif choose == "0":
                 exit()
