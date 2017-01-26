@@ -2,6 +2,7 @@
 # You can run it anytime to generate new data!
 import random
 from models import *
+from datetime import datetime
 
 
 class Newapplicants:
@@ -81,23 +82,11 @@ class Newapplicants:
         question_list = []
         question_list.append(str(input("Add your code:")))
         question_list.append(str(input("Your question:")))
-        print(question_list)
-        """
-        applicantx = Applicant.select().where(Applicant.code == question_list[
-            0])
-        print(applicant)
-        new_question = Question.create(question=question_list[1], applicant=applicantx.id, status="pending", chosenmentor="no mentor yet")
 
-        questionx = Question.select().where(Question.question == question_list[1])
-        new_answer = Answer.create(answer="no answer yet", question_id=questionx.id)
-        """
+        applicant = Applicant.get(Applicant.code == question_list[0])
 
-        getapplicant = (Applicant
-                               .select()
-                               .where(question_list[0] == Applicant.code))
-        print(getapplicant.get())
-
-        new_question = Question.create(question=question_list[1], applicant_id=getapplicant, status="pending", chosenmentor_id = None)
+        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="pending", chosenmentor_id = None)
+        # , submitdate = datetime.datetime.now()
 
 
     @staticmethod
@@ -108,9 +97,19 @@ class Newapplicants:
 
 #        questions = Question.select().where(Question.applicant == applicant)
 
+# MAYBE REFACTORING??? N+1 QUERY
+        questiondata = []
         for question in applicant.questions:
-            print(question.question)
-            print(question.status)
+            try:
+                answer = Answer.get(Answer.question_id == question)
+                questiondata.append([question.question, question.status, answer.answer])
+            except:
+                questiondata.append([question.question, question.status, "no answer yet"])
+
+        return questiondata
+
+
+
 
 
 

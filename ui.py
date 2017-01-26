@@ -82,7 +82,9 @@ class Ui:
 
                     elif choose2 == "2":
 
-                        Newapplicants.get_question_info()
+                        table = Newapplicants.get_question_info()
+                        tablelist = ["Question", "Status", "Answer"]
+                        Administrator.prettytable(table, tablelist)
 
                     elif choose2 == "3":
                         pass
