@@ -65,7 +65,7 @@ class Newapplicants:
         code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
 
         if len(code_table) > 0:
-            generate_random()
+            Newapplicants.random_app_code()
 
 
         return rand_code
