@@ -61,5 +61,5 @@ class Question(BaseModel):
 
 
 class Answer(BaseModel):
-    answer = CharField()
+    answer = TextField()
     question = ForeignKeyField(Question, related_name="questions")
