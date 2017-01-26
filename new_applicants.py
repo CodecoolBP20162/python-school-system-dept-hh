@@ -64,16 +64,13 @@ class Newapplicants:
 
         code_table = Applicant.select(Applicant.code)
 
-        # ANOTHER THECNIC
-        # code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
-        #   if code_table = None:
-        #       generate_random()
 
-        # REFACTOR!!
+        code_table = Applicant.select(Applicant.code).where(Applicant.code = rand_code)
+
         for code in code_table:
             if rand_code == code:
-                # generate_random()
-                pass
+                generate_random()
+
 
         return rand_code
 
