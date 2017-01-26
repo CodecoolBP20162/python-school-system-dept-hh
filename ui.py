@@ -108,8 +108,15 @@ class Ui:
 
                 elif mentors_menu_choice == "2":
                     table = Mentors.question_displayer()
-                    tablelist = ["Submission date", "Question", "Applicant code"]
-                    Administrator.prettytable(table, tablelist)
+                    for row in table:
+                        print("\nSubmission date:")
+                        print("\t{date}".format(date=row[0]))
+                        print("Question:")
+                        print("\t{question}".format(question=row[1]))
+                        print("Application code:")
+                        print("\t{code}".format(code=row[2]))
+                    print()
+
 
 
 

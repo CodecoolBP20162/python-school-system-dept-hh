@@ -37,7 +37,7 @@ class Mentors:
         identify = input("Add your mentor number:")
 
         mentor = Mentor.get(Mentor.id == int(identify))
-        questions = Question.select().where(Question.chosenmentor == mentor)
+        questions = Question.select().where((Question.chosenmentor == mentor) & (Question.status != "waiting for answer"))
             #.where(Question.status != "waiting for answer")
 
         questiondetailist = []
