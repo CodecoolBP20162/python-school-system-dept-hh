@@ -36,6 +36,7 @@ class Applicant(BaseModel):
     city = ForeignKeyField(City, related_name="homes")
     status = CharField()
     code = CharField()
+    email=CharField(default="nudle@gmail.com")
     school = ForeignKeyField(School, related_name="registered_schools")
 
 
