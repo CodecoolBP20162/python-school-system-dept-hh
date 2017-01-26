@@ -17,12 +17,12 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def apps_by_status(filter):
+    def apps_by_status(status_filter):
 
         tags = ["Status", "Name", "Code", "School"]
         apps_personal_data = []
 
-        applicants = Applicant.select().where(Applicant.status == filter)
+        applicants = Applicant.select().where(Applicant.status == status_filter)
 
         for apps in applicants:
             apps_personal_data.append([apps.status, apps.name, apps.code, apps.school.name])
@@ -46,12 +46,12 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def apps_by_location(filter):
+    def apps_by_location(location_filter):
 
         tags = ["School", "Name", "Code"]
         apps_personal_data = []
 
-        applicants = Applicant.select().join(School).where(School.name == filter)
+        applicants = Applicant.select().join(School).where(School.name == location_filter)
 
         for apps in applicants:
             apps_personal_data.append([apps.school.name, apps.name, apps.code])
@@ -59,12 +59,12 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def apps_by_city(filter):
+    def apps_by_city(city_filter):
 
         tags = ["City", "Name", "Code"]
         apps_personal_data = []
 
-        applicants = Applicant.select().join(City).where(City.name == filter)
+        applicants = Applicant.select().join(City).where(City.name == city_filter)
 
         for apps in applicants:
             apps_personal_data.append([apps.city.name, apps.name, apps.code])
@@ -72,13 +72,13 @@ class Administrator:
         Administrator.prettytable(apps_personal_data, tags)
 
     @staticmethod
-    def apps_by_mentor(filter):
+    def apps_by_mentor(mentor_filter):
 
         tags = ["Mentor", "Applicant name", "Code"]
         apps_personal_data = []
 
         interviews = Interview.select(Applicant, Interview, InterviewSlot, Mentor).join(Applicant).switch(
-            Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == filter)
+            Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == mentor_filter)
 
         for interview in interviews:
             apps_personal_data.append(
