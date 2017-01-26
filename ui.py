@@ -94,7 +94,7 @@ class Ui:
             elif choose == "2":
                 print("Choose an option:\n")
 
-                print("1. Interviews\n")
+                print("1. Interviews\n2. Questions")
 
                 mentors_menu_choice = input("Your choice:")
 
@@ -105,6 +105,11 @@ class Ui:
 
 
                     Mentors.check_mentors_interviews(mentor_id)
+
+                elif mentors_menu_choice == "2":
+                    table = Mentors.question_displayer()
+                    tablelist = ["Submission date", "Question", "Applicant code"]
+                    Administrator.prettytable(table, tablelist)
 
 
 

@@ -29,3 +29,25 @@ class Mentors:
 
         if len(interview_list) == 0:
             print("YOU DON'T HAVE ANY INTERVIEWS.")
+
+
+    @staticmethod
+    def question_displayer():
+
+        identify = input("Add your mentor number:")
+
+        mentor = Mentor.get(Mentor.id == int(identify))
+        questions = Question.select().where(Question.chosenmentor == mentor)
+            #.where(Question.status != "waiting for answer")
+
+        questiondetailist = []
+
+
+        for question in questions:
+
+            applicant = Applicant.get(question.applicant_id == Applicant.id)
+            questiondetailist.append([question.submissiondate, question.question, applicant.code])
+
+
+        return questiondetailist
+
