@@ -100,4 +100,19 @@ class Newapplicants:
         new_question = Question.create(question=question_list[1], applicant_id=getapplicant, status="pending", chosenmentor_id = None)
 
 
+    @staticmethod
+    def get_question_info():
+
+        identify = input(str("Add your code:"))
+        applicant = Applicant.get(Applicant.code == identify)
+
+#        questions = Question.select().where(Question.applicant == applicant)
+
+        for question in applicant.questions:
+            print(question.question)
+            print(question.status)
+
+
+
+
 
