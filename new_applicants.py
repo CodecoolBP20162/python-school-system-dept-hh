@@ -38,8 +38,9 @@ class Newapplicants:
         new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
                                          status="new", code=Newapplicants.random_app_code())
 
-        interview_slot = InterviewSlot.select().where(InterviewSlot.reserved == False).order_by(
-            InterviewSlot.start).limit(1).get()
+        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,Mentor.related_school==applicant_school).get()
+
+
 
         new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
         interview_slot.reserved = True
