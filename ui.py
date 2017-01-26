@@ -158,13 +158,9 @@ class Ui:
                     elif admin_app_menu_choice == "2":
 
                         print("Choose a filter requirement:")
-                        print("""1. Applicants by status Status\n
-                            2. Applicants by interviews\n
-                            3. Applicants by location\n
-                            4. Applicants by city\n
-                            5. Interview with Mentor\n
-                            6. Applicant name and email\n
-                            0. Quit""")
+
+                        print("""1.Applicants by status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor\n6. Applicant name and email\n0. Quit""")
+
                         admin_filter_choice = input("Your choice:")
 
                         if admin_filter_choice == "1":
@@ -216,10 +212,7 @@ class Ui:
 
                         print("Choose a filter requirement: ")
                         print(
-                            """1.Interviews by mentor\n
-                            2.Interviews by applicant code\n
-                            3.Interviews by school\n
-                            4.Interviews by date""")
+                            """1.Interviews by mentor\n2.Interviews by applicant code\n3.Interviews by school\n4.Interviews by date""")
 
                         admin_filter_choice = input("Your choice:")
                         if admin_filter_choice == "1":
