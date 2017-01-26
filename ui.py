@@ -115,6 +115,8 @@ class Ui:
                         print("\t{question}".format(question=row[1]))
                         print("Application code:")
                         print("\t{code}".format(code=row[2]))
+                        print("ID:")
+                        print("\t{code}".format(code=row[3]))
                     print()
 
 
