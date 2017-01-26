@@ -211,3 +211,116 @@ class Administrator:
 
         # lower grid
         print("\\", startend_line, "/", sep='')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def question_by_status(status_filter):
+
+        tags = ["Status", "Question]
+
+        questions_data = []
+
+        questions = Qu.select().where(Applicant.status == status_filter)
+
+        for apps in applicants:
+            apps_personal_data.append([apps.status, apps.name, apps.code, apps.school.name])
+
+        Administrator.prettytable(apps_personal_data, tags)
+
