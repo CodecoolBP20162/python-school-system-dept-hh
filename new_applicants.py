@@ -5,7 +5,6 @@ from models import *
 import datetime
 
 
-
 class Newapplicants:
     @staticmethod
     def check_applicant(code_input):
@@ -28,8 +27,8 @@ class Newapplicants:
     @staticmethod
     def data_collection():
         app_inputs_list = []
-        app_inputs_list.append(str(input("Please enter your name:")))
-        app_inputs_list.append(str(input("Please enter your city:")))
+        app_inputs_list.append(input("Please enter your name:"))
+        app_inputs_list.append(input("Please enter your city:"))
         return app_inputs_list
 
     @staticmethod
@@ -73,7 +72,7 @@ class Newapplicants:
         # REFACTOR!!
         for code in code_table:
             if rand_code == code:
-                #generate_random()
+                # generate_random()
                 pass
 
         return rand_code
@@ -81,27 +80,23 @@ class Newapplicants:
     @staticmethod
     def add_question_to_database():
         question_list = []
-        question_list.append(str(input("Add your code:")))
-        question_list.append(str(input("Your question:")))
-
+        question_list.append(input("Add your code:"))
+        question_list.append(input("Your question:"))
 
         applicant = Applicant.get(Applicant.code == question_list[0])
 
-        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="waiting for answer", chosenmentor_id = None, submissiondate=datetime.datetime.now())
-
-
-
-
+        new_question = Question.create(question=question_list[1], applicant_id=applicant, status="waiting for answer",
+                                       chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     @staticmethod
     def get_question_info():
 
-        identify = input(str("Add your code:"))
-        applicant = Applicant.get(Applicant.code == identify)
+        identify_applicant = input("Add your code:")
+        applicant = Applicant.get(Applicant.code == identify_applicant)
 
         #        questions = Question.select().where(Question.applicant == applicant)
 
-# MAYBE REFACTORING??? N+1 QUERY
+        # MAYBE REFACTORING??? N+1 QUERY
         questiondata = []
         for question in applicant.questions:
 
@@ -112,4 +107,3 @@ class Newapplicants:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
         return questiondata
-
