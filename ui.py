@@ -121,12 +121,48 @@ class Ui:
 
                     print("Choose an option:")
 
-                    print("""1.Aplicants personal data""")
+                    print("""1.Applicants personal data\n2.Applicants filtered by...""")
 
                     admin_app_menu_choice = input("Your choice:")
 
                     if admin_app_menu_choice == "1":
+
                         Administrator.applicants_personal_data()
+
+                    elif admin_app_menu_choice == "2":
+
+                        print("Choose a filter requirement:")
+                        print("""1.Applicants by status Status\n2.Applicants by interviews\n3.Applicants by location\n4.Applicants by city\n5.Interview with Mentor""")
+                        admin_filter_choice = input("Your choice:")
+
+                        if admin_filter_choice == "1":
+                            admin_subfilter_choice = input("Your choice(accepted/rejected/new/in progress:")
+                            Administrator.apps_by_status(admin_subfilter_choice)
+
+                        elif admin_filter_choice == "2":
+                            Administrator.apps_by_interview()
+
+                        elif admin_filter_choice == "3":
+                            try:
+                                admin_subfilter_choice = input("Write a school name:")
+                                Administrator.apps_by_location(admin_subfilter_choice)
+                            except TypeError:
+                                print("There isn't any school with this name in the database.")
+                        elif admin_filter_choice == "4":
+                            try:
+                                admin_subfilter_choice = input("Write a city name:")
+                                Administrator.apps_by_city(admin_subfilter_choice)
+                            except TypeError:
+                                print("There isn't any city with this name in the database.")
+
+                        elif admin_filter_choice == "5":
+                            try:
+                                admin_subfilter_choice = input("Write a name for mentor:")
+                                Administrator.apps_by_mentor(admin_subfilter_choice)
+                            except TypeError:
+                                print("There isn't any mentor with this name in the database.")
+
+
 
 
                 if admin_menu_choice == "2":
