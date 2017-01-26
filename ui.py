@@ -1,4 +1,5 @@
 from new_applicants import Newapplicants
+from mentors import Mentors
 import os
 
 
@@ -65,8 +66,22 @@ class Ui:
                     except:
                         print(
                             "You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
+
             elif choose == "2":
-                pass
+                print("Choose an option:\n")
+
+                print("1. Interviews\n")
+
+                mentors_menu_choice = input("Your choice:")
+
+                if mentors_menu_choice == "1":
+                    mentor_id= input("Your ID:")
+
+                    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+                    interview = Mentors.check_mentors_interviews(mentor_id)
+
 
             elif choose == "3":
                 pass
