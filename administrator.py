@@ -168,7 +168,6 @@ class Administrator:
 
         Administrator.prettytable(interview_list, tags)
 
-
     @staticmethod
     def mentor_assigning():
 
@@ -199,21 +198,21 @@ class Administrator:
     @staticmethod
     def question_by_applicants():
 
-        tags = ["QuestionID", "Question","Application name","Application code"]
+        tags = ["QuestionID", "Question", "Application name", "Application code"]
 
         questions_data = []
 
         questions = Question.select().join(Applicant)
 
         for question in questions:
-            questions_data.append([question.id, question.question, question.applicant.name,question.applicant.code])
+            questions_data.append([question.id, question.question, question.applicant.name, question.applicant.code])
 
         Administrator.prettytable(questions_data, tags)
 
     @staticmethod
     def question_by_school():
 
-        tags = ["QuestionID", "Question","School"]
+        tags = ["QuestionID", "Question", "School"]
 
         questions_data = []
 
@@ -237,7 +236,6 @@ class Administrator:
             questions_data.append([question.id, question.question, question.chosenmentor.name])
 
         Administrator.prettytable(questions_data, tags)
-
 
     @staticmethod
     def prettytable(table, title_list):
@@ -283,8 +281,3 @@ class Administrator:
         # lower grid
 
         print("\\", startend_line, "/", sep='')
-
-
-
-
-
