@@ -51,15 +51,13 @@ class Newapplicants:
 
     @staticmethod
     def random_app_code():
-        symbols = "#$%&'()*+,-./?@^_`{|}~"
         digits = "0123456789"
         lowercase = "abcdefghijklmnopqrstuvwxyz"
         uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         charlist = []
         charlist.append((random.sample(lowercase, 2)) +
                         (random.sample(uppercase, 2)) +
-                        (random.sample(digits, 2)) +
-                        (random.sample(symbols, 2)))
+                        (random.sample(digits, 2)))
 
         random.shuffle(charlist[0])
         rand_code = "".join(charlist[0])
@@ -84,6 +82,25 @@ class Newapplicants:
         question_list.append(str(input("Add your code:")))
         question_list.append(str(input("Your question:")))
         print(question_list)
-        new_question = Question.create(question=question_list[1], applicant=question_list[
-                                       0], status="pending", chosenmentor="hjk")
-        new_question.save()
+        """
+        applicantx = Applicant.select().where(Applicant.code == question_list[
+            0])
+        print(applicant)
+        new_question = Question.create(question=question_list[1], applicant=applicantx.id, status="pending", chosenmentor="no mentor yet")
+
+        questionx = Question.select().where(Question.question == question_list[1])
+        new_answer = Answer.create(answer="no answer yet", question_id=questionx.id)
+        """
+
+        getapplicant = (Applicant
+                               .select()
+                               .where(question_list[0] == Applicant.code))
+        print(getapplicant.get())
+
+        new_question = Question.create(question=question_list[1], applicant_id=getapplicant, status="pending", chosenmentor_id = None)
+
+
+
+
+
+

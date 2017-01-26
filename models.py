@@ -52,10 +52,10 @@ class Interview(BaseModel):
 
 
 class Question(BaseModel):
-    question = CharField()
+    question = TextField()
     applicant = ForeignKeyField(Applicant, related_name="questions")
     status = CharField()
-    choosenmentor = ForeignKeyField(Mentor, related_name="questions")
+    chosenmentor = ForeignKeyField(Mentor, related_name="questions", null = True)
 
 
 class Answer(BaseModel):
