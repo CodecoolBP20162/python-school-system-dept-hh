@@ -9,7 +9,7 @@ class Newapplicants:
     @staticmethod
     def check_applicant(code_input):
 
-        app_datas = Applicant.select().where(Applicant.code == code_input)
+        app_datas = Applicant.select().where(Applicant.code == code_input).get()
 
         return app_datas
 
