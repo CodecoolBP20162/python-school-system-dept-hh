@@ -38,9 +38,10 @@ class Ui:
 
                     os.system('cls' if os.name == 'nt' else 'clear')
 
-                    print("Your new application code: {code}\nDate of your interview:{date}".format(
-                        code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
-                    print("Please don't forget to save or write down your code!\n")
+                    if len(collected_datas) != 2:
+                        print("Your new application code: {code}\nDate of your interview:{date}".format(
+                            code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
+                        print("Please don't forget to save or write down your code!\n")
 
                 elif app_menu_choice == "2":
                     app_code_check = input("Your application code:")

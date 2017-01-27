@@ -31,27 +31,40 @@ class Newapplicants:
 
         app_inputs_list.append(input("Please enter your name:"))
         app_inputs_list.append(input("Please enter your city:"))
-        app_inputs_list.append(input("Please enter your e-mail:"))
 
-        return app_inputs_list
+        available_cities = []
+        for city in City.select():
+            available_cities.append(city.name)
+
+        if app_inputs_list[1] not in available_cities:
+            print("\nSorry, your city is not in our database, but we're working on it!")
+            return app_inputs_list
+
+        else:
+            app_inputs_list.append(input("Please enter your e-mail:"))
+            return app_inputs_list
 
     @staticmethod
     def new_applicant(app_data_list):
-        new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
-        applicant_school = new_applicant_city.related_school
+        if len(app_data_list) == 3:
+            new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
+            applicant_school = new_applicant_city.related_school
 
-        new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
-                                         status="new", code=Newapplicants.random_app_code(), email=app_data_list[2])
+            new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
+                                             status="new", code=Newapplicants.random_app_code(), email=app_data_list[2])
 
-        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
-                                                                   Mentor.related_school == applicant_school).get()
+            interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
+                                                                       Mentor.related_school == applicant_school).get()
 
-        new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
-        interview_slot.reserved = True
+            new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+            interview_slot.reserved = True
 
-        interview_slot.save()
+            interview_slot.save()
 
-        return [new_applicant, new_interview]
+            return [new_applicant, new_interview]
+
+        else:
+            pass
 
     @staticmethod
     def random_app_code():
@@ -104,6 +117,3 @@ class Newapplicants:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
         return questiondata
-
-        question = Question.get(Question.id == int(identify_question))
-        Answer.create(answer=answer_question, question=question)
