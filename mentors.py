@@ -41,7 +41,20 @@ class Mentors:
             applicant = Applicant.get(question.applicant_id == Applicant.id)
             question_detail_list.append([question.submissiondate, question.question, applicant.code, question.id])
 
-        return question_detail_list
+        for row in question_detail_list:
+            print("\nSubmission date:")
+            print("\t{date}".format(date=row[0]))
+            print("Question:")
+            print("\t{question}".format(question=row[1]))
+            print("Application code:")
+            print("\t{code}".format(code=row[2]))
+            print("ID:")
+            print("\t{code}".format(code=row[3]))
+        print()
+
+        if len(question_detail_list) == 0:
+            print("No questions to show.")
+            print()
 
     @staticmethod
     def question_answering():

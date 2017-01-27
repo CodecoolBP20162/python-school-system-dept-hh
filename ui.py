@@ -116,17 +116,7 @@ class Ui:
 
                     if question_menu_choice == "1":
 
-                        table = Mentors.question_displayer()
-                        for row in table:
-                            print("\nSubmission date:")
-                            print("\t{date}".format(date=row[0]))
-                            print("Question:")
-                            print("\t{question}".format(question=row[1]))
-                            print("Application code:")
-                            print("\t{code}".format(code=row[2]))
-                            print("ID:")
-                            print("\t{code}".format(code=row[3]))
-                        print()
+                        Mentors.question_displayer()
 
                     elif question_menu_choice == "2":
 
