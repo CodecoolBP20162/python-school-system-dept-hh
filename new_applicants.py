@@ -26,9 +26,13 @@ class Newapplicants:
 
     @staticmethod
     def data_collection():
+
         app_inputs_list = []
+
         app_inputs_list.append(input("Please enter your name:"))
         app_inputs_list.append(input("Please enter your city:"))
+        app_inputs_list.append(input("Please enter your e-mail:"))
+
         return app_inputs_list
 
     @staticmethod
@@ -37,7 +41,7 @@ class Newapplicants:
         applicant_school = new_applicant_city.related_school
 
         new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
-                                         status="new", code=Newapplicants.random_app_code())
+                                         status="new", code=Newapplicants.random_app_code(), email=app_data_list[2])
 
         interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
                                                                    Mentor.related_school == applicant_school).get()
@@ -86,7 +90,9 @@ class Newapplicants:
         identify_applicant = input("Add your code:")
         applicant = Applicant.get(Applicant.code == identify_applicant)
 
+
         questions = Question.select(Question,Answer).join(Answer).where(Question.applicant == applicant)
+
 
         questiondata = []
 
@@ -98,3 +104,6 @@ class Newapplicants:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
         return questiondata
+
+        question = Question.get(Question.id == int(identify_question))
+        Answer.create(answer=answer_question, question=question)
