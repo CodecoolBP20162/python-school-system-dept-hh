@@ -90,9 +90,7 @@ class Newapplicants:
         identify_applicant = input("Add your code:")
         applicant = Applicant.get(Applicant.code == identify_applicant)
 
-        #        questions = Question.select().where(Question.applicant == applicant)
 
-        # MAYBE REFACTORING??? N+1 QUERY
         questiondata = []
         for question in applicant.questions:
 
@@ -103,3 +101,6 @@ class Newapplicants:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
         return questiondata
+
+        question = Question.get(Question.id == int(identify_question))
+        Answer.create(answer=answer_question, question=question)
