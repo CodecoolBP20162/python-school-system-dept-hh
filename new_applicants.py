@@ -86,15 +86,14 @@ class Newapplicants:
         identify_applicant = input("Add your code:")
         applicant = Applicant.get(Applicant.code == identify_applicant)
 
-        #        questions = Question.select().where(Question.applicant == applicant)
+        questions = Question.select(Question,Answer).join(Answer).where(Question.applicant == applicant)
 
-        # MAYBE REFACTORING??? N+1 QUERY
         questiondata = []
-        for question in applicant.questions:
+
+        for question in questions:
 
             try:
-                answer = Answer.get(Answer.question_id == question)
-                questiondata.append([question.question, question.status, answer.answer])
+                questiondata.append([question.question, question.status, question.answer.answer])
             except:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
