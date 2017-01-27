@@ -1,5 +1,5 @@
 from models import *
-from datetime import datetime
+import datetime
 
 
 class Administrator:
@@ -156,12 +156,12 @@ class Administrator:
     @staticmethod
     def listing_interviews_by_date(date_filter):
         interview_list = []
-        filter_transfer = datetime.strptime(date_filter, '%Y-%m-%d %H:%M')
+        filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
         tags = ["School", "Applicant code", "Mentor"]
 
         interview_query_list = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
 
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(InterviewSlot.start == filter_transfer)
+            School).switch(Interview).join(InterviewSlot).join(Mentor).where(InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),datetime.datetime.combine(filter_transfer, datetime.time.max)))
 
         for interview in interview_query_list:
             interview_list.append([interview.interviewslot.mentor.related_school.name, interview.applicant.code,
