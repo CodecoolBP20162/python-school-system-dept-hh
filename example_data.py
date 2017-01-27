@@ -1,7 +1,7 @@
 from models import *
 import csv
 import os
-from new_applicants import Newapplicants
+from applicants import Newapplicants
 from datetime import datetime
 
 

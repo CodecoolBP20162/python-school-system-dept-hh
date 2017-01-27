@@ -1,10 +1,10 @@
-from new_applicants import Newapplicants
+from applicants import Newapplicants
 from mentors import Mentors
 from administrator import Administrator
 import os
 
-class Ui:
 
+class Ui:
     @staticmethod
     def interface():
 
@@ -16,40 +16,41 @@ class Ui:
             choose = input("Please choose a role:")
 
             if choose == "1":
-                Applicant_interface.applicant_menu()
+                ApplicantInterface.applicant_menu()
 
             elif choose == "2":
-                Mentor_interface.mentor_menu()
+                MentorInterface.mentor_menu()
 
 
             elif choose == "3":
-                Administrator_interface.administrator_menu()
+                AdminstratorInterface.administrator_menu()
 
             elif choose == "0":
                 exit()
 
-class Applicant_interface(Ui):
 
+class ApplicantInterface(Ui):
     @staticmethod
     def applicant_menu():
 
         print("Choose an option:\n")
 
-        print("""1. New applicant registration\n2. Application details\n3. Interview details\n4. Questions\n0. Back to main menu\n""")
+        print(
+            """1. New applicant registration\n2. Application details\n3. Interview details\n4. Questions\n0. Back to main menu\n""")
 
         app_menu_choice = input("Your choice:")
 
         if app_menu_choice == "1":
-            Applicant_interface.new_applicant()
+            ApplicantInterface.new_applicant()
 
         elif app_menu_choice == "2":
-            Applicant_interface.application_details()
+            ApplicantInterface.application_details()
 
         elif app_menu_choice == "3":
-            Applicant_interface.interview_details()
+            ApplicantInterface.interview_details()
 
         elif app_menu_choice == "4":
-            Applicant_interface.questions()
+            ApplicantInterface.questions()
 
         elif app_menu_choice == "0":
             Ui.interface()
@@ -71,7 +72,6 @@ class Applicant_interface(Ui):
 
         app_code_check = input("Your application code:")
 
-
         try:
             app_datas = Newapplicants.check_applicant(
                 app_code_check)
@@ -88,7 +88,6 @@ class Applicant_interface(Ui):
     def interview_details():
 
         app_interview_check = input("Your application code:")
-
 
         try:
 
@@ -123,8 +122,8 @@ class Applicant_interface(Ui):
         else:
             print("That is not a valid option!")
 
-class Mentor_interface(Ui):
 
+class MentorInterface(Ui):
     @staticmethod
     def mentor_menu():
 
@@ -135,10 +134,10 @@ class Mentor_interface(Ui):
         mentors_menu_choice = input("Your choice:")
 
         if mentors_menu_choice == "1":
-            Mentor_interface.interviews()
+            MentorInterface.interviews()
 
         elif mentors_menu_choice == "2":
-            Mentor_interface.questions()
+            MentorInterface.questions()
 
         elif mentors_menu_choice == "0":
             Ui.interface()
@@ -179,8 +178,7 @@ class Mentor_interface(Ui):
             Ui.interface()
 
 
-class Administrator_interface(Ui):
-
+class AdminstratorInterface(Ui):
     @staticmethod
     def administrator_menu():
 
@@ -191,22 +189,19 @@ class Administrator_interface(Ui):
         admin_menu_choice = input("Your choice:")
 
         if admin_menu_choice == "1":
-            Administrator_interface.applicant_menu()
+            AdminstratorInterface.applicant_menu()
 
         elif admin_menu_choice == "2":
-            Administrator_interface.interviews()
+            AdminstratorInterface.interviews()
 
         elif admin_menu_choice == "3":
-            Administrator_interface.questions()
+            AdminstratorInterface.questions()
 
         elif admin_menu_choice == "0":
             Ui.interface()
 
-
     @staticmethod
     def applicant_menu():
-
-
 
         print("Choose an option:")
 
@@ -234,7 +229,7 @@ class Administrator_interface(Ui):
             elif admin_filter_choice == "2":
                 try:
                     admin_filter = input("Please give a specific date in the following format:\n"
-                                     "Example format: 2015-01-01 00:00: ")
+                                         "Example format: 2015-01-01 00:00: ")
                     Administrator.apps_by_interview(admin_filter)
                 except:
                     print("Date format is wrong!")
@@ -260,11 +255,10 @@ class Administrator_interface(Ui):
                 Administrator.emails_by_names(admin_subfilter_choice)
 
         elif admin_app_menu_choice == "0":
-                Ui.interface()
+            Ui.interface()
 
     @staticmethod
     def interviews():
-
 
         print("Choose an option: ")
 
@@ -299,15 +293,13 @@ class Administrator_interface(Ui):
                     Administrator.listing_interviews_by_date(admin_filter)
                 except:
                     print("Date format is wrong!")
-                    Administrator_interface.interviews()
+                    AdminstratorInterface.interviews()
 
         elif admin_interview_menu_choice == "0":
             Ui.interface()
 
     @staticmethod
     def questions():
-
-
 
         print(
             "1. Assign a mentor to answer a question (get mentor and question ID ready!)\n2. Listing questions filtered by...\n0. Back to main menu")
@@ -345,7 +337,7 @@ class Administrator_interface(Ui):
             elif question_filter_choice == "5":
                 try:
                     admin_filter = input("Please give a specific date in the following format:\n"
-                                     "Example format: 2015-01-01 00:00: ")
+                                         "Example format: 2015-01-01 00:00: ")
                     Administrator.question_by_date(admin_filter)
                 except:
                     print("Date format is wrong!")

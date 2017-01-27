@@ -103,9 +103,7 @@ class Newapplicants:
         identify_applicant = input("Add your code:")
         applicant = Applicant.get(Applicant.code == identify_applicant)
 
-
-        questions = Question.select(Question,Answer).join(Answer).where(Question.applicant == applicant)
-
+        questions = Question.select(Question, Answer).join(Answer).where(Question.applicant == applicant)
 
         questiondata = []
 

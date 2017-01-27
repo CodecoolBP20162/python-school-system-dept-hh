@@ -161,7 +161,9 @@ class Administrator:
 
         interview_query_list = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
 
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),datetime.datetime.combine(filter_transfer, datetime.time.max)))
+            School).switch(Interview).join(InterviewSlot).join(Mentor).where(
+            InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
+                                        datetime.datetime.combine(filter_transfer, datetime.time.max)))
 
         for interview in interview_query_list:
             interview_list.append([interview.interviewslot.mentor.related_school.name, interview.applicant.code,
