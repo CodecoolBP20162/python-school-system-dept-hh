@@ -233,9 +233,9 @@ class Administrator_interface(Ui):
 
             elif admin_filter_choice == "2":
                 try:
-                admin_filter = input("Please give a specific date in the following format:\n"
+                    admin_filter = input("Please give a specific date in the following format:\n"
                                      "Example format: 2015-01-01 00:00: ")
-                Administrator.apps_by_interview(admin_filter)
+                    Administrator.apps_by_interview(admin_filter)
                 except:
                     print("Date format is wrong!")
 
@@ -344,9 +344,9 @@ class Administrator_interface(Ui):
 
             elif question_filter_choice == "5":
                 try:
-                admin_filter = input("Please give a specific date in the following format:\n"
+                    admin_filter = input("Please give a specific date in the following format:\n"
                                      "Example format: 2015-01-01 00:00: ")
-                Administrator.question_by_date(admin_filter)
+                    Administrator.question_by_date(admin_filter)
                 except:
                     print("Date format is wrong!")
 
