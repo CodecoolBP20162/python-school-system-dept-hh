@@ -103,15 +103,18 @@ class Newapplicants:
         identify_applicant = input("Add your code:")
         applicant = Applicant.get(Applicant.code == identify_applicant)
 
-        questions = Question.select(Question, Answer).join(Answer).where(Question.applicant == applicant)
 
         questiondata = []
 
-        for question in questions:
+        for question in applicant.questions:
 
             try:
-                questiondata.append([question.question, question.status, question.answer.answer])
+                answer = Answer.get(Answer.question_id == question)
+                questiondata.append([question.question, question.status, answer.answer])
             except:
                 questiondata.append([question.question, question.status, "no answer yet"])
 
         return questiondata
+
+
+
