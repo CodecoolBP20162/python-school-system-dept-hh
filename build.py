@@ -9,9 +9,7 @@ db.connect()
 # List the tables here what you want to create...
 
 def build_tables(tables):
-    for table in tables:
-        if table.table_exists():
-            table.drop_table(fail_silently=True, cascade=True)
+    db.drop_tables(tables,safe=True,cascade=True)
     db.create_tables(tables, safe=True)
 
 

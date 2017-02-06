@@ -58,11 +58,11 @@ class ApplicantInterface(Ui):
     @staticmethod
     def new_applicant():
 
-        collected_datas = Newapplicants.data_collection()
+        collected_datas = Newapplicants.data_for_new_applicant()
         new_applicant_datas = Newapplicants.new_applicant(
             collected_datas)
 
-        if len(collected_datas) != 2:
+        if collected_datas is not None:
             print("Your new application code: {code}\nDate of your interview:{date}".format(
                 code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
             print("Please don't forget to save or write down your code!\n")

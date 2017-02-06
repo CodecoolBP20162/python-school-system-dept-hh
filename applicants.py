@@ -25,7 +25,7 @@ class Newapplicants:
         return app_interview_datas
 
     @staticmethod
-    def data_collection():
+    def data_for_new_applicant():
 
         app_inputs_list = []
 
@@ -38,7 +38,7 @@ class Newapplicants:
 
         if app_inputs_list[1] not in available_cities:
             print("\nSorry, your city is not in our database, but we're working on it!")
-            return app_inputs_list
+            return None
 
         else:
             app_inputs_list.append(input("Please enter your e-mail:"))
