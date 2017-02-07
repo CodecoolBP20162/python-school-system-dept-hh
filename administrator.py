@@ -70,9 +70,9 @@ class AdministratorData:
             self.results.append(
                 [query_object.interviewslot.mentor.name, query_object.applicant.name, query_object.applicant.code])
 
-    def emails_by_names(self, applicant_code):
+    def applicant_email_by_applicant_code(self, applicant_code):
         self.tags = ["Name", "Email"]
-        self.query = Applicant.select().where(Applicant.id == applicant_code)
+        self.query = Applicant.select().where(Applicant.code == applicant_code)
         self.results = []
 
         for query_object in self.query:
