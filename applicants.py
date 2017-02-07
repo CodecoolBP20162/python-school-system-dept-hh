@@ -5,66 +5,56 @@ from models import *
 import datetime
 
 
-class Newapplicants:
-    @staticmethod
-    def check_applicant(code_input):
+class ApplicantsData:
+    def __init__(self):
+        self.query = None
+        self.results = []
+        self.tags = []
 
-        app_datas = Applicant.select().where(Applicant.code == code_input).get()
 
-        return app_datas
+    def check_applicant(self, code_input):
+        self.tags = ['Name','City','Status','School','email']
+        self.query = Applicant.select().where(Applicant.code == code_input)
 
-    @staticmethod
-    def check_applicant_interview(code_input):
+        for query_object in self.query:
 
-        app_interview_datas = (InterviewSlot
-                               .select()
-                               .join(Interview)
-                               .join(Applicant)
-                               .where(Applicant.code == code_input)).get()
+            self.results.append([query_object.name,query_object.city.name,query_object.status,query_object.school.name,query_object.email])
 
-        return app_interview_datas
+    def check_applicant_interview(self, code_input):
+        self.tags = ["Interview date", "Mentor"]
 
-    @staticmethod
-    def data_for_new_applicant():
+        self.query = InterviewSlot.select(InterviewSlot.start, Mentor.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).where(Applicant.code == code_input)
 
-        app_inputs_list = []
+        for query_object in self.query:
+            self.results.append([query_object.start, query_object.mentor.name])
 
-        app_inputs_list.append(input("Please enter your name:"))
-        app_inputs_list.append(input("Please enter your city:"))
 
-        available_cities = []
-        for city in City.select():
-            available_cities.append(city.name)
+    def check_city(self, city_input):
 
-        if app_inputs_list[1] not in available_cities:
-            print("\nSorry, your city is not in our database, but we're working on it!")
-            return None
+        self.query = City.select(City.name).where(City.name == city_input)
 
-        else:
-            app_inputs_list.append(input("Please enter your e-mail:"))
-            return app_inputs_list
+        for query_object in self.query:
+            self.results.append([query_object.name])
+
 
     @staticmethod
-    def new_applicant(app_data_list):
-        if len(app_data_list) == 3:
-            new_applicant_city = City.select().where(City.name == app_data_list[1]).get()
-            applicant_school = new_applicant_city.related_school
+    def new_applicant(city_input, name_input, email_input):
 
-            new_applicant = Applicant.create(name=app_data_list[0], city=new_applicant_city, school=applicant_school,
-                                             status="new", code=Newapplicants.random_app_code(), email=app_data_list[2])
+        new_applicant_city = City.select(City.name).where(City.name == city_input).get()
+        applicant_school = new_applicant_city.related_school
 
-            interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
-                                                                       Mentor.related_school == applicant_school).get()
+        new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
+                                         status="new", code=ApplicantsData.random_app_code(), email=email_input)
 
-            new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
-            interview_slot.reserved = True
+        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
+                                                                   Mentor.related_school == applicant_school).get()
 
-            interview_slot.save()
+        new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+        interview_slot.reserved = True
 
-            return [new_applicant, new_interview]
+        interview_slot.save()
 
-        else:
-            pass
+        return [new_applicant, new_interview]
 
     @staticmethod
     def random_app_code():
@@ -82,39 +72,34 @@ class Newapplicants:
         code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
 
         if len(code_table) > 0:
-            Newapplicants.random_app_code()
+            ApplicantsData.random_app_code()
 
         return rand_code
 
-    @staticmethod
-    def add_question_to_database():
-        question_list = []
-        question_list.append(input("Add your code:"))
-        question_list.append(input("Your question:"))
+    def add_question_to_database(self, code_input, question_input):
 
-        applicant = Applicant.get(Applicant.code == question_list[0])
+        self.query = Applicant.select(Applicant.code == code_input).get()
 
-        Question.create(question=question_list[1], applicant_id=applicant, status="new",
+        Question.create(question=question_input, applicant_id=self.query.id, status="new",
                         chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
-    @staticmethod
-    def get_question_info():
+    def get_question_info(self, code_input):
 
-        identify_applicant = input("Add your code:")
-        applicant = Applicant.get(Applicant.code == identify_applicant)
+        self.tags = ['Question','Status', 'Answer']
 
+        self.query = Applicant.get(Applicant.code == code_input)
 
-        questiondata = []
-
-        for question in applicant.questions:
+        for question in self.query.questions:
 
             try:
                 answer = Answer.get(Answer.question_id == question)
-                questiondata.append([question.question, question.status, answer.answer])
+                self.results.append([question.question, question.status, answer.answer])
             except:
-                questiondata.append([question.question, question.status, "no answer yet"])
-
-        return questiondata
+                self.results.append([question.question, question.status, "no answer yet"])
 
 
+app1= ApplicantsData()
 
+app1.get_question_info('Nhw42D')
+
+print(app1.results)
