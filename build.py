@@ -1,27 +1,18 @@
 # This script can create the database tables based on your models
 
 from models import *
-import example_data
+from example_data import ExampleDataCreator
 
-db.connect()
 
 
 # List the tables here what you want to create...
-
-def build_tables(tables):
-    db.drop_tables(tables,safe=True,cascade=True)
-    db.create_tables(tables, safe=True)
+data_creator=ExampleDataCreator()
 
 
-build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Question, Answer])
-
-example_data.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
-
-example_data.create_dummy_cities(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
+data_creator.build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Question, Answer])
+data_creator.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
+data_creator.create_dummy_cities(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
                                   "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
-
-example_data.create_dummy_mentors_by_csv(example_data.csv_reader("mentors.csv"))
-
-example_data.create_dummy_applicants_by_csv(example_data.csv_reader("applicants.csv"))
-
-example_data.create_dummy_interview_slots_by_csv(example_data.csv_reader("interviewslot.csv"))
+data_creator.create_dummy_mentors_by_csv(data_creator.csv_reader("mentors.csv"))
+data_creator.create_dummy_applicants_by_csv(data_creator.csv_reader("applicants.csv"))
+data_creator.create_dummy_interview_slots_by_csv(data_creator.csv_reader("interviewslot.csv"))
