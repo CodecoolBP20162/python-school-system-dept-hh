@@ -4,8 +4,6 @@ import os
 from applicants import Newapplicants
 from datetime import datetime
 
-
-# This script can generate example data for "City" and "InterviewSlot" models.
 class ExampleDataCreator:
     def csv_reader(self,filename):
         current_file_path = os.path.dirname(os.path.abspath(__file__))
@@ -31,7 +29,6 @@ class ExampleDataCreator:
         krakow_cities = ["Krakow", "Warsaw", "Katovice"]
 
         for city in cities:
-
             if city in budapest_cities:
                 related_school = School.select().where(School.name == "Budapest").get()
                 City.create(name=city, related_school=related_school)
@@ -57,7 +54,6 @@ class ExampleDataCreator:
         for applicant in applicants_table:
             applicant_city = City.select().where(City.name == applicant[1]).get()
             related_school = ""
-
             if applicant[1] in budapest_cities:
                 related_school = School.select().where(School.name == "Budapest").get()
             elif applicant[1] in miskolc_cities:

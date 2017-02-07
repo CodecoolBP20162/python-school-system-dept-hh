@@ -1,13 +1,7 @@
-# This script can create the database tables based on your models
-
 from models import *
 from example_data import ExampleDataCreator
 
-
-
-# List the tables here what you want to create...
 data_creator=ExampleDataCreator()
-
 
 data_creator.build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Question, Answer])
 data_creator.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
