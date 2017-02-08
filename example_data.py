@@ -4,7 +4,6 @@ import os
 from applicants import ApplicantsData
 from datetime import datetime
 
-
 class ExampleDataCreator:
 
     def csv_reader(self, filename):
@@ -73,3 +72,4 @@ class ExampleDataCreator:
         db.connect()
         db.drop_tables(tables, safe=True, cascade=True)
         db.create_tables(tables, safe=True)
+        
