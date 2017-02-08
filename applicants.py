@@ -68,17 +68,20 @@ class ApplicantsData:
         lowercase = "abcdefghijklmnopqrstuvwxyz"
         uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         charlist = []
-        charlist.append((random.sample(lowercase, 2)) +
-                        (random.sample(uppercase, 2)) +
+        charlist.append((random.sample(lowercase, 1)) +
+                        (random.sample(uppercase, 1)) +
                         (random.sample(digits, 2)))
 
         random.shuffle(charlist[0])
-        rand_code = "".join(charlist[0])
+        rand_chars = "".join(charlist[0])
 
-        code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
+        code_table = Applicant.select(Applicant.id)
+        code_list = []
+        for ids in code_table:
+            code_list.append(ids.id)
 
-        if len(code_table) > 0:
-            ApplicantsData.random_app_code()
+        rand_code = str(len(code_list)+1) + rand_chars
+
 
         return rand_code
 
@@ -106,10 +109,3 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
-
-
-app1= ApplicantsData()
-
-app1.check_applicant_interview('1x7H0')
-
-print(app1.results)
