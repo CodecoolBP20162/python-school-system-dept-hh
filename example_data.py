@@ -1,7 +1,7 @@
 from models import *
 import csv
 import os
-from applicants import Newapplicants
+from applicants import ApplicantsData
 from datetime import datetime
 
 
@@ -66,7 +66,7 @@ def create_dummy_applicants_by_csv(applicants_table):
             related_school = School.select().where(School.name == "Krakow").get()
 
         Applicant.create(name=applicant[0], city=applicant_city, email=applicant[2], status=applicant[3],
-                         code=Newapplicants.random_app_code(), school=related_school)
+                         code=ApplicantsData.random_app_code(), school=related_school)
 
 
 def create_dummy_interview_slots_by_csv(interviewslot_table):
