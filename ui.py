@@ -1,6 +1,7 @@
 from applicants import Newapplicants
 from mentors import Mentors
 from administrator import Administrator
+from models import Mentor
 import os
 
 
@@ -24,6 +25,13 @@ class Ui:
 
             elif choose == "3":
                 AdminstratorInterface.administrator_menu()
+
+            elif choose == "4":
+                print("BFA")
+                karl = Mentor.get(Mentor.name == "Karlov Igor")
+                school = Mentor.mentor_school(karl)
+                print(school.name)
+
 
             elif choose == "0":
                 exit()
