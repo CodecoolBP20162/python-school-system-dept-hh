@@ -1,5 +1,6 @@
-from ui import Ui
+from new_ui import Menu
+from administrator import AdministratorData
 
 # Write here your console application
-
-Ui.interface()
+ui = Menu()
+ui.interface_flow()
