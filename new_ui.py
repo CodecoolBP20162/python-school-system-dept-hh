@@ -1,7 +1,7 @@
 from administrator import AdministratorData
 from prettytable import PrettyTable
 from mentors import MentorsData
-#from applicants import ApplicantsData
+from new_applicants import ApplicantsData
 
 
 class Menu:

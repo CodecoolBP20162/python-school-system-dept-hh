@@ -3,6 +3,7 @@
 import random
 from models import *
 import datetime
+from mail import Mail
 
 
 class ApplicantsData:
@@ -13,6 +14,8 @@ class ApplicantsData:
 
 
     def check_applicant(self, code_input):
+
+        self.results = []
         self.tags = ['Name','City','Status','School','email']
         self.query = Applicant.select().where(Applicant.code == code_input)
 
@@ -21,15 +24,19 @@ class ApplicantsData:
             self.results.append([query_object.name,query_object.city.name,query_object.status,query_object.school.name,query_object.email])
 
     def check_applicant_interview(self, code_input):
-        self.tags = ["Interview date", "Mentor"]
 
-        self.query = InterviewSlot.select(InterviewSlot.start, Mentor.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).where(Applicant.code == code_input)
+        self.results = []
+        self.tags = ["Interview date", "Mentor", "School"]
+
+        self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([query_object.start, query_object.mentor.name])
+            self.results.append([query_object.start, query_object.mentor.name, query_object.mentor.related_school.name])
 
 
     def check_city(self, city_input):
+
+        self.results = []
 
         self.query = City.select(City.name).where(City.name == city_input)
 
@@ -38,13 +45,30 @@ class ApplicantsData:
 
 
     @staticmethod
+    def email_about_code_and_city(name_input, email_input, application_code, applicant_school):
+
+        recipient_list = [email_input]
+        subject = "New Application"
+        message = """
+        Hi {name_input},
+        Your application process to Codecool has been started!
+        Your code is {code}, and the city you have been assigned to is {city}.
+
+        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school.name)
+
+        application_email = Mail(recipient_list, message, subject)
+        application_email.send()
+
+
+    @staticmethod
     def new_applicant(city_input, name_input, email_input):
 
-        new_applicant_city = City.select(City.name).where(City.name == city_input).get()
+        new_applicant_city = City.select().where(City.name == city_input).get()
         applicant_school = new_applicant_city.related_school
+        application_code = ApplicantsData.random_app_code()
 
         new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
-                                         status="new", code=ApplicantsData.random_app_code(), email=email_input)
+                                         status="new", code=application_code, email=email_input)
 
         interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
                                                                    Mentor.related_school == applicant_school).get()
@@ -54,6 +78,8 @@ class ApplicantsData:
 
         interview_slot.save()
 
+        ApplicantsData.email_about_code_and_city(name_input, email_input, application_code, applicant_school)
+
         return [new_applicant, new_interview]
 
     @staticmethod
@@ -62,21 +88,26 @@ class ApplicantsData:
         lowercase = "abcdefghijklmnopqrstuvwxyz"
         uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         charlist = []
-        charlist.append((random.sample(lowercase, 2)) +
-                        (random.sample(uppercase, 2)) +
+        charlist.append((random.sample(lowercase, 1)) +
+                        (random.sample(uppercase, 1)) +
                         (random.sample(digits, 2)))
 
         random.shuffle(charlist[0])
-        rand_code = "".join(charlist[0])
+        rand_chars = "".join(charlist[0])
 
-        code_table = Applicant.select().where(Applicant.code == rand_code)  # CHECK FOR EQUALITY
+        code_table = Applicant.select(Applicant.id)
+        code_list = []
+        for ids in code_table:
+            code_list.append(ids.id)
 
-        if len(code_table) > 0:
-            ApplicantsData.random_app_code()
+        rand_code = str(len(code_list)+1) + rand_chars
+
 
         return rand_code
 
     def add_question_to_database(self, code_input, question_input):
+
+        self.results = []
 
         self.query = Applicant.select(Applicant.code == code_input).get()
 
@@ -84,6 +115,8 @@ class ApplicantsData:
                         chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     def get_question_info(self, code_input):
+
+        self.results = []
 
         self.tags = ['Question','Status', 'Answer']
 
@@ -96,10 +129,3 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
-
-
-app1= ApplicantsData()
-
-app1.get_question_info('Nhw42D')
-
-print(app1.results)
