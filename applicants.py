@@ -121,9 +121,3 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, "no answer yet"])
 
 
-city_input = "Budapest"
-name_input = "Eszti"
-email_input = "codecool.depth+eszti@gmail.com"
-
-eszti = ApplicantsData()
-eszti.new_applicant(city_input, name_input, email_input)
