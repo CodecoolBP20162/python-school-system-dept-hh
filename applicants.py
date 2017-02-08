@@ -3,6 +3,7 @@
 import random
 from models import *
 import datetime
+from mail import Mail
 
 
 class ApplicantsData:
@@ -44,13 +45,30 @@ class ApplicantsData:
 
 
     @staticmethod
+    def email_about_code_and_city(name_input, email_input, application_code, applicant_school):
+
+        recipient_list = [email_input]
+        subject = "New Application"
+        message = """
+        Hi {name_input},
+        Your application process to Codecool has been started!
+        Your code is {code}, and the city you have been assigned to is {city}.
+
+        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school.name)
+
+        application_email = Mail(recipient_list, message, subject)
+        application_email.send()
+
+
+    @staticmethod
     def new_applicant(city_input, name_input, email_input):
 
-        new_applicant_city = City.select(City.name).where(City.name == city_input).get()
+        new_applicant_city = City.select().where(City.name == city_input).get()
         applicant_school = new_applicant_city.related_school
+        application_code = ApplicantsData.random_app_code()
 
         new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
-                                         status="new", code=ApplicantsData.random_app_code(), email=email_input)
+                                         status="new", code=application_code, email=email_input)
 
         interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
                                                                    Mentor.related_school == applicant_school).get()
@@ -59,6 +77,8 @@ class ApplicantsData:
         interview_slot.reserved = True
 
         interview_slot.save()
+
+        ApplicantsData.email_about_code_and_city(name_input, email_input, application_code, applicant_school)
 
         return [new_applicant, new_interview]
 
