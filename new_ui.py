@@ -322,15 +322,36 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                print("something")
+                user_input=input("Your choice(answered/waiting for answer/new): ")
+                self.administrator.question_by_status(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
             elif user_input == "2":
-                print("something")
+                user_input = input("Please give an applicant: ")
+                self.administrator.question_by_applicants(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
             elif user_input == "3":
-                print("something")
+                user_input = input("Please give a school: ")
+                self.administrator.question_by_school(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
             elif user_input == "4":
-                print("something")
+                user_input = input("Please give a mentor: ")
+                self.administrator.question_by_mentor(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
             elif user_input == "5":
-                print("something")
+                user_input = input("Please give a specific date in the following format:\n"
+                                   "Example format: 2015-01-01: ")
+                self.administrator.question_by_date(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
             elif user_input == "0":
                 return
             else:
