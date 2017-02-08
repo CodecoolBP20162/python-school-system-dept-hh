@@ -1,4 +1,4 @@
-# from administrator import AdministratorData
+from administrator import AdministratorData
 # from mentor import MentorData
 # from applicants import ApplicantData
 
@@ -9,6 +9,7 @@ class Menu:
         self.header = None
         self.options = None
         self.exit_message = None
+        self.admin = AdministratorData()
 
     def print_menu(self):
         print(self.header + ":")
@@ -26,7 +27,7 @@ class Menu:
             self.exit_message = "Exit"
             self.print_menu()
 
-            user_input = input("Please choose a role:")
+            user_input = input("Please choose a role: ")
 
             if user_input == "1":
                 self.applicant_menu()
@@ -47,9 +48,33 @@ class Menu:
             self.exit_message = "Back"
             self.print_menu()
 
-            user_input = input("Please choose an option:")
+            user_input = input("Please choose an option: ")
 
             if user_input = "1":
+                print("something")
+            elif user_input = "2":
+                print("something")
+            elif user_input = "3":
+                print("something")
+            elif user_input = "4":
+                print("something")
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def applicant_question_menu(self):
+        while True:
+            self.header = "Questions menu"
+            self.options = ["Ask a question", "Question status"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input = "1":
+                print("something")
+            elif user_input = "2":
                 print("something")
             elif user_input == "0":
                 return
@@ -63,9 +88,32 @@ class Menu:
             self.exit_message = "Back"
             self.print_menu()
 
-            user_input = input("Please choose an option:")
+            user_input = input("Please choose an option: ")
 
-            if user_input == "0":
+            if user_input = "1":
+                print("something")
+            elif user_input = "2":
+                print("something")
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def mentor_question_menu(self):
+        while True:
+            self.header = "Questions menu"
+            self.options = [
+                "1. List questions\n2. Answer question (get the question ID ready!"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input = "1":
+                print("something")
+            elif user_input = "2":
+                print("something")
+            elif user_input == "0":
                 return
             else:
                 print("Wrong input")
@@ -78,9 +126,32 @@ class Menu:
             self.exit_message = "Back"
             self.print_menu()
 
-            user_input = input("Please choose an option:")
+            if user_input = "1":
+                print("something")
+            elif user_input = "2":
+                print("something")
+            elif user_input = "3":
+                print("something")
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
 
-            if user_input == "0":
+    def admin_applicants_menu(self):
+        while True:
+            self.header = "Applicant menu"
+            self.options = ["Applicants personal data",
+                            "Applicants filtered by...", "Back to main menu"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input = "1":
+                print("something")
+            elif user_input = "2":
+                print("something")
+            elif user_input == "0":
                 return
             else:
                 print("Wrong input")
