@@ -30,6 +30,11 @@ class Mentor(BaseModel):
     name = CharField()
     related_school = ForeignKeyField(School, related_name="workplaces")
 
+    def mentor_school(self):
+
+        school = School.select().join(Mentor).where(self.id == Mentor.id).get()
+
+        return school
 
 class Applicant(BaseModel):
     name = CharField()
