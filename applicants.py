@@ -13,6 +13,8 @@ class ApplicantsData:
 
 
     def check_applicant(self, code_input):
+
+        self.results = []
         self.tags = ['Name','City','Status','School','email']
         self.query = Applicant.select().where(Applicant.code == code_input)
 
@@ -21,15 +23,19 @@ class ApplicantsData:
             self.results.append([query_object.name,query_object.city.name,query_object.status,query_object.school.name,query_object.email])
 
     def check_applicant_interview(self, code_input):
-        self.tags = ["Interview date", "Mentor"]
 
-        self.query = InterviewSlot.select(InterviewSlot.start, Mentor.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).where(Applicant.code == code_input)
+        self.results = []
+        self.tags = ["Interview date", "Mentor", "School"]
+
+        self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([query_object.start, query_object.mentor.name])
+            self.results.append([query_object.start, query_object.mentor.name, query_object.mentor.related_school.name])
 
 
     def check_city(self, city_input):
+
+        self.results = []
 
         self.query = City.select(City.name).where(City.name == city_input)
 
@@ -81,12 +87,16 @@ class ApplicantsData:
 
     def add_question_to_database(self, code_input, question_input):
 
+        self.results = []
+
         self.query = Applicant.select(Applicant.code == code_input).get()
 
         Question.create(question=question_input, applicant_id=self.query.id, status="new",
                         chosenmentor_id=None, submissiondate=datetime.datetime.now())
 
     def get_question_info(self, code_input):
+
+        self.results = []
 
         self.tags = ['Question','Status', 'Answer']
 
@@ -99,5 +109,3 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
-
-
