@@ -3,6 +3,7 @@
 import random
 from models import *
 import datetime
+from mail import Mail
 
 
 class ApplicantsData:
@@ -42,9 +43,10 @@ class ApplicantsData:
 
         new_applicant_city = City.select(City.name).where(City.name == city_input).get()
         applicant_school = new_applicant_city.related_school
+        application_code = ApplicantsData.random_app_code()
 
         new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
-                                         status="new", code=ApplicantsData.random_app_code(), email=email_input)
+                                         status="new", code=application_code, email=email_input)
 
         interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
                                                                    Mentor.related_school == applicant_school).get()
@@ -53,6 +55,18 @@ class ApplicantsData:
         interview_slot.reserved = True
 
         interview_slot.save()
+
+        recipient_list = [email_input]
+        subject = "New Application"
+        message = """
+        Hi {name_input},
+        Your application process to Codecool has been started!
+        Your code is {code}, and the city you have been assigned to is {city}.
+
+        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school)
+
+        application_email = Mail(recipient_list, message, subject)
+        application_email.send()
 
         return [new_applicant, new_interview]
 
@@ -101,3 +115,9 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, "no answer yet"])
 
 
+city_input = "Budapest"
+name_input = "Eszti"
+email_input = "siri.lukacs@gmail.com"
+
+eszti = ApplicantsData()
+eszti.new_applicant(city_input, name_input, email_input)
