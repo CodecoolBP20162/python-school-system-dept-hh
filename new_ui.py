@@ -1,7 +1,7 @@
 from administrator import AdministratorData
 from prettytable import PrettyTable
-from mentor import MentorData
-from applicants import ApplicantData
+from mentors import MentorsData
+#from applicants import ApplicantsData
 
 
 class Menu:
@@ -97,7 +97,7 @@ class Menu:
             if user_input == "1":
                 print("something")
             elif user_input == "2":
-                self.mentor_question_menu()
+                self.mentor_questions_menu()
             elif user_input == "0":
                 return
             else:
@@ -322,7 +322,7 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                user_input=input("Your choice(answered/waiting for answer/new): ")
+                user_input = input("Your choice(answered/waiting for answer/new): ")
                 self.administrator.question_by_status(user_input)
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
