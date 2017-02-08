@@ -39,6 +39,22 @@ class ApplicantsData:
 
 
     @staticmethod
+    def email_about_code_and_city(name_input, email_input, application_code, applicant_school):
+
+        recipient_list = [email_input]
+        subject = "New Application"
+        message = """
+        Hi {name_input},
+        Your application process to Codecool has been started!
+        Your code is {code}, and the city you have been assigned to is {city}.
+
+        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school)
+
+        application_email = Mail(recipient_list, message, subject)
+        application_email.send()
+
+
+    @staticmethod
     def new_applicant(city_input, name_input, email_input):
 
         new_applicant_city = City.select(City.name).where(City.name == city_input).get()
@@ -56,17 +72,7 @@ class ApplicantsData:
 
         interview_slot.save()
 
-        recipient_list = [email_input]
-        subject = "New Application"
-        message = """
-        Hi {name_input},
-        Your application process to Codecool has been started!
-        Your code is {code}, and the city you have been assigned to is {city}.
-
-        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school)
-
-        application_email = Mail(recipient_list, message, subject)
-        application_email.send()
+        ApplicantsData.email_about_code_and_city(name_input, email_input, application_code, applicant_school)
 
         return [new_applicant, new_interview]
 
@@ -117,7 +123,7 @@ class ApplicantsData:
 
 city_input = "Budapest"
 name_input = "Eszti"
-email_input = "siri.lukacs@gmail.com"
+email_input = "codecool.depth+eszti@gmail.com"
 
 eszti = ApplicantsData()
 eszti.new_applicant(city_input, name_input, email_input)
