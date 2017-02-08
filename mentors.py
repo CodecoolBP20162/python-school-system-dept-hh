@@ -15,7 +15,7 @@ class MentorsData:
         for query_object in self.query:
             if query_object.interviewslot.mentor.id == int(mentor_id):
                 self.results.append(
-                    [query_object.interviewslot.start, query_object.interviewslot.end, query_object.applicant.name,
+                    [str(query_object.interviewslot.start), str(query_object.interviewslot.end), query_object.applicant.name,
                      query_object.applicant.code])
 
     def question_data(self, mentor_id):
@@ -24,7 +24,7 @@ class MentorsData:
         self.results = []
 
         for question in self.query:
-            self.results.append([question.submissiondate, question.question, question.applicant.code, question.id])
+            self.results.append([str(question.submissiondate), question.question, question.applicant.code, question.id])
 
     @staticmethod
     def question_answering(question_id, answer):

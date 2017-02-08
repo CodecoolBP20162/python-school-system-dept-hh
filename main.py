@@ -1,4 +1,4 @@
-from new_ui import Menu
+from ui import Menu
 from administrator import AdministratorData
 
 # Write here your console application
