@@ -8,7 +8,7 @@ class AdministratorData:
         self.results = []
         self.tags = []
 
-    def applicants_personal_data(self):
+    def listing_all_applicants(self):
         self.tags = ["ID", "Name", "City", "Status", "Code", "School"]
         self.query = Applicant.select()
         self.results = []
