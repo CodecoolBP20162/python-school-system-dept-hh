@@ -33,8 +33,6 @@ class Ui:
 
                 print(school.name)
 
-
-
             elif choose == "0":
                 exit()
 
