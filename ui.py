@@ -151,9 +151,9 @@ class Menu:
                 self.table.draw_table()
             elif user_input == "2":
                 question = input("Please give the question ID: ")
-                answer= input("Please type your answer: ")
+                answer = input("Please type your answer: ")
                 try:
-                    self.mentor.question_answering(question,answer)
+                    self.mentor.question_answering(question, answer)
                     print("Your answer is successfully submitted.")
                 except:
                     print("Something went wrong! Please try again.")
@@ -226,7 +226,10 @@ class Menu:
             elif user_input == "2":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
-                self.administrator.applicants_by_interview(user_input)
+                try:
+                    self.administrator.applicants_by_interview(user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
@@ -318,8 +321,11 @@ class Menu:
             elif user_input == "4":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
-                self.administrator.listing_interviews_by_date(
-                    user_input)
+                try:
+                    self.administrator.listing_interviews_by_date(
+                        user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
@@ -390,7 +396,10 @@ class Menu:
             elif user_input == "5":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
-                self.administrator.question_by_date(user_input)
+                try:
+                    self.administrator.question_by_date(user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
