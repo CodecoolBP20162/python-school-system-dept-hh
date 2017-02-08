@@ -4,6 +4,7 @@ import random
 from models import *
 import datetime
 from mail import Mail
+from prettytable import PrettyTable
 
 
 class ApplicantsData:
@@ -31,7 +32,7 @@ class ApplicantsData:
         self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([query_object.start, query_object.mentor.name, query_object.mentor.related_school.name])
+            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor.related_school.name])
 
 
     def check_city(self, city_input):
@@ -109,7 +110,7 @@ class ApplicantsData:
 
         self.results = []
 
-        self.query = Applicant.select(Applicant.code == code_input).get()
+        self.query = Applicant.get(Applicant.code == code_input)
 
         Question.create(question=question_input, applicant_id=self.query.id, status="new",
                         chosenmentor_id=None, submissiondate=datetime.datetime.now())

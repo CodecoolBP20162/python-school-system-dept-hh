@@ -123,7 +123,7 @@ class AdministratorData:
 
     def listing_interviews_by_date(self, date_filter):
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
-        self.tags = ["School", "Applicant code", "Mentor"]
+        self.tags = ["School", "Applicant code", "Mentor","Date"]
         self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
             School).switch(Interview).join(InterviewSlot).join(Mentor).where(
             InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
@@ -132,7 +132,7 @@ class AdministratorData:
 
         for query_object in self.query:
             self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
-                                 query_object.interviewslot.mentor.name])
+                                 query_object.interviewslot.mentor.name,str(query_object.interviewslot.start)])
 
     @staticmethod
     def assign_mentor_to_question(choosen_mentor, choosen_question):

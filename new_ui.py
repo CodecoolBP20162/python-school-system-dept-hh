@@ -1,7 +1,7 @@
 from administrator import AdministratorData
 from prettytable import PrettyTable
 from mentors import MentorsData
-from new_applicants import ApplicantsData
+from applicants import ApplicantsData
 
 
 class Menu:
@@ -9,9 +9,9 @@ class Menu:
         self.header = None
         self.options = None
         self.exit_message = None
-        self.admin = AdministratorData()
         self.table = PrettyTable(None, None)
         self.administrator = AdministratorData()
+        self.applicant=ApplicantsData()
 
     def print_menu(self):
         print(self.header + ":")
@@ -25,7 +25,7 @@ class Menu:
         while True:
             self.header = "Main menu"
             self.options = ["Applicant menu",
-                            "Mentor menu", "Adminsitrator menu"]
+                            "Mentor menu", "Administrator menu"]
             self.exit_message = "Exit"
             self.print_menu()
 
@@ -38,7 +38,7 @@ class Menu:
             elif user_input == "3":
                 self.admin_menu()
             elif user_input == "0":
-                break
+                exit()
             else:
                 print("Wrong input")
 
@@ -53,11 +53,26 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                print("something")
+                city_input = input("Please give your city: ")
+                name_input = input("Please give your name: ")
+                email_input = input("Please give your email adress: ")
+                try:
+                    self.applicant.new_applicant(city_input,name_input,email_input)
+                    print("You have successfully applied.")
+                except:
+                    print("Something went wrong! Please try again.")
             elif user_input == "2":
-                print("something")
+                user_input = input("Please give your application code: ")
+                self.applicant.check_applicant(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
             elif user_input == "3":
-                print("something")
+                user_input = input("Please give your application code: ")
+                self.applicant.check_applicant_interview(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
             elif user_input == "4":
                 self.applicant_question_menu()
             elif user_input == "0":
@@ -77,9 +92,19 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                print("something")
+                code_input=input("Please give your application code: ")
+                question_input=input("Please give your question: ")
+                try:
+                    self.applicant.add_question_to_database(code_input,question_input)
+                    print("Your question is successfully added.")
+                except:
+                    print("Something went wrong! Please try again.")
             elif user_input == "2":
-                print("something")
+                user_input = input("Please give your application code: ")
+                self.applicant.get_question_info(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
             elif user_input == "0":
                 return
             else:
@@ -302,7 +327,7 @@ class Menu:
                 mentor_id = input("Please give a mentor's ID: ")
                 question_id = input("Please give a question's ID:")
                 try:
-                    self.admin.assign_mentor_to_question(mentor_id, question_id)
+                    self.administrator.assign_mentor_to_question(mentor_id, question_id)
                 except:
                     print("Something went wrong! Please try again.")
             elif user_input == "2":
