@@ -48,7 +48,7 @@ class ApplicantsData:
         Your application process to Codecool has been started!
         Your code is {code}, and the city you have been assigned to is {city}.
 
-        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school)
+        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school.name)
 
         application_email = Mail(recipient_list, message, subject)
         application_email.send()
@@ -57,7 +57,7 @@ class ApplicantsData:
     @staticmethod
     def new_applicant(city_input, name_input, email_input):
 
-        new_applicant_city = City.select(City.name).where(City.name == city_input).get()
+        new_applicant_city = City.select().where(City.name == city_input).get()
         applicant_school = new_applicant_city.related_school
         application_code = ApplicantsData.random_app_code()
 
