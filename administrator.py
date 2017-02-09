@@ -3,12 +3,13 @@ import datetime
 
 
 class AdministratorData:
+
     def __init__(self):
         self.query = None
         self.results = []
         self.tags = []
 
-    def applicants_personal_data(self):
+    def listing_all_applicants(self):
         self.tags = ["ID", "Name", "City", "Status", "Code", "School"]
         self.query = Applicant.select()
         self.results = []
@@ -28,6 +29,7 @@ class AdministratorData:
                 [query_object.status, query_object.name, query_object.code, query_object.school.name])
 
     def applicants_by_interview(self, date_filter):
+        print(date_filter)
         self.tags = ["Name", "Code", "School"]
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
         self.query = Interview.select(Interview, InterviewSlot, Applicant, School).join(InterviewSlot).switch(
@@ -121,7 +123,7 @@ class AdministratorData:
 
     def listing_interviews_by_date(self, date_filter):
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
-        self.tags = ["School", "Applicant code", "Mentor"]
+        self.tags = ["School", "Applicant code", "Mentor","Date"]
         self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
             School).switch(Interview).join(InterviewSlot).join(Mentor).where(
             InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
@@ -130,7 +132,7 @@ class AdministratorData:
 
         for query_object in self.query:
             self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
-                                 query_object.interviewslot.mentor.name])
+                                 query_object.interviewslot.mentor.name,str(query_object.interviewslot.start)])
 
     @staticmethod
     def assign_mentor_to_question(choosen_mentor, choosen_question):
@@ -149,8 +151,10 @@ class AdministratorData:
             self.results.append([query_object.status, query_object.question])
 
     def question_by_applicants(self, applicant_filter):
-        self.tags = ["QuestionID", "Question", "Application name", "Application code"]
-        self.query = Question.select().join(Applicant).where(Applicant.name == applicant_filter)
+        self.tags = ["QuestionID", "Question",
+                     "Application name", "Application code"]
+        self.query = Question.select().join(Applicant).where(
+            Applicant.name == applicant_filter)
         self.results = []
 
         for query_object in self.query:
@@ -159,11 +163,13 @@ class AdministratorData:
 
     def question_by_school(self, school_filter):
         self.tags = ["QuestionID", "Question", "School"]
-        self.query = Question.select().join(Applicant).join(School).where(School.name == school_filter)
+        self.query = Question.select().join(Applicant).join(
+            School).where(School.name == school_filter)
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.id, query_object.question, query_object.applicant.school.name])
+            self.results.append(
+                [query_object.id, query_object.question, query_object.applicant.school.name])
 
     def question_by_mentor(self, mentor_filter):
         self.tags = ["QuestionID", "Question", "Mentor"]
@@ -171,7 +177,8 @@ class AdministratorData:
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.id, query_object.question, query_object.chosenmentor.name])
+            self.results.append(
+                [query_object.id, query_object.question, query_object.chosenmentor.name])
 
     def question_by_date(self, date_filter):
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')

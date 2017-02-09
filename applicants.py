@@ -4,6 +4,7 @@ import random
 from models import *
 import datetime
 from mail import Mail
+from prettytable import PrettyTable
 
 
 class ApplicantsData:
@@ -27,17 +28,14 @@ class ApplicantsData:
 
         self.results = []
         self.tags = ["Interview date", "Mentor", "School"]
-
         self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([query_object.start, query_object.mentor.name, query_object.mentor.related_school.name])
-
+            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor.related_school.name])
 
     def check_city(self, city_input):
 
         self.results = []
-
         self.query = City.select(City.name).where(City.name == city_input)
 
         for query_object in self.query:
@@ -106,10 +104,8 @@ class ApplicantsData:
         return rand_code
 
     def add_question_to_database(self, code_input, question_input):
-
         self.results = []
-
-        self.query = Applicant.select(Applicant.code == code_input).get()
+        self.query = Applicant.get(Applicant.code == code_input)
 
         Question.create(question=question_input, applicant_id=self.query.id, status="new",
                         chosenmentor_id=None, submissiondate=datetime.datetime.now())
@@ -117,9 +113,7 @@ class ApplicantsData:
     def get_question_info(self, code_input):
 
         self.results = []
-
         self.tags = ['Question','Status', 'Answer']
-
         self.query = Applicant.get(Applicant.code == code_input)
 
         for question in self.query.questions:
@@ -129,3 +123,4 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
+

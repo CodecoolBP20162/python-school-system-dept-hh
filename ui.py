@@ -1,346 +1,412 @@
-from applicants import Newapplicants
-from mentors import Mentors
-from administrator import Administrator
-import os
+from administrator import AdministratorData
+from prettytable import PrettyTable
+from mentors import MentorsData
+from applicants import ApplicantsData
 
 
-class Ui:
-    @staticmethod
-    def interface():
+class Menu:
+    def __init__(self):
+        self.header = None
+        self.options = None
+        self.exit_message = None
+        self.table = PrettyTable(None, None)
+        self.administrator = AdministratorData()
+        self.applicant = ApplicantsData()
+        self.mentor = MentorsData()
 
+    def print_menu(self):
+        print(self.header + ":")
+        x = 1
+        for option in self.options:
+            print("(" + str(x) + ") " + option)
+            x += 1
+        print("(0) " + self.exit_message)
+
+    def main_menu(self):
         while True:
+            self.header = "Main menu"
+            self.options = ["Applicant menu",
+                            "Mentor menu", "Administrator menu"]
+            self.exit_message = "Exit"
+            self.print_menu()
 
-            print("\nWelcome to Codecool School System:\n")
-            print('''Chose a role:\n1. Applicant\n2. Mentor\n3. Administrator\n0. Quit\n''')
+            user_input = input("Please choose a role: ")
 
-            choose = input("Please choose a role:")
-
-            if choose == "1":
-                ApplicantInterface.applicant_menu()
-
-            elif choose == "2":
-                MentorInterface.mentor_menu()
-
-
-            elif choose == "3":
-                AdminstratorInterface.administrator_menu()
-
-            elif choose == "0":
+            if user_input == "1":
+                self.applicant_menu()
+            elif user_input == "2":
+                self.mentor_menu()
+            elif user_input == "3":
+                self.admin_menu()
+            elif user_input == "0":
                 exit()
-
-
-class ApplicantInterface(Ui):
-    @staticmethod
-    def applicant_menu():
-
-        print("Choose an option:\n")
-
-        print(
-            """1. New applicant registration\n2. Application details\n3. Interview details\n4. Questions\n0. Back to main menu\n""")
-
-        app_menu_choice = input("Your choice:")
-
-        if app_menu_choice == "1":
-            ApplicantInterface.new_applicant()
-
-        elif app_menu_choice == "2":
-            ApplicantInterface.application_details()
-
-        elif app_menu_choice == "3":
-            ApplicantInterface.interview_details()
-
-        elif app_menu_choice == "4":
-            ApplicantInterface.questions()
-
-        elif app_menu_choice == "0":
-            Ui.interface()
-
-    @staticmethod
-    def new_applicant():
-
-        collected_datas = Newapplicants.data_for_new_applicant()
-        new_applicant_datas = Newapplicants.new_applicant(
-            collected_datas)
-
-        if collected_datas is not None:
-            print("Your new application code: {code}\nDate of your interview:{date}".format(
-                code=new_applicant_datas[0].code, date=new_applicant_datas[1].interviewslot.start))
-            print("Please don't forget to save or write down your code!\n")
-
-    @staticmethod
-    def application_details():
-
-        app_code_check = input("Your application code:")
-
-        try:
-            app_datas = Newapplicants.check_applicant(
-                app_code_check)
-            print("""\nYour registered data:
-                            Status: {_0}
-                            City: {_1}
-                            Code: {_2}
-                            School: {_3}\n""".format(_0=app_datas.status, _1=app_datas.city.name, _2=app_datas.code,
-                                                     _3=app_datas.school.name))
-        except:
-            print("You did not register yet or your code is wrong!\n")
-
-    @staticmethod
-    def interview_details():
-
-        app_interview_check = input("Your application code:")
-
-        try:
-
-            app_datas = Newapplicants.check_applicant_interview(
-                app_interview_check)
-
-            print("Your interview starts at {date}".format(
-                date=app_datas.start))
-
-        except:
-            print(
-                "You don't have interview date yet. Please send an email(codecool@codlcode.com) and ask for a new date!")
-
-    @staticmethod
-    def questions():
-
-        print(
-            "1. Ask a question\n2. Question status\n0. Back to main menu")
-        choose2 = input("Your choice:")
-        if choose2 == "1":
-
-            Newapplicants.add_question_to_database()
-
-        elif choose2 == "2":
-
-            table = Newapplicants.get_question_info()
-            tablelist = ["Question", "Status", "Answer"]
-            Administrator.prettytable(table, tablelist)
-
-        elif choose2 == "0":
-            Ui.interface()
-        else:
-            print("That is not a valid option!")
-
-
-class MentorInterface(Ui):
-    @staticmethod
-    def mentor_menu():
-
-        print("Choose an option:\n")
-
-        print("1. Interviews\n2. Questions\n0. Back to main menu\n")
-
-        mentors_menu_choice = input("Your choice:")
-
-        if mentors_menu_choice == "1":
-            MentorInterface.interviews()
-
-        elif mentors_menu_choice == "2":
-            MentorInterface.questions()
-
-        elif mentors_menu_choice == "0":
-            Ui.interface()
-
-    @staticmethod
-    def interviews():
-
-        mentor_id = input("Your ID:")
-
-        Mentors.check_mentors_interviews(mentor_id)
-
-    @staticmethod
-    def questions():
-
-        print("1. List questions\n2. Answer question (get the question ID ready!)\n0. Back to main menu\n")
-
-        question_menu_choice = input("Your choice:")
-
-        if question_menu_choice == "1":
-
-            table = Mentors.question_displayer()
-            for row in table:
-                print("\nSubmission date:")
-                print("\t{date}".format(date=row[0]))
-                print("Question:")
-                print("\t{question}".format(question=row[1]))
-                print("Application code:")
-                print("\t{code}".format(code=row[2]))
-                print("ID:")
-                print("\t{code}".format(code=row[3]))
-            print()
-
-        elif question_menu_choice == "2":
-
-            Mentors.question_answering()
-
-        elif question_menu_choice == "0":
-            Ui.interface()
-
-
-class AdminstratorInterface(Ui):
-    @staticmethod
-    def administrator_menu():
-
-        print("Choose an option:\n")
-
-        print("1. Applicants\n2. Interviews\n3. Questions\n0. Back to main menu\n")
-
-        admin_menu_choice = input("Your choice:")
-
-        if admin_menu_choice == "1":
-            AdminstratorInterface.applicant_menu()
-
-        elif admin_menu_choice == "2":
-            AdminstratorInterface.interviews()
-
-        elif admin_menu_choice == "3":
-            AdminstratorInterface.questions()
-
-        elif admin_menu_choice == "0":
-            Ui.interface()
-
-    @staticmethod
-    def applicant_menu():
-
-        print("Choose an option:")
-
-        print("""1. Applicants personal data\n2. Applicants filtered by...\n0. Back to main menu\n""")
-
-        admin_app_menu_choice = input("Your choice:")
-
-        if admin_app_menu_choice == "1":
-
-            Administrator.applicants_personal_data()
-
-        elif admin_app_menu_choice == "2":
-
-            print("Choose a filter requirement:")
-
-            print(
-                """1. Applicants by status\n2. Applicants by interviews\n3. Applicants by location\n4. Applicants by city\n5. Interview with Mentor\n6. Applicant name and email by ID\n0. Back to main menu\n""")
-
-            admin_filter_choice = input("Your choice:")
-
-            if admin_filter_choice == "1":
-                admin_subfilter_choice = input("Your choice(accepted/rejected/new/in progress:")
-                Administrator.apps_by_status(admin_subfilter_choice)
-
-            elif admin_filter_choice == "2":
+            else:
+                print("Wrong input")
+
+    def applicant_menu(self):
+        while True:
+            self.header = "Applicant menu"
+            self.options = ["New applicant registration",
+                            "Application details", "Interview details", "Questions"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input == "1":
+                city_input = input("Please give your city: ")
+                name_input = input("Please give your name: ")
+                email_input = input("Please give your email adress: ")
                 try:
-                    admin_filter = input("Please give a specific date in the following format:\n"
-                                         "Example format: 2015-01-01 00:00: ")
-                    Administrator.apps_by_interview(admin_filter)
+                    self.applicant.new_applicant(city_input, name_input, email_input)
+                    print("You have successfully applied.")
                 except:
-                    print("Date format is wrong!")
+                    print("Something went wrong! Please try again.")
+            elif user_input == "2":
+                user_input = input("Please give your application code: ")
+                self.applicant.check_applicant(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
+            elif user_input == "3":
+                user_input = input("Please give your application code: ")
+                self.applicant.check_applicant_interview(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
+            elif user_input == "4":
+                self.applicant_question_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
 
-            elif admin_filter_choice == "3":
+    def applicant_question_menu(self):
+        while True:
+            self.header = "Question menu"
+            self.options = ["Ask a question",
+                            "Question status"]
 
-                admin_subfilter_choice = input("Write a school name:")
-                Administrator.apps_by_location(admin_subfilter_choice)
+            self.exit_message = "Back"
+            self.print_menu()
 
-            elif admin_filter_choice == "4":
+            user_input = input("Please choose an option: ")
 
-                admin_subfilter_choice = input("Write a city name:")
-                Administrator.apps_by_city(admin_subfilter_choice)
-
-
-            elif admin_filter_choice == "5":
-
-                admin_subfilter_choice = input("Write a name for mentor:")
-                Administrator.apps_by_mentor(admin_subfilter_choice)
-
-            elif admin_filter_choice == "6":
-                admin_subfilter_choice = input("ApplicantID:")
-                Administrator.emails_by_names(admin_subfilter_choice)
-
-        elif admin_app_menu_choice == "0":
-            Ui.interface()
-
-    @staticmethod
-    def interviews():
-
-        print("Choose an option: ")
-
-        print("""1. Listing all interviews\n2. Listing interviews filtered by...\n0.Back to main menu\n""")
-
-        admin_interview_menu_choice = input("Your choice: ")
-
-        if admin_interview_menu_choice == "1":
-
-            Administrator.listing_all_interviews()
-
-        elif admin_interview_menu_choice == "2":
-
-            print("Choose a filter requirement: ")
-            print(
-                """1. Interviews by mentor\n2. Interviews by applicant code\n3. Interviews by school\n4. Interviews by date\n""")
-
-            admin_filter_choice = input("Your choice:")
-            if admin_filter_choice == "1":
-                admin_filter = input("Please write mentor's name: ")
-                Administrator.listing_interviews_by_mentor(admin_filter)
-            elif admin_filter_choice == "2":
-                admin_filter = input("Please write an applicant's code: ")
-                Administrator.listing_interviews_by_applicant_code(admin_filter)
-            elif admin_filter_choice == "3":
-                admin_filter = input("Please give a School: ")
-                Administrator.listing_interviews_by_school(admin_filter)
-            elif admin_filter_choice == "4":
+            if user_input == "1":
+                code_input = input("Please give your application code: ")
+                question_input = input("Please give your question: ")
                 try:
-                    admin_filter = input("Please give a specific date in the following format:\n"
-                                         "Example format: 2015-01-01 00:00: ")
-                    Administrator.listing_interviews_by_date(admin_filter)
+                    self.applicant.add_question_to_database(code_input, question_input)
+                    print("Your question is successfully added.")
                 except:
-                    print("Date format is wrong!")
-                    AdminstratorInterface.interviews()
+                    print("Something went wrong! Please try again.")
+            elif user_input == "2":
+                user_input = input("Please give your application code: ")
+                self.applicant.get_question_info(user_input)
+                self.table = PrettyTable(
+                    self.applicant.results, self.applicant.tags)
+                self.table.draw_table()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
 
-        elif admin_interview_menu_choice == "0":
-            Ui.interface()
+    def mentor_menu(self):
+        while True:
+            self.header = "Mentor menu"
+            self.options = ["Interviews", "Questions"]
+            self.exit_message = "Back"
+            self.print_menu()
 
-    @staticmethod
-    def questions():
+            user_input = input("Please choose an option: ")
 
-        print(
-            "1. Assign a mentor to answer a question (get mentor and question ID ready!)\n2. Listing questions filtered by...\n0. Back to main menu")
+            if user_input == "1":
+                user_input = input("Please give your ID: ")
+                self.mentor.mentors_interviews_data(user_input)
+                self.table = PrettyTable(
+                    self.mentor.results, self.mentor.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                self.mentor_questions_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
 
-        admin_question_choice = input("Your choice:")
+    def mentor_questions_menu(self):
+        while True:
+            self.header = "Question menu"
+            self.options = ["List questions",
+                            "Answer question (get the question ID ready!)"]
+            self.exit_message = "Back"
+            self.print_menu()
 
-        if admin_question_choice == "1":
-            Administrator.mentor_assigning()
+            user_input = input("Please choose an option: ")
 
-        elif admin_question_choice == "2":
-
-            print("Choose a filter requirement:")
-
-            print(
-                """1. Questions by status\n2. Questions by applicants\n3. Questions by school\n4. Questions by mentor\n6. Question by date\n""")
-
-            question_filter_choice = input("Your choice:")
-
-            if question_filter_choice == "1":
-                admin_subfilter_choice = input("Your choice(answered/waiting for answer/new):")
-                Administrator.question_by_status(admin_subfilter_choice)
-
-            elif question_filter_choice == "2":
-                admin_filter = input("Please write an application's name: ")
-                Administrator.question_by_applicants(admin_filter)
-
-            elif question_filter_choice == "3":
-                admin_filter = input("Please give a School: ")
-                Administrator.question_by_school(admin_filter)
-
-            elif question_filter_choice == "4":
-                admin_filter = input("Please write mentor's name: ")
-                Administrator.question_by_mentor(admin_filter)
-
-            elif question_filter_choice == "5":
+            if user_input == "1":
+                user_input = input("Please give your ID: ")
+                self.mentor.question_data(user_input)
+                self.table = PrettyTable(
+                    self.mentor.results, self.mentor.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                question = input("Please give the question ID: ")
+                answer = input("Please type your answer: ")
                 try:
-                    admin_filter = input("Please give a specific date in the following format:\n"
-                                         "Example format: 2015-01-01 00:00: ")
-                    Administrator.question_by_date(admin_filter)
+                    self.mentor.question_answering(question, answer)
+                    print("Your answer is successfully submitted.")
                 except:
-                    print("Date format is wrong!")
+                    print("Something went wrong! Please try again.")
 
-        elif admin_question_choice == "0":
-            Ui.interface()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_menu(self):
+        while True:
+            self.header = "Administrator menu"
+            self.options = ["Applicants", "Interviews",
+                            "Questions"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input == "1":
+                self.admin_applicant_menu()
+            elif user_input == "2":
+                self.admin_interviews_menu()
+            elif user_input == "3":
+                self.admin_questions_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_applicant_menu(self):
+        while True:
+            self.header = "Applicants menu"
+            self.options = ["Listing all applicants",
+                            "Applicants filtered by..."]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input == "1":
+                self.administrator.listing_all_applicants()
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                self.admin_applicant_filter_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_applicant_filter_menu(self):
+        while True:
+            self.header = "Filter applicants by:"
+            self.options = ["Status", "Interviews",
+                            "Location", "City", "Interview with Mentor", "Applicant code"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input == "1":
+                user_input = input(
+                    "Your choice(accepted/rejected/new/in progress): ")
+                self.administrator.applicants_by_status(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                user_input = input("Please give a specific date in the following format:\n"
+                                   "Example format: 2015-01-01: ")
+                try:
+                    self.administrator.applicants_by_interview(user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "3":
+                user_input = input("Please give a location: ")
+                self.administrator.applicants_by_location(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "4":
+                user_input = input("Please give a city: ")
+                self.administrator.applicants_by_city(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "5":
+                user_input = input("Please give a mentor: ")
+                self.administrator.applicants_by_mentor(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "6":
+                user_input = input("Please give an application code: ")
+                self.administrator.applicant_email_by_applicant_code(
+                    user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_interviews_menu(self):
+        while True:
+            self.header = "Interview menu"
+            self.options = ["Listing all interviews",
+                            "Listing interviews filtered by..."]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option:")
+
+            if user_input == "1":
+                self.administrator.listing_all_interviews()
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                self.admin_interview_filter_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_interviews_filter_menu(self):
+        while True:
+            self.header = "Filter interviews by..."
+
+    def admin_interview_filter_menu(self):
+        while True:
+            self.header = "Filter interviews by"
+            self.options = ["Mentor", "Applicant code", "School", "Date"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option:")
+
+            if user_input == "1":
+                user_input = input("Please give a mentor: ")
+                self.administrator.listing_interviews_by_mentor(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                user_input = input("Please give an application code: ")
+                self.administrator.listing_interviews_by_applicant_code(
+                    user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "3":
+                user_input = input("Please give a school: ")
+                self.administrator.listing_interviews_by_school(
+                    user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "4":
+                user_input = input("Please give a specific date in the following format:\n"
+                                   "Example format: 2015-01-01: ")
+                try:
+                    self.administrator.listing_interviews_by_date(
+                        user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_questions_menu(self):
+        while True:
+            self.header = "Questions menu"
+            self.options = [
+                "Assign a mentor to answer a question (get mentor and question ID ready!)",
+                "List questions filtered by..."]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option:")
+
+            if user_input == "1":
+                mentor_id = input("Please give a mentor's ID: ")
+                question_id = input("Please give a question's ID:")
+                try:
+                    self.administrator.assign_mentor_to_question(mentor_id, question_id)
+                    print("The question is given to the mentor.")
+                except:
+                    print("Something went wrong! Please try again.")
+            elif user_input == "2":
+                self.admin_question_filter_menu()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def admin_question_filter_menu(self):
+        while True:
+            self.header = "Filter questions by"
+            self.options = ["Status", "Applicants", "School", "Mentor", "Date"]
+            self.exit_message = "Back"
+            self.print_menu()
+
+            user_input = input("Please choose an option: ")
+
+            if user_input == "1":
+                user_input = input("Your choice(answered/waiting for answer/new): ")
+                self.administrator.question_by_status(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "2":
+                user_input = input("Please give an applicant: ")
+                self.administrator.question_by_applicants(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "3":
+                user_input = input("Please give a school: ")
+                self.administrator.question_by_school(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "4":
+                user_input = input("Please give a mentor: ")
+                self.administrator.question_by_mentor(user_input)
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "5":
+                user_input = input("Please give a specific date in the following format:\n"
+                                   "Example format: 2015-01-01: ")
+                try:
+                    self.administrator.question_by_date(user_input)
+                except ValueError:
+                    print("Date is not in the right format!")
+                self.table = PrettyTable(
+                    self.administrator.results, self.administrator.tags)
+                self.table.draw_table()
+            elif user_input == "0":
+                return
+            else:
+                print("Wrong input")
+
+    def interface_flow(self):
+        self.main_menu()
