@@ -9,11 +9,10 @@ class MentorsData:
 
     def mentors_interviews_data(self, mentor_id):
         self.tags = ["Start", "End", "Applicant", "Code"]
-        self.query = Interview.select()
+        self.query = Interview.select().join(InterviewSlot).where((InterviewSlot.mentor == mentor_id) | (InterviewSlot.mentor2 == mentor_id))
         self.results = []
 
         for query_object in self.query:
-            if query_object.interviewslot.mentor.id == int(mentor_id):
                 self.results.append(
                     [str(query_object.interviewslot.start), str(query_object.interviewslot.end), query_object.applicant.name,
                      query_object.applicant.code])

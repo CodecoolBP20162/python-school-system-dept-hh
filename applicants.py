@@ -17,7 +17,7 @@ class ApplicantsData:
     def check_applicant(self, code_input):
 
         self.results = []
-        self.tags = ['Name','City','Status','School','email']
+        self.tags = ['Name', 'City', 'Status', 'School', 'email']
         self.query = Applicant.select().where(Applicant.code == code_input)
 
         for query_object in self.query:
@@ -116,7 +116,7 @@ class ApplicantsData:
     def get_question_info(self, code_input):
 
         self.results = []
-        self.tags = ['Question','Status', 'Answer']
+        self.tags = ['Question', 'Status', 'Answer']
         self.query = Applicant.get(Applicant.code == code_input)
 
         for question in self.query.questions:
