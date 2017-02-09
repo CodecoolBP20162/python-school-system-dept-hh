@@ -28,6 +28,7 @@ class City(BaseModel):
 
 class Mentor(BaseModel):
     name = CharField()
+    email = CharField()
     related_school = ForeignKeyField(School, related_name="workplaces")
 
 

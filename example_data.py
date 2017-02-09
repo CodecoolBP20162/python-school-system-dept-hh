@@ -40,8 +40,8 @@ class ExampleDataCreator:
 
     def create_dummy_mentors_by_csv(self, mentor_table):
         for mentor in mentor_table:
-            school = School.select().where(School.name == mentor[1]).get()
-            Mentor.create(name=mentor[0], related_school=school)
+            school = School.select().where(School.name == mentor[2]).get()
+            Mentor.create(name=mentor[0], email=mentor[1] ,related_school=school)
 
     def create_dummy_applicants_by_csv(self, applicants_table):
         budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
