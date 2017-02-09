@@ -30,6 +30,10 @@ class Mentor(BaseModel):
     name = CharField()
     related_school = ForeignKeyField(School, related_name="workplaces")
 
+    @classmethod
+    def get_mentor_by_name(cls,mentor_name):
+        return cls.get(cls.name==mentor_name)
+
 
 class Applicant(BaseModel):
     name = CharField()
