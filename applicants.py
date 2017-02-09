@@ -69,11 +69,11 @@ class ApplicantsData:
         try:
             message = """
             Hi {name_input},
-            Your interview is at {time}, with {mentor}.
+            Your interview is at {time}, with {mentor} and {mentor2}.
             Please arrive 15 minutes early.
 
             Good luck!
-            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name)
+            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name, mentor2=new_interview.interviewslot.mentor2.name)
 
         except:
             message = """
@@ -89,16 +89,16 @@ class ApplicantsData:
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
 
-        recipient_list = [new_interview.interviewslot.mentor.email]
+        recipient_list = [new_interview.interviewslot.mentor.email, new_interview.interviewslot.mentor2.email]
         subject = "You've been assigned to a new interview"
         message = """
-        Hi {mentor_name},
+        Hi {mentor_name} and {mentor2_name},
         You have been assigned to a new interview from {start} to {end}.
         The applicant's name is {applicant_name}.
 
         Best regards,
         The Codecool Team
-        """.format(mentor_name=new_interview.interviewslot.mentor.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
+        """.format(mentor_name=new_interview.interviewslot.mentor.name, mentor2_name=new_interview.interviewslot.mentor2.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
