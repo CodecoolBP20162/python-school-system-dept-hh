@@ -33,6 +33,10 @@ class Mentor(BaseModel):
     def school_name(self):
         return self.related_school.name
 
+    @classmethod
+    def get_mentor_by_name(cls, mentor_name):
+        return cls.get(cls.name == mentor_name)
+
 
 class Applicant(BaseModel):
     name = CharField()

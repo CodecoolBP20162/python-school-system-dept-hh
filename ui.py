@@ -45,8 +45,14 @@ class Menu:
 
             elif user_input == "0":
                 exit()
+            elif user_input == "4":
+                self.bfa_menu()
             else:
                 print("Wrong input")
+
+    def bfa_menu(self):
+        teacher=Mentor.get_mentor_by_name("Kende Martin")
+        print(teacher.name)
 
     def applicant_menu(self):
         while True:
@@ -85,6 +91,8 @@ class Menu:
                 return
             else:
                 print("Wrong input")
+
+
 
     def applicant_question_menu(self):
         while True:
