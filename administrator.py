@@ -93,20 +93,21 @@ class AdministratorData:
                                  query_object.mentor.name, query_object.mentor2.name, str(query_object.start)])
 
     def listing_interviews_by_mentor(self, mentor_filter):
-        self.tags = ["School", "Applicant code", "Date"]
-        self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(Mentor.name == mentor_filter)
+        self.tags = ["School", "Applicant code", "Applicant name", "Date"]
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where((Mentor1.name == mentor_filter) | (Mentor2.name == mentor_filter))
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
-                                 str(query_object.interviewslot.start)])
+            self.results.append([query_object.mentor.related_school.name, query_object.interview.applicant.code, query_object.interview.applicant.name,
+                                 str(query_object.start)])
 
     def listing_interviews_by_applicant_code(self, code_filter):
         self.tags = ["School", "Mentor", "Mentor2", "Date"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
-        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School)
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_filter)
         self.results = []
 
         for query_object in self.query:
@@ -118,7 +119,7 @@ class AdministratorData:
         self.tags = ["Applicantcode","ApplicantName", "Mentor", "Mentor2", "Date"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
-        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School)
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where(School.name == school_filter)
         self.results = []
 
         for query_object in self.query:
