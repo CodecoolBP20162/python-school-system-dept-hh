@@ -64,14 +64,13 @@ class AdministratorData:
 
     def applicants_by_mentor(self, mentor_filter):
         self.results = []
-        self.tags = ["Mentor", "Mentor2" "Applicant name", "Code"]
+        self.tags = ["Mentor", "Mentor2", "Applicant name", "Code"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where((Mentor1.name == mentor_filter) | (Mentor2.name == mentor_filter))
 
         for query_object in self.query:
             self.results.append([query_object.mentor.name, query_object.mentor2.name, query_object.interview.applicant.name, query_object.interview.applicant.code])
-        print(self.results)
 
     def applicant_email_by_applicant_code(self, applicant_code):
         self.tags = ["Name", "Email"]
