@@ -66,7 +66,7 @@ class ExampleDataCreator:
         for slot in interviewslot_table:
             mentors = Mentor.select().order_by(fn.Random()).limit(1)
             InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'), end=datetime.strptime(
-                slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentors)
+                slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentors, mentor2=mentors)
 
     def build_tables(self, tables):
         db.connect()

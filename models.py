@@ -45,6 +45,7 @@ class InterviewSlot(BaseModel):
     end = DateTimeField()
     reserved = BooleanField()
     mentor = ForeignKeyField(Mentor, related_name="mentors")
+    mentor2 = ForeignKeyField(Mentor)
 
 
 class Interview(BaseModel):
