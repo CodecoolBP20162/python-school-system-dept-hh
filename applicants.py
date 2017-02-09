@@ -27,11 +27,14 @@ class ApplicantsData:
     def check_applicant_interview(self, code_input):
 
         self.results = []
-        self.tags = ["Interview date", "Mentor", "School"]
-        self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.tags = ["Interview date", "Mentor", "Mentor_2", "School"]
+        self.query = InterviewSlot.select(InterviewSlot, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor.related_school.name])
+            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name, query_object.mentor.related_school.name])
+        print(self.results)
 
     def check_city(self, city_input):
 
@@ -123,4 +126,8 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
+
+brutyo = ApplicantsData()
+
+print(brutyo.check_applicant_interview("1N2c3"))
 
