@@ -81,14 +81,16 @@ class AdministratorData:
             self.results.append([query_object.name, query_object.email])
 
     def listing_all_interviews(self):
-        self.tags = ["School", "Applicant code", "Mentor", "Date"]
-        self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
-            School).switch(Interview).join(InterviewSlot).join(Mentor)
+        self.tags = ["School", "Applicant code", "Mentor", "Mentor2", "Date"]
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School)
+
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
-                                 query_object.interviewslot.mentor.name, str(query_object.interviewslot.start)])
+            self.results.append([query_object.mentor.related_school.name, query_object.interview.applicant.code,
+                                 query_object.mentor.name, query_object.mentor2.name, str(query_object.start)])
 
     def listing_interviews_by_mentor(self, mentor_filter):
         self.tags = ["School", "Applicant code", "Date"]
@@ -101,25 +103,27 @@ class AdministratorData:
                                  str(query_object.interviewslot.start)])
 
     def listing_interviews_by_applicant_code(self, code_filter):
-        self.tags = ["School", "Mentor", "Date"]
-        self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(Applicant.code == code_filter)
+        self.tags = ["School", "Mentor", "Mentor2", "Date"]
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School)
         self.results = []
 
         for query_object in self.query:
             self.results.append(
-                [query_object.interviewslot.mentor.related_school.name, query_object.interviewslot.mentor.name,
-                 str(query_object.interviewslot.start)])
+                [query_object.mentor.related_school.name, query_object.mentor.name, query_object.mentor2.name,
+                 str(query_object.start)])
 
     def listing_interviews_by_school(self, school_filter):
-        self.tags = ["Applicant code", "Mentor", "Date"]
-        self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
-            School).switch(Interview).join(InterviewSlot).join(Mentor).where(School.name == school_filter)
+        self.tags = ["Applicantcode","ApplicantName", "Mentor", "Mentor2", "Date"]
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School)
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.applicant.code,
-                                 query_object.interviewslot.mentor.name, str(query_object.interviewslot.start)])
+            self.results.append([query_object.interview.applicant.code,query_object.interview.applicant.name,
+                                 query_object.mentor.name, query_object.mentor2.name,str(query_object.start)])
 
     def listing_interviews_by_date(self, date_filter):
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
