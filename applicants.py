@@ -34,7 +34,7 @@ class ApplicantsData:
 
         for query_object in self.query:
             self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name, query_object.mentor.related_school.name])
-        print(self.results)
+
 
     def check_city(self, city_input):
 
