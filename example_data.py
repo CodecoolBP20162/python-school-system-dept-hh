@@ -64,9 +64,10 @@ class ExampleDataCreator:
 
     def create_dummy_interview_slots_by_csv(self, interviewslot_table):
         for slot in interviewslot_table:
-            mentors = Mentor.select().order_by(fn.Random()).limit(1)
-            InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'), end=datetime.strptime(
-                slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentors)
+            mentor_select = Mentor.select().order_by(fn.Random()).limit(1)
+            mentor1 = mentor_select.get()
+            mentor2 = Mentor.select().where((Mentor.name != mentor1.name) & (Mentor.related_school == mentor1.related_school)).get()
+            InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'), end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1, mentor2=mentor2)
 
     def build_tables(self, tables):
         db.connect()

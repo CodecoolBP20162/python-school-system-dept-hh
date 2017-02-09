@@ -17,21 +17,24 @@ class ApplicantsData:
     def check_applicant(self, code_input):
 
         self.results = []
-        self.tags = ['Name','City','Status','School','email']
+        self.tags = ['Name', 'City', 'Status', 'School', 'email']
         self.query = Applicant.select().where(Applicant.code == code_input)
 
         for query_object in self.query:
 
-            self.results.append([query_object.name,query_object.city.name,query_object.status,query_object.school.name,query_object.email])
+            self.results.append([query_object.name, query_object.city.name,query_object.status,query_object.school.name, query_object.email])
 
     def check_applicant_interview(self, code_input):
 
         self.results = []
-        self.tags = ["Interview date", "Mentor", "School"]
-        self.query = InterviewSlot.select(InterviewSlot.start,Mentor.name,School.name).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor).join(School).where(Applicant.code == code_input)
+        Mentor1 = Mentor.alias()
+        Mentor2 = Mentor.alias()
+        self.tags = ["Interview date", "Mentor", "Mentor_2", "School"]
+        self.query = InterviewSlot.select(InterviewSlot, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor.related_school.name])
+            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name, query_object.mentor.related_school.name])
+
 
     def check_city(self, city_input):
 
@@ -66,11 +69,11 @@ class ApplicantsData:
         try:
             message = """
             Hi {name_input},
-            Your interview is at {time}, with {mentor}.
+            Your interview is at {time}, with {mentor} and {mentor2}.
             Please arrive 15 minutes early.
 
             Good luck!
-            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name)
+            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name, mentor2=new_interview.interviewslot.mentor2.name)
 
         except:
             message = """
@@ -86,16 +89,16 @@ class ApplicantsData:
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
 
-        recipient_list = [new_interview.interviewslot.mentor.email]
+        recipient_list = [new_interview.interviewslot.mentor.email, new_interview.interviewslot.mentor2.email]
         subject = "You've been assigned to a new interview"
         message = """
-        Hi {mentor_name},
+        Hi {mentor_name} and {mentor2_name},
         You have been assigned to a new interview from {start} to {end}.
         The applicant's name is {applicant_name}.
 
         Best regards,
         The Codecool Team
-        """.format(mentor_name=new_interview.interviewslot.mentor.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
+        """.format(mentor_name=new_interview.interviewslot.mentor.name, mentor2_name=new_interview.interviewslot.mentor2.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
@@ -161,7 +164,7 @@ class ApplicantsData:
     def get_question_info(self, code_input):
 
         self.results = []
-        self.tags = ['Question','Status', 'Answer']
+        self.tags = ['Question', 'Status', 'Answer']
         self.query = Applicant.get(Applicant.code == code_input)
 
         for question in self.query.questions:
@@ -171,4 +174,6 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
+
+
 
