@@ -127,7 +127,5 @@ class ApplicantsData:
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
 
-brutyo = ApplicantsData()
 
-print(brutyo.check_applicant_interview("1N2c3"))
 
