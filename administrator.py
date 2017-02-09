@@ -192,5 +192,3 @@ class AdministratorData:
         for query_object in self.query:
             self.results.append([query_object.id, query_object.question])
 
-jozsi = AdministratorData()
-jozsi.applicants_by_mentor('Besenyei Judit')
