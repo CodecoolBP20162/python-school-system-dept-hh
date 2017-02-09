@@ -42,7 +42,7 @@ class AdministratorData:
         for query_object in self.query:
             self.results.append(
                 [query_object.applicant.name, query_object.applicant.code,
-                 query_object.applicant.school.name, str(query_object.interview.interviewslot.start)])
+                 query_object.applicant.school.name, str(query_object.interviewslot.start)])
 
     def applicants_by_location(self, location_filter):
         self.tags = ["School", "Name", "Code"]
@@ -123,13 +123,13 @@ class AdministratorData:
                                  query_object.interviewslot.mentor.name, str(query_object.interviewslot.start)])
 
     def listing_interviews_by_date(self, date_filter):
+        self.results = []
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
         self.tags = ["School", "Applicant code", "Mentor","Date"]
         self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
             School).switch(Interview).join(InterviewSlot).join(Mentor).where(
             InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
                                         datetime.datetime.combine(filter_transfer, datetime.time.max)))
-        self.results = []
 
         for query_object in self.query:
             self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
@@ -155,7 +155,7 @@ class AdministratorData:
         self.tags = ["QuestionID", "Question",
                      "Application name", "Application code"]
         self.query = Question.select().join(Applicant).where(
-            Applicant.name == applicant_filter)
+            Applicant.code == applicant_filter)
         self.results = []
 
         for query_object in self.query:
@@ -185,7 +185,7 @@ class AdministratorData:
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
         self.tags = ["QuestionID", "Question"]
         self.query = Question.select().where(
-            Question.submissiondate.beetween(datetime.datetime.combine(filter_transfer, datetime.time.min),
+            Question.submissiondate.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
                                              datetime.datetime.combine(filter_transfer, datetime.time.max)))
         self.results = []
 
