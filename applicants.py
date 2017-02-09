@@ -43,7 +43,7 @@ class ApplicantsData:
 
 
     @staticmethod
-    def email_about_code_and_city(name_input, email_input, application_code, applicant_school):
+    def email_about_code_and_city_to_applicant(name_input, email_input, application_code, applicant_school):
 
         recipient_list = [email_input]
         subject = "New Application"
@@ -59,7 +59,7 @@ class ApplicantsData:
 
 
     @staticmethod
-    def email_about_interview(name_input, email_input, new_interview):
+    def email_about_interview_to_applicant(name_input, email_input, new_interview):
 
         recipient_list = [email_input]
         subject = "New Interview"
@@ -80,8 +80,25 @@ class ApplicantsData:
             Thank you.
             """.format(name_input=name_input)
 
-        application_email = Mail(recipient_list, message, subject)
-        application_email.send()
+        interview_email = Mail(recipient_list, message, subject)
+        interview_email.send()
+
+    @staticmethod
+    def email_about_interview_to_mentor(new_interview):
+
+        recipient_list = [new_interview.interviewslot.mentor.email]
+        subject = "You've been assigned to a new interview"
+        message = """
+        Hi {mentor_name},
+        You have been assigned to a new interview from {start} to {end}.
+        The applicant's name is {applicant_name}.
+
+        Best regards,
+        The Codecool Team
+        """.format(mentor_name=new_interview.interviewslot.mentor.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
+
+        interview_email = Mail(recipient_list, message, subject)
+        interview_email.send()
 
     @staticmethod
     def new_applicant(city_input, name_input, email_input):
@@ -99,14 +116,15 @@ class ApplicantsData:
 
             new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
             interview_slot.reserved = True
-
             interview_slot.save()
+
+            ApplicantsData.email_about_interview_to_mentor(new_interview)
 
         except:
             new_interview = None
 
-        ApplicantsData.email_about_code_and_city(name_input, email_input, application_code, applicant_school)
-        ApplicantsData.email_about_interview(name_input, email_input, new_interview)
+        ApplicantsData.email_about_code_and_city_to_applicant(name_input, email_input, application_code, applicant_school)
+        ApplicantsData.email_about_interview_to_applicant(name_input, email_input, new_interview)
 
         return [new_applicant, new_interview]
 
