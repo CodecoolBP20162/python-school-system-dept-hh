@@ -59,6 +59,31 @@ class ApplicantsData:
 
 
     @staticmethod
+    def email_about_interview(name_input, email_input, new_interview):
+
+        recipient_list = [email_input]
+        subject = "New Interview"
+        try:
+            message = """
+            Hi {name_input},
+            Your interview is at {time}, with {mentor}.
+            Please arrive 15 minutes early.
+
+            Good luck!
+            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name)
+
+        except:
+            message = """
+            Hi {name_input},
+            Our scedule is full, we could not give you an interview date yet.
+            If you do not get one within a week, please contact 06-1-1234567.
+            Thank you.
+            """.format(name_input=name_input)
+
+        application_email = Mail(recipient_list, message, subject)
+        application_email.send()
+
+    @staticmethod
     def new_applicant(city_input, name_input, email_input):
 
         new_applicant_city = City.select().where(City.name == city_input).get()
@@ -68,15 +93,20 @@ class ApplicantsData:
         new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
                                          status="new", code=application_code, email=email_input)
 
-        interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
-                                                                   Mentor.related_school == applicant_school).get()
+        try:
+            interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
+                                                                       Mentor.related_school == applicant_school).get()
 
-        new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
-        interview_slot.reserved = True
+            new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+            interview_slot.reserved = True
 
-        interview_slot.save()
+            interview_slot.save()
+
+        except:
+            new_interview = None
 
         ApplicantsData.email_about_code_and_city(name_input, email_input, application_code, applicant_school)
+        ApplicantsData.email_about_interview(name_input, email_input, new_interview)
 
         return [new_applicant, new_interview]
 
