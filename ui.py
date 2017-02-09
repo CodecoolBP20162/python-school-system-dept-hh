@@ -299,7 +299,7 @@ class Menu:
             user_input = input("Please choose an option:")
 
             if user_input == "1":
-                user_input = input("Please give a mentor: ")
+                user_input = input("Please give a mentor's name: ")
                 self.administrator.listing_interviews_by_mentor(user_input)
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
@@ -312,7 +312,7 @@ class Menu:
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
             elif user_input == "3":
-                user_input = input("Please give a school: ")
+                user_input = input("Please give a school location: ")
                 self.administrator.listing_interviews_by_school(
                     user_input)
                 self.table = PrettyTable(
@@ -376,7 +376,7 @@ class Menu:
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
             elif user_input == "2":
-                user_input = input("Please give an applicant: ")
+                user_input = input("Please give an application code: ")
                 self.administrator.question_by_applicants(user_input)
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
@@ -388,7 +388,7 @@ class Menu:
                     self.administrator.results, self.administrator.tags)
                 self.table.draw_table()
             elif user_input == "4":
-                user_input = input("Please give a mentor: ")
+                user_input = input("Please give a mentor's name: ")
                 self.administrator.question_by_mentor(user_input)
                 self.table = PrettyTable(
                     self.administrator.results, self.administrator.tags)
