@@ -2,6 +2,7 @@ from administrator import AdministratorData
 from prettytable import PrettyTable
 from mentors import MentorsData
 from applicants import ApplicantsData
+from models import *
 
 
 class Menu:
@@ -26,7 +27,7 @@ class Menu:
         while True:
             self.header = "Main menu"
             self.options = ["Applicant menu",
-                            "Mentor menu", "Administrator menu"]
+                            "Mentor menu", "Administrator menu","BFA menu"]
             self.exit_message = "Exit"
             self.print_menu()
 
@@ -38,6 +39,10 @@ class Menu:
                 self.mentor_menu()
             elif user_input == "3":
                 self.admin_menu()
+            elif user_input == "5":
+                bfa_mentor=Mentor.get(Mentor.name=="Kende Martin")
+                print(bfa_mentor.school_name())
+
             elif user_input == "0":
                 exit()
             else:
