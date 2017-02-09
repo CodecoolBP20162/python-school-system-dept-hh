@@ -22,7 +22,7 @@ class ApplicantsData:
 
         for query_object in self.query:
 
-            self.results.append([query_object.name,query_object.city.name,query_object.status,query_object.school.name,query_object.email])
+            self.results.append([query_object.name, query_object.city.name,query_object.status,query_object.school.name, query_object.email])
 
     def check_applicant_interview(self, code_input):
 
