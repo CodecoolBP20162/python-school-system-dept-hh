@@ -4,9 +4,6 @@ identify = open("parameter.txt", "r")
 login = identify.readlines()
 identify.close()
 
-# Configure your database connection here
-# database name = should be your username on your laptop
-# database user = should be your username on your laptop
 db = PostgresqlDatabase(login[0], user=login[0])
 
 

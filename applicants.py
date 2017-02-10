@@ -1,5 +1,3 @@
-# New applicants arrive into your project database by this script.
-# You can run it anytime to generate new data!
 import random
 from models import *
 import datetime
@@ -31,7 +29,7 @@ class ApplicantsData:
         self.tags = ["Interview date", "Mentor", "Mentor_2", "School"]
         self.query = InterviewSlot.select(InterviewSlot, Mentor1, Mentor2, School).join(Interview).join(
             Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
-        InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
+            InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
             self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name,
@@ -167,12 +165,12 @@ class ApplicantsData:
 
         self.results = []
         self.tags = ['Question', 'Status', 'Answer']
-        self.query = Question.select(Question,Applicant).join(Applicant).where(Applicant.code == code_input)
+        self.query = Question.select(Question, Applicant).join(Applicant).where(Applicant.code == code_input)
 
         for question in self.query:
-                answers = Answer.select().where(Answer.question_id == question)
-                if len(answers)==0:
-                    self.results.append([question.question, question.status, "no answer yet"])
-                else:
-                    for answer in answers:
-                        self.results.append([question.question, question.status, answer.answer])
+            answers = Answer.select().where(Answer.question_id == question)
+            if len(answers) == 0:
+                self.results.append([question.question, question.status, "no answer yet"])
+            else:
+                for answer in answers:
+                    self.results.append([question.question, question.status, answer.answer])

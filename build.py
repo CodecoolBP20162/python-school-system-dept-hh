@@ -16,5 +16,4 @@ class Builder:
         self.data_creator.create_dummy_interview_slots_by_csv(self.data_creator.csv_reader("interviewslot.csv"))
 
 
-builder = Builder()
-builder.create_tables_and_dummy_data()
+Builder().create_tables_and_dummy_data()

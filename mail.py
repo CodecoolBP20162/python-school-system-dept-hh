@@ -19,20 +19,3 @@ class Mail:
         self.server.login(self.user, self.password)
         self.server.sendmail(self.sender, self.recipient_list, self.message.as_string())
         self.server.quit()
-
-
-"""
-recipient_list = ['recipient@gmail.com', 'recipient2@gmail.com']
-
-message = '''
-blablabla
-blabla
-blablablablabla
-blablablablablabla
-'''
-
-subject = 'subject of the email'
-
-testmail = Mail(recipient_list, message, subject)
-testmail.send()
-"""

@@ -6,7 +6,8 @@ from datetime import datetime
 
 
 class ExampleDataCreator:
-    def csv_reader(self, filename):
+    @staticmethod
+    def csv_reader(filename):
         current_file_path = os.path.dirname(os.path.abspath(__file__))
         filename = current_file_path + "/example_csv_files/" + str(filename)
         table = []
@@ -18,11 +19,13 @@ class ExampleDataCreator:
                 table.append(line)
             return table
 
-    def create_dummy_schools(self, schools):
+    @staticmethod
+    def create_dummy_schools(schools):
         for school in schools:
             School.create(name=school)
 
-    def create_dummy_cities(self, cities):
+    @staticmethod
+    def create_dummy_cities(cities):
         budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
         miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
         krakow_cities = ["Krakow", "Warsaw", "Katovice"]
@@ -38,12 +41,14 @@ class ExampleDataCreator:
                 related_school = School.select().where(School.name == "Krakow").get()
                 City.create(name=city, related_school=related_school)
 
-    def create_dummy_mentors_by_csv(self, mentor_table):
+    @staticmethod
+    def create_dummy_mentors_by_csv(mentor_table):
         for mentor in mentor_table:
             school = School.select().where(School.name == mentor[2]).get()
             Mentor.create(name=mentor[0], email=mentor[1], related_school=school)
 
-    def create_dummy_applicants_by_csv(self, applicants_table):
+    @staticmethod
+    def create_dummy_applicants_by_csv(applicants_table):
         budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
         miskolc_cities = ["Miskolc", "Eger", "Tokaj"]
         krakow_cities = ["Krakow", "Warsaw", "Katovice"]
@@ -62,7 +67,8 @@ class ExampleDataCreator:
             Applicant.create(name=applicant[0], city=applicant_city, email=applicant[2], status=applicant[3],
                              code=ApplicantsData.random_app_code(), school=related_school)
 
-    def create_dummy_interview_slots_by_csv(self, interviewslot_table):
+    @staticmethod
+    def create_dummy_interview_slots_by_csv(interviewslot_table):
         for slot in interviewslot_table:
             mentor_select = Mentor.select().order_by(fn.Random()).limit(1)
             mentor1 = mentor_select.get()
@@ -72,7 +78,8 @@ class ExampleDataCreator:
                                  end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1,
                                  mentor2=mentor2)
 
-    def build_tables(self, tables):
+    @staticmethod
+    def build_tables(tables):
         db.connect()
         db.drop_tables(tables, safe=True, cascade=True)
         db.create_tables(tables, safe=True)
