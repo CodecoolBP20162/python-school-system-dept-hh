@@ -121,11 +121,14 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                user_input = input("Please give your ID: ")
-                self.mentors_data.mentors_interviews_data(user_input)
-                self.table = PrettyTable(
-                    self.mentors_data.results, self.mentors_data.tags)
-                self.table.draw_table()
+                try:
+                    user_input = input("Please give your ID: ")
+                    self.mentors_data.mentors_interviews_data(user_input)
+                    self.table = PrettyTable(
+                        self.mentors_data.results, self.mentors_data.tags)
+                    self.table.draw_table()
+                except:
+                    print("Please give a valid ID!")
             elif user_input == "2":
                 self.mentor_questions_menu()
             elif user_input == "0":
@@ -145,10 +148,13 @@ class Menu:
 
             if user_input == "1":
                 user_input = input("Please give your ID: ")
-                self.mentors_data.question_data(user_input)
-                self.table = PrettyTable(
-                    self.mentors_data.results, self.mentors_data.tags)
-                self.table.draw_table()
+                try:
+                    self.mentors_data.question_data(user_input)
+                    self.table = PrettyTable(
+                        self.mentors_data.results, self.mentors_data.tags)
+                    self.table.draw_table()
+                except:
+                    print("Please give a valid ID!")
             elif user_input == "2":
                 question = input("Please give the question ID: ")
                 answer = input("Please type your answer: ")
