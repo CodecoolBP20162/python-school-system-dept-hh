@@ -4,9 +4,6 @@ identify = open("parameter.txt", "r")
 login = identify.readlines()
 identify.close()
 
-# Configure your database connection here
-# database name = should be your username on your laptop
-# database user = should be your username on your laptop
 db = PostgresqlDatabase(login[0], user=login[0])
 
 
@@ -28,6 +25,7 @@ class City(BaseModel):
 
 class Mentor(BaseModel):
     name = CharField()
+    email = CharField()
     related_school = ForeignKeyField(School, related_name="workplaces")
 
 
@@ -45,6 +43,7 @@ class InterviewSlot(BaseModel):
     end = DateTimeField()
     reserved = BooleanField()
     mentor = ForeignKeyField(Mentor, related_name="mentors")
+    mentor2 = ForeignKeyField(Mentor)
 
 
 class Interview(BaseModel):

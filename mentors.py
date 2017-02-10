@@ -1,69 +1,38 @@
 from models import *
 
 
-class Mentors:
-    @staticmethod
-    def check_mentors_interviews(id_input):
+class MentorsData:
+    def __init__(self):
+        self.query = None
+        self.results = []
+        self.tags = []
 
-        interview_list = []
+    def mentors_interviews_data(self, mentor_id):
+        self.tags = ["Start", "End", "Applicant", "Code"]
+        self.query = Interview.select().join(InterviewSlot).where(
+            (InterviewSlot.mentor == mentor_id) | (InterviewSlot.mentor2 == mentor_id))
+        self.results = []
 
-        mentors_interview = Interview.select()
+        for query_object in self.query:
+            self.results.append(
+                [str(query_object.interviewslot.start), str(query_object.interviewslot.end),
+                 query_object.applicant.name,
+                 query_object.applicant.code])
 
-        for interview in mentors_interview:
-            if interview.interviewslot.mentor.id == int(id_input):
-                interview_list.append(interview)
+    def question_data(self, mentor_id):
+        self.tags = ["Submission date", "Question", "Application code", "ID"]
+        self.query = Question.select().join(Mentor).where(
+            (Mentor.id == mentor_id) & (Question.status == "waiting for answer"))
+        self.results = []
 
-        print("**************YOUR INTERVIEWS**************\n")
-
-        for interviews in interview_list:
-            print("Your interview starts at {start}\n".format(start=interviews.interviewslot.start))
-            print("Your interview ends at {end}\n".format(end=interviews.interviewslot.end))
-            print("Applicant's name: {applicant}\n".format(applicant=interviews.applicant.name))
-            print("Applicant's code: {code}\n".format(code=interviews.applicant.code))
-
-        print("*******************************************\n")
-
-        if len(interview_list) == 0:
-            print("YOU DON'T HAVE ANY INTERVIEWS.")
-
-    @staticmethod
-    def question_displayer():
-
-        identify_mentor = input("Add your mentor number:")
-
-        mentor = Mentor.get(Mentor.id == int(identify_mentor))
-        questions = Question.select().where(
-            (Question.chosenmentor == mentor) & (Question.status == "waiting for answer"))
-
-        question_detail_list = []
-
-        for question in questions:
-            applicant = Applicant.get(question.applicant_id == Applicant.id)
-            question_detail_list.append([question.submissiondate, question.question, applicant.code, question.id])
-
-        for row in question_detail_list:
-            print("\nSubmission date:")
-            print("\t{date}".format(date=row[0]))
-            print("Question:")
-            print("\t{question}".format(question=row[1]))
-            print("Application code:")
-            print("\t{code}".format(code=row[2]))
-            print("ID:")
-            print("\t{code}".format(code=row[3]))
-        print()
-
-        if len(question_detail_list) == 0:
-            print("No questions to show.")
-            print()
+        for question in self.query:
+            self.results.append([str(question.submissiondate), question.question, question.applicant.code, question.id])
 
     @staticmethod
-    def question_answering():
+    def question_answering(question_id, answer):
 
-        identify_question = input("Choose question ID:")
-        answer_question = input("Add your answer:")
-
-        question = Question.get(Question.id == int(identify_question))
-        Answer.create(answer=answer_question, question=question)
+        question = Question.get(Question.id == int(question_id))
+        Answer.create(answer=answer, question=question)
 
         question.status = "answered"
         question.save()

@@ -1,5 +1,12 @@
-from ui import Ui
+from ui import Menu
 
-# Write here your console application
 
-Ui.interface()
+class Main:
+    def __init__(self):
+        self.ui = Menu()
+
+    def run(self):
+        self.ui.main_menu()
+
+
+Main().run()
