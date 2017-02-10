@@ -167,12 +167,12 @@ class ApplicantsData:
 
         self.results = []
         self.tags = ['Question', 'Status', 'Answer']
-        self.query = Applicant.get(Applicant.code == code_input)
+        self.query = Question.select(Question,Applicant).join(Applicant).where(Applicant.code == code_input)
 
-        for question in self.query.questions:
-
-            try:
-                answer = Answer.get(Answer.question_id == question)
-                self.results.append([question.question, question.status, answer.answer])
-            except:
-                self.results.append([question.question, question.status, "no answer yet"])
+        for question in self.query:
+                answers = Answer.select().where(Answer.question_id == question)
+                if len(answers)==0:
+                    self.results.append([question.question, question.status, "no answer yet"])
+                else:
+                    for answer in answers:
+                        self.results.append([question.question, question.status, answer.answer])
