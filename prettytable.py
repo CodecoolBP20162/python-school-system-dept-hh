@@ -22,16 +22,13 @@ class PrettyTable:
 
             startend_line = "-" * self.full_length
 
-            # upper grid
             print("/", startend_line, "\\", sep='')
 
-            # title list
             for i in range(len(self.title_list)):
                 print("|", "{text:^{width}}".format(
                     text=self.title_list[i], width=self.length[i]), sep='', end='')
             print("|")
 
-            # table
             for i in range(len(self.table)):
                 for x in range(len(self.title_list)):
                     mini_line = "-" * self.length[x]
@@ -42,8 +39,6 @@ class PrettyTable:
                     print("|", "{text:^{width}}".format(
                         text=self.table[i][y], width=self.length[y]), sep='', end='')
                 print("|")
-
-            # lower grid
 
             print("\\", startend_line, "/", sep='')
 
