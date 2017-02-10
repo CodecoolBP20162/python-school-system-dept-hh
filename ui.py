@@ -246,7 +246,7 @@ class Menu:
                     self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "5":
-                user_input = input("Please give a mentor: ")
+                user_input = input("Please give a mentor's name: ")
                 self.administrator_data.applicants_by_mentor(user_input)
                 self.table = PrettyTable(
                     self.administrator_data.results, self.administrator_data.tags)

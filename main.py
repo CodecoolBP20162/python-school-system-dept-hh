@@ -1,5 +1,10 @@
 from ui import Menu
 
 # Write here your console application
-ui = Menu()
-ui.main_menu()
+class Main:
+
+    def __init__(self):
+        self.ui = Menu()
+
+main=Main()
+main.ui.main_menu()
