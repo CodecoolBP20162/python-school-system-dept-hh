@@ -4,8 +4,8 @@ import os
 from applicants import ApplicantsData
 from datetime import datetime
 
-class ExampleDataCreator:
 
+class ExampleDataCreator:
     def csv_reader(self, filename):
         current_file_path = os.path.dirname(os.path.abspath(__file__))
         filename = current_file_path + "/example_csv_files/" + str(filename)
@@ -41,7 +41,7 @@ class ExampleDataCreator:
     def create_dummy_mentors_by_csv(self, mentor_table):
         for mentor in mentor_table:
             school = School.select().where(School.name == mentor[2]).get()
-            Mentor.create(name=mentor[0], email=mentor[1] ,related_school=school)
+            Mentor.create(name=mentor[0], email=mentor[1], related_school=school)
 
     def create_dummy_applicants_by_csv(self, applicants_table):
         budapest_cities = ["Budapest", "Székesfehérvár", "Tata"]
@@ -66,11 +66,13 @@ class ExampleDataCreator:
         for slot in interviewslot_table:
             mentor_select = Mentor.select().order_by(fn.Random()).limit(1)
             mentor1 = mentor_select.get()
-            mentor2 = Mentor.select().where((Mentor.name != mentor1.name) & (Mentor.related_school == mentor1.related_school)).get()
-            InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'), end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1, mentor2=mentor2)
+            mentor2 = Mentor.select().where(
+                (Mentor.name != mentor1.name) & (Mentor.related_school == mentor1.related_school)).get()
+            InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'),
+                                 end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1,
+                                 mentor2=mentor2)
 
     def build_tables(self, tables):
         db.connect()
         db.drop_tables(tables, safe=True, cascade=True)
         db.create_tables(tables, safe=True)
-        

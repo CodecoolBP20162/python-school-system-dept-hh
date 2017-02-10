@@ -10,9 +10,9 @@ class Menu:
         self.options = None
         self.exit_message = None
         self.table = PrettyTable(None, None)
-        self.administrator = AdministratorData()
-        self.applicant = ApplicantsData()
-        self.mentor = MentorsData()
+        self.administrator_data = AdministratorData()
+        self.applicants_data = ApplicantsData()
+        self.mentors_data = MentorsData()
 
     def print_menu(self):
         print(self.header + ":")
@@ -58,21 +58,21 @@ class Menu:
                 name_input = input("Please give your name: ")
                 email_input = input("Please give your email adress: ")
                 try:
-                    self.applicant.new_applicant(city_input, name_input, email_input)
+                    self.applicants_data.new_applicant(city_input, name_input, email_input)
                     print("You have successfully applied.")
                 except:
                     print("Something went wrong! Please try again.")
             elif user_input == "2":
                 user_input = input("Please give your application code: ")
-                self.applicant.check_applicant(user_input)
+                self.applicants_data.check_applicant(user_input)
                 self.table = PrettyTable(
-                    self.applicant.results, self.applicant.tags)
+                    self.applicants_data.results, self.applicants_data.tags)
                 self.table.draw_table()
             elif user_input == "3":
                 user_input = input("Please give your application code: ")
-                self.applicant.check_applicant_interview(user_input)
+                self.applicants_data.check_applicant_interview(user_input)
                 self.table = PrettyTable(
-                    self.applicant.results, self.applicant.tags)
+                    self.applicants_data.results, self.applicants_data.tags)
                 self.table.draw_table()
             elif user_input == "4":
                 self.applicant_question_menu()
@@ -96,15 +96,15 @@ class Menu:
                 code_input = input("Please give your application code: ")
                 question_input = input("Please give your question: ")
                 try:
-                    self.applicant.add_question_to_database(code_input, question_input)
+                    self.applicants_data.add_question_to_database(code_input, question_input)
                     print("Your question is successfully added.")
                 except:
                     print("Something went wrong! Please try again.")
             elif user_input == "2":
                 user_input = input("Please give your application code: ")
-                self.applicant.get_question_info(user_input)
+                self.applicants_data.get_question_info(user_input)
                 self.table = PrettyTable(
-                    self.applicant.results, self.applicant.tags)
+                    self.applicants_data.results, self.applicants_data.tags)
                 self.table.draw_table()
             elif user_input == "0":
                 return
@@ -122,9 +122,9 @@ class Menu:
 
             if user_input == "1":
                 user_input = input("Please give your ID: ")
-                self.mentor.mentors_interviews_data(user_input)
+                self.mentors_data.mentors_interviews_data(user_input)
                 self.table = PrettyTable(
-                    self.mentor.results, self.mentor.tags)
+                    self.mentors_data.results, self.mentors_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 self.mentor_questions_menu()
@@ -145,15 +145,15 @@ class Menu:
 
             if user_input == "1":
                 user_input = input("Please give your ID: ")
-                self.mentor.question_data(user_input)
+                self.mentors_data.question_data(user_input)
                 self.table = PrettyTable(
-                    self.mentor.results, self.mentor.tags)
+                    self.mentors_data.results, self.mentors_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 question = input("Please give the question ID: ")
                 answer = input("Please type your answer: ")
                 try:
-                    self.mentor.question_answering(question, answer)
+                    self.mentors_data.question_answering(question, answer)
                     print("Your answer is successfully submitted.")
                 except:
                     print("Something went wrong! Please try again.")
@@ -195,9 +195,9 @@ class Menu:
             user_input = input("Please choose an option: ")
 
             if user_input == "1":
-                self.administrator.listing_all_applicants()
+                self.administrator_data.listing_all_applicants()
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 self.admin_applicant_filter_menu()
@@ -219,44 +219,44 @@ class Menu:
             if user_input == "1":
                 user_input = input(
                     "Your choice(accepted/rejected/new/in progress): ")
-                self.administrator.applicants_by_status(user_input)
+                self.administrator_data.applicants_by_status(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
                 try:
-                    self.administrator.applicants_by_interview(user_input)
+                    self.administrator_data.applicants_by_interview(user_input)
                 except ValueError:
                     print("Date is not in the right format!")
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "3":
                 user_input = input("Please give a location: ")
-                self.administrator.applicants_by_location(user_input)
+                self.administrator_data.applicants_by_location(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "4":
                 user_input = input("Please give a city: ")
-                self.administrator.applicants_by_city(user_input)
+                self.administrator_data.applicants_by_city(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "5":
                 user_input = input("Please give a mentor: ")
-                self.administrator.applicants_by_mentor(user_input)
+                self.administrator_data.applicants_by_mentor(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "6":
                 user_input = input("Please give an application code: ")
-                self.administrator.applicant_email_by_applicant_code(
+                self.administrator_data.applicant_email_by_applicant_code(
                     user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "0":
                 return
@@ -274,9 +274,9 @@ class Menu:
             user_input = input("Please choose an option:")
 
             if user_input == "1":
-                self.administrator.listing_all_interviews()
+                self.administrator_data.listing_all_interviews()
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 self.admin_interview_filter_menu()
@@ -300,34 +300,34 @@ class Menu:
 
             if user_input == "1":
                 user_input = input("Please give a mentor's name: ")
-                self.administrator.listing_interviews_by_mentor(user_input)
+                self.administrator_data.listing_interviews_by_mentor(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 user_input = input("Please give an application code: ")
-                self.administrator.listing_interviews_by_applicant_code(
+                self.administrator_data.listing_interviews_by_applicant_code(
                     user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "3":
                 user_input = input("Please give a school location: ")
-                self.administrator.listing_interviews_by_school(
+                self.administrator_data.listing_interviews_by_school(
                     user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "4":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
                 try:
-                    self.administrator.listing_interviews_by_date(
+                    self.administrator_data.listing_interviews_by_date(
                         user_input)
                 except ValueError:
                     print("Date is not in the right format!")
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "0":
                 return
@@ -349,7 +349,7 @@ class Menu:
                 mentor_id = input("Please give a mentor's ID: ")
                 question_id = input("Please give a question's ID:")
                 try:
-                    self.administrator.assign_mentor_to_question(mentor_id, question_id)
+                    self.administrator_data.assign_mentor_to_question(mentor_id, question_id)
                     print("The question is given to the mentor.")
                 except:
                     print("Something went wrong! Please try again.")
@@ -371,42 +371,39 @@ class Menu:
 
             if user_input == "1":
                 user_input = input("Your choice(answered/waiting for answer/new): ")
-                self.administrator.question_by_status(user_input)
+                self.administrator_data.question_by_status(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "2":
                 user_input = input("Please give an application code: ")
-                self.administrator.question_by_applicants(user_input)
+                self.administrator_data.question_by_applicants(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "3":
                 user_input = input("Please give a school: ")
-                self.administrator.question_by_school(user_input)
+                self.administrator_data.question_by_school(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "4":
                 user_input = input("Please give a mentor's name: ")
-                self.administrator.question_by_mentor(user_input)
+                self.administrator_data.question_by_mentor(user_input)
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "5":
                 user_input = input("Please give a specific date in the following format:\n"
                                    "Example format: 2015-01-01: ")
                 try:
-                    self.administrator.question_by_date(user_input)
+                    self.administrator_data.question_by_date(user_input)
                 except ValueError:
                     print("Date is not in the right format!")
                 self.table = PrettyTable(
-                    self.administrator.results, self.administrator.tags)
+                    self.administrator_data.results, self.administrator_data.tags)
                 self.table.draw_table()
             elif user_input == "0":
                 return
             else:
                 print("Wrong input")
-
-    def interface_flow(self):
-        self.main_menu()

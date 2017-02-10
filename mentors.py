@@ -9,17 +9,20 @@ class MentorsData:
 
     def mentors_interviews_data(self, mentor_id):
         self.tags = ["Start", "End", "Applicant", "Code"]
-        self.query = Interview.select().join(InterviewSlot).where((InterviewSlot.mentor == mentor_id) | (InterviewSlot.mentor2 == mentor_id))
+        self.query = Interview.select().join(InterviewSlot).where(
+            (InterviewSlot.mentor == mentor_id) | (InterviewSlot.mentor2 == mentor_id))
         self.results = []
 
         for query_object in self.query:
-                self.results.append(
-                    [str(query_object.interviewslot.start), str(query_object.interviewslot.end), query_object.applicant.name,
-                     query_object.applicant.code])
+            self.results.append(
+                [str(query_object.interviewslot.start), str(query_object.interviewslot.end),
+                 query_object.applicant.name,
+                 query_object.applicant.code])
 
     def question_data(self, mentor_id):
         self.tags = ["Submission date", "Question", "Application code", "ID"]
-        self.query = Question.select().join(Mentor).where((Mentor.id == mentor_id) & (Question.status == "waiting for answer"))
+        self.query = Question.select().join(Mentor).where(
+            (Mentor.id == mentor_id) & (Question.status == "waiting for answer"))
         self.results = []
 
         for question in self.query:
@@ -33,4 +36,3 @@ class MentorsData:
 
         question.status = "answered"
         question.save()
-

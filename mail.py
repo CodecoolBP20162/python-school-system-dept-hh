@@ -2,8 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 
-class Mail:
 
+class Mail:
     def __init__(self, recipient_list, message, subject):
         self.server = smtplib.SMTP('smtp.gmail.com:587')
         self.user = 'codecool.depth@gmail.com'
@@ -19,6 +19,7 @@ class Mail:
         self.server.login(self.user, self.password)
         self.server.sendmail(self.sender, self.recipient_list, self.message.as_string())
         self.server.quit()
+
 
 """
 recipient_list = ['recipient@gmail.com', 'recipient2@gmail.com']

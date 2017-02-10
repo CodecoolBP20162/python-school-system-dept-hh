@@ -1,6 +1,4 @@
-
 class PrettyTable:
-
     def __init__(self, table, title_list):
         self.table = table
         self.title_list = title_list
@@ -9,7 +7,7 @@ class PrettyTable:
 
     def draw_table(self):
 
-        if len(self.table)!= 0:
+        if len(self.table) != 0:
             for i in range(len(self.title_list)):
                 self.length.append(0)
             for i in range(len(self.title_list)):

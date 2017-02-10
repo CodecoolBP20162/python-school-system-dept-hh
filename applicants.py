@@ -4,7 +4,6 @@ import random
 from models import *
 import datetime
 from mail import Mail
-from prettytable import PrettyTable
 
 
 class ApplicantsData:
@@ -13,7 +12,6 @@ class ApplicantsData:
         self.results = []
         self.tags = []
 
-
     def check_applicant(self, code_input):
 
         self.results = []
@@ -21,8 +19,9 @@ class ApplicantsData:
         self.query = Applicant.select().where(Applicant.code == code_input)
 
         for query_object in self.query:
-
-            self.results.append([query_object.name, query_object.city.name,query_object.status,query_object.school.name, query_object.email])
+            self.results.append(
+                [query_object.name, query_object.city.name, query_object.status, query_object.school.name,
+                 query_object.email])
 
     def check_applicant_interview(self, code_input):
 
@@ -30,11 +29,13 @@ class ApplicantsData:
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.tags = ["Interview date", "Mentor", "Mentor_2", "School"]
-        self.query = InterviewSlot.select(InterviewSlot, Mentor1, Mentor2, School).join(Interview).join(Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
+        self.query = InterviewSlot.select(InterviewSlot, Mentor1, Mentor2, School).join(Interview).join(
+            Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
+        InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_input)
 
         for query_object in self.query:
-            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name, query_object.mentor.related_school.name])
-
+            self.results.append([str(query_object.start), query_object.mentor.name, query_object.mentor2.name,
+                                 query_object.mentor.related_school.name])
 
     def check_city(self, city_input):
 
@@ -43,7 +44,6 @@ class ApplicantsData:
 
         for query_object in self.query:
             self.results.append([query_object.name])
-
 
     @staticmethod
     def email_about_code_and_city_to_applicant(name_input, email_input, application_code, applicant_school):
@@ -60,7 +60,6 @@ class ApplicantsData:
         application_email = Mail(recipient_list, message, subject)
         application_email.send()
 
-
     @staticmethod
     def email_about_interview_to_applicant(name_input, email_input, new_interview):
 
@@ -73,12 +72,13 @@ class ApplicantsData:
             Please arrive 15 minutes early.
 
             Good luck!
-            """.format(name_input=name_input, time=new_interview.interviewslot.start, mentor=new_interview.interviewslot.mentor.name, mentor2=new_interview.interviewslot.mentor2.name)
+            """.format(name_input=name_input, time=new_interview.interviewslot.start,
+                       mentor=new_interview.interviewslot.mentor.name, mentor2=new_interview.interviewslot.mentor2.name)
 
         except:
             message = """
             Hi {name_input},
-            Our scedule is full, we could not give you an interview date yet.
+            Our schedule is full, we could not give you an interview date yet.
             If you do not get one within a week, please contact 06-1-1234567.
             Thank you.
             """.format(name_input=name_input)
@@ -98,7 +98,9 @@ class ApplicantsData:
 
         Best regards,
         The Codecool Team
-        """.format(mentor_name=new_interview.interviewslot.mentor.name, mentor2_name=new_interview.interviewslot.mentor2.name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
+        """.format(mentor_name=new_interview.interviewslot.mentor.name,
+                   mentor2_name=new_interview.interviewslot.mentor2.name, start=new_interview.interviewslot.start,
+                   end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
@@ -126,7 +128,8 @@ class ApplicantsData:
         except:
             new_interview = None
 
-        ApplicantsData.email_about_code_and_city_to_applicant(name_input, email_input, application_code, applicant_school)
+        ApplicantsData.email_about_code_and_city_to_applicant(name_input, email_input, application_code,
+                                                              applicant_school)
         ApplicantsData.email_about_interview_to_applicant(name_input, email_input, new_interview)
 
         return [new_applicant, new_interview]
@@ -149,8 +152,7 @@ class ApplicantsData:
         for ids in code_table:
             code_list.append(ids.id)
 
-        rand_code = str(len(code_list)+1) + rand_chars
-
+        rand_code = str(len(code_list) + 1) + rand_chars
 
         return rand_code
 
@@ -174,6 +176,3 @@ class ApplicantsData:
                 self.results.append([question.question, question.status, answer.answer])
             except:
                 self.results.append([question.question, question.status, "no answer yet"])
-
-
-
