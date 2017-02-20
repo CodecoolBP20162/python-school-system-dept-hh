@@ -5,13 +5,21 @@
 
 {% block content %}
     <h1>School System Main Menu</h1>
-    <p>
+    <div>
         <form>
             <input type="button" value="New Applicant Registration" onclick="location.href = 'applicant_registration';">
         </form>
-    </p>
-    <p>
+    </div>
+    <div>
         <form>
-            <input type="button" value="Listing all Applicants" onclick="location.href = '/admin/applicant_list';">
+            <input type="button" value="Show all Applicants" onclick="location.href = '/admin/applicant_list';">
         </form>
+    </div>
+
+    <div>
+       <form>
+            <input type="button" value="Show all Interviews" onclick="location.href = '/admin/interview_list';">
+       </form>
+    </div>
+
 {% endblock %}

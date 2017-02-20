@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}All Applicants{% endblock %}
+
+
+
+{% block content %}
+    <h1>All Interviews</h1>
+    <p>
+        <form>
+            <input type="button" value="Back to the menu" onclick="location.href = '/';">
+        </form>
+    </p>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+        </tr>
+        {% for x in content %}
+        <tr>
+            <td>{{ x.mentor.related_school.name }}</td>
+            <td>{{ x.interview.applicant.code }}</td>
+            <td>{{ x.mentor.name }}</td>
+            <td>{{ x.mentor2.name }}</td>
+            <td>{{ x.start }}</td>
+            {% endfor %}
+    </table>
+{% endblock %}

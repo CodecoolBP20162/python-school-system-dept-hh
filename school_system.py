@@ -33,13 +33,13 @@ def close_db(error):
 
 @app.route('/')
 def main_menu():
-    return render_template('main.html')
+    return render_template('admin_menu.html')
 
 
 @app.route('/applicant_registration')
 def new_applicant_form():
     cities = City.select().order_by(City.id.asc())
-    return render_template('registration.html', cities=cities)
+    return render_template('register_applicant.html', cities=cities)
 
 
 @app.route('/registration', methods=['POST'])
@@ -54,7 +54,17 @@ def listing_all_applicants():
     administrator_data.listing_all_applicants()
     table_header = administrator_data.tags
     table_content = administrator_data.query
-    return render_template('list.html', header=table_header, content=table_content)
+    return render_template('all_applicants.html', header=table_header, content=table_content)
+
+@app.route('/admin/interview_list')
+def listing_all_interviews():
+    administrator_data.listing_all_interviews()
+    table_header = administrator_data.tags
+    table_content = administrator_data.query
+    return render_template('all_interviews.html', header=table_header, content=table_content)
+
+
+
 
 if __name__ == "__main__":
     init_db()
