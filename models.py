@@ -62,3 +62,8 @@ class Question(BaseModel):
 class Answer(BaseModel):
     answer = TextField()
     question = ForeignKeyField(Question, related_name="questions")
+
+class Email(BaseModel):
+    subject = TextField()
+    message = TextField()
+    recipients = TextField()
