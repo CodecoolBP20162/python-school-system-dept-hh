@@ -1,10 +1,9 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}New Applicant Registration{% endblock %}
 
-<head>
-    <title>New Applicant Registration</title>
-</head>
 
-<body>
+
+{% block content %}
     <h1>New Applicant Registration</h1>
     <form action="{{ url_for('new_applicant_registration') }}" method=post>
         <p>
@@ -29,3 +28,5 @@
             <input type=submit id="Register" value=Register>
         </p>
     </form>
+
+{% endblock %}

@@ -1,10 +1,9 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}All Applicants{% endblock %}
 
-<head>
-    <title>All Applicants</title>
-</head>
 
-<body>
+
+{% block content %}
     <h1>All Applicants</h1>
     <p>
         <form>
@@ -27,4 +26,11 @@
             <td>{{ person.school.name }}</td>
             {% endfor %}
     </table>
-</body>
+{% endblock %}
+
+
+
+
+
+
+

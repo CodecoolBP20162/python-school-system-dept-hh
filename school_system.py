@@ -8,7 +8,7 @@ from applicants import ApplicantsData
 
 DEBUG = True
 
-app = Flask(__name__, static_url_path="/templates", static_folder="templates")
+app = Flask(__name__)
 app.config.from_object(__name__)
 
 administrator_data = AdministratorData()
@@ -46,7 +46,7 @@ def new_applicant_form():
 def new_applicant_registration():
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
-    return redirect('new_applicant_form')
+    return redirect('/')
 
 
 @app.route('/admin/applicant_list')

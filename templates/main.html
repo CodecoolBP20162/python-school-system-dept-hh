@@ -1,10 +1,9 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}All Applicants{% endblock %}
 
-<head>
-    <title>School System Main Menu</title>
-</head>
 
-<body>
+
+{% block content %}
     <h1>School System Main Menu</h1>
     <p>
         <form>
@@ -15,5 +14,4 @@
         <form>
             <input type="button" value="Listing all Applicants" onclick="location.href = '/admin/applicant_list';">
         </form>
-    </p>
-</body>
+{% endblock %}
