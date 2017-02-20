@@ -1,0 +1,31 @@
+<!doctype html>
+
+<head>
+    <title>New Applicant Registration</title>
+</head>
+
+<body>
+    <h1>New Applicant Registration</h1>
+    <form action="{{ url_for('new_applicant_registration') }}" method=post>
+        <p>
+            <label for="name">Name</label>
+        </p>
+        <p>
+            <textarea id="name" name="name" rows=1 cols=70 maxlength="70" required="required"></textarea>
+        </p>
+        <p>
+            <label for="city">City</label>
+        </p>
+        <p>
+            <select id="city" name="city">
+                {% for possible_city in cities %}
+                <option value={{ possible_city.name }}>{{ possible_city.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <input type="email" id="email" name="email" pattern="[^ @]*@[^ @]*" placeholder="Enter your email">
+        </p>
+        <p>
+            <input type=submit id="Register" value=Register>
+        </p>
+    </form>

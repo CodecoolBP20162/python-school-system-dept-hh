@@ -1,0 +1,30 @@
+<!doctype html>
+
+<head>
+    <title>All Applicants</title>
+</head>
+
+<body>
+    <h1>All Applicants</h1>
+    <p>
+        <form>
+            <input type="button" value="Add new User Story" onclick="location.href = 'story';">
+        </form>
+    </p>
+    <table border="1">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+        </tr>
+        {% for person in content %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.city.name }}</td>
+            <td>{{ person.status }}</td>
+            <td>{{ person.code }}</td>
+            <td>{{ person.school.name }}</td>
+            {% endfor %}
+    </table>
+</body>
