@@ -18,7 +18,7 @@ mentors_data = MentorsData()
 
 
 def init_db():
-    db = PostgresqlDatabase(login[0], user=login[0])
+    db = PostgresqlDatabase('dry', user='dry')
     try:
         db.connect()
         print("Database connection established.")
@@ -32,6 +32,11 @@ def close_db(error):
         g.postgre_db.close()
 
 @app.route('/')
+def home_menu():
+    return render_template('home.html')
+
+
+@app.route('/login')
 def login():
 
     USERNAME = 'adminus'
@@ -63,12 +68,6 @@ def logout():
     # remove the username from the session if it is there
     session.pop('admin', None)
     return redirect(url_for('main_menu'))
-
-
-
-@app.route('/admin_menu')
-def admin_menu():
-    return render_template('admin_menu.html')
 
 
 @app.route('/applicant_registration')
