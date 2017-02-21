@@ -1,15 +1,30 @@
-{% extends "layout.html" %}
-{% block title %}All Applicants{% endblock %}
-
-
-
-{% block content %}
-    <h1>All Applicants</h1>
-    <p>
-        <form>
-            <input type="button" value="Back to the menu" onclick="location.href = '/';">
-        </form>
-    </p>
+{% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+<h1>All Applicants</h1>
+<p>
+    <input type="button" value="Back to the menu" onclick="location.href = '/';">
+</p>
+<p>
+    <h2>Filter by</h2>
+</p>
+<p>
+    <form action="{{ url_for('filter_applicants') }}" method="post">
+        <label for="filter">Filter</label>
+        <textarea id="filter" name="filter" rows=1 cols=80 maxlength="70"></textarea>
+</p>
+<p>
+    <label for="filter_by">Filter by</label>
+    <select id="filter_by" name="filter_by">
+                <option value="Status" name="Status" id="Status">Status</option>
+                <option value="Interview" name="Interview" id="Interview">Interview</option>
+                <option value="School" name="School" id="School">School</option>
+                <option value="City" name="City" id="City">City</option>
+                <option value="Mentor" name="Mentor" id="Mentor">Mentor</option>
+                <option value="Code" name="Code" id="Code">Email by Code</option>  
+        </select>
+</p>
+<input type=submit id=filter_button value="Filter it!">
+</form>
+<p>
     <table cellspacing="0" cellpadding="0">
         <tr>
             {% for tag in header %}
@@ -17,20 +32,12 @@
             {% endfor %}
         </tr>
         {% for person in content %}
-        <tr>
-            <td>{{ person.id }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.city.name }}</td>
-            <td>{{ person.status }}</td>
-            <td>{{ person.code }}</td>
-            <td>{{ person.school.name }}</td>
+        <tr>{% for personal_data in person %}
+            <td>{{ personal_data }}</td>
             {% endfor %}
+        </tr>
+        {% else %}
+        <strong>There is no data in the database with the given filter!</strong> {% endfor %}
     </table>
+</p>
 {% endblock %}
-
-
-
-
-
-
-

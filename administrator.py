@@ -83,7 +83,7 @@ class AdministratorData:
 
     def applicant_email_by_applicant_code(self, applicant_code):
         self.tags = ["ID", "Name", "Email", "Status", "School", "Code"]
-        self.query = Applicant.select().where(Applicant.code == applicant_code)
+        self.query = Applicant.select().where(Applicant.code.contains(applicant_code))
         self.results = []
 
         for query_object in self.query:

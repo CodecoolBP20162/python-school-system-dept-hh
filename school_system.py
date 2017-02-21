@@ -55,7 +55,7 @@ def listing_all_applicants():
     administrator_data.listing_all_applicants()
     table_header = administrator_data.tags
     table_content = administrator_data.results
-    return render_template('new_all_applicants.html', header=table_header, content=table_content)
+    return render_template('all_applicants.html', header=table_header, content=table_content)
 
 
 @app.route('/admin/interview_list')
@@ -101,7 +101,7 @@ def filter_applicants():
                                                              "filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
-    return render_template('new_all_applicants.html', header=table_header, content=table_content)
+    return render_template('all_applicants.html', header=table_header, content=table_content)
 
 
 if __name__ == "__main__":
