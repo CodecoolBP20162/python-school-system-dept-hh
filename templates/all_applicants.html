@@ -3,7 +3,12 @@
 {% block content %}
 
 {% if 'admin' in session %}
-<p>ADMIN ON THE BRIDGE!!4!!négy!!</p>
+<p>{{ message }} IS ON THE BRIDGE!</p>
+<form>
+
+    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
+
+</form>
 {% endif %}
 
 

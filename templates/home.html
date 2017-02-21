@@ -3,7 +3,12 @@
 {% block content %}
 
 {% if 'admin' in session %}
-<p>ADMIN ON THE BRIDGE!!4!!négy!!</p>
+<p>{{ message }}</p>
+<form>
+
+    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
+
+</form>
 {% endif %}
 
 <form action="/login" method="post">
@@ -28,12 +33,21 @@
     <p>{{ error }}</p>
     {% endif %}
 
+
 </form>
 
 
 <form>
 
-    <input type="button" value="register" onclick="location.href = '/applicant_registration';">
+    <input type="button" value="NEW APPLICANT REGISTRATION" onclick="location.href = '/applicant_registration';">
 
 </form>
+
+    {% if 'admin' in session %}
+    <form>
+
+        <input type="button" value="ADMINISTRATOR MENU" onclick="location.href = '/admin_menu';">
+
+    </form>
+    {% endif %}
 {% endblock %}
