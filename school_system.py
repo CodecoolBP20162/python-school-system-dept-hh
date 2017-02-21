@@ -56,6 +56,15 @@ def listing_all_applicants():
     table_content = administrator_data.query
     return render_template('list.html', header=table_header, content=table_content)
 
+
+@app.route('/admin/e-mail-log')
+def listing_all_emails():
+    administrator_data.listing_all_emails()
+    table_header = administrator_data.tags
+    table_content = administrator_data.query
+    return render_template('email_list.html', header=table_header, content=table_content)
+
+
 if __name__ == "__main__":
     init_db()
     app.run(host='0.0.0.0')
