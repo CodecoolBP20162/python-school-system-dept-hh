@@ -68,11 +68,22 @@ def listing_all_interviews():
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
     if request.form["filter_by"] == "Status":
-        administrator_data.applicants_by_status(
-            status_filter=request.form["filter"])
+        administrator_data.applicants_by_status(request.form["filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('new_all_applicants.html', header=table_header, content=table_content)
+    elif request.form["filter_by"] == "School":
+        administrator_data.applicants_by_location(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "City":
+        administrator_data.applicants_by_city(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "City":
+        administrator_data.applicants_by_mentor(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    return render_template('new_all_applicants.html', header=table_header, content=table_content)
 
 
 if __name__ == "__main__":

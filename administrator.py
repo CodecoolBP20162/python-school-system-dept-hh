@@ -46,26 +46,29 @@ class AdministratorData:
                  query_object.applicant.school.name, str(query_object.interviewslot.start)])
 
     def applicants_by_location(self, location_filter):
-        self.tags = ["School", "Name", "Code"]
-        self.query = Applicant.select().join(School).where(School.name == location_filter)
+        self.tags = ["School", "ID", "Name", "City", "Status", "Code"]
+        self.query = Applicant.select().join(School).where(
+            School.name.contains(location_filter))
         self.results = []
 
         for query_object in self.query:
             self.results.append(
-                [query_object.school.name, query_object.name, query_object.code])
+                [query_object.school.name, query_object.id, query_object.name,
+                 query_object.city.name, query_object.status, query_object.code, ])
 
     def applicants_by_city(self, city_filter):
-        self.tags = ["City", "Name", "Code"]
-        self.query = Applicant.select().join(City).where(City.name == city_filter)
+        self.tags = ["City", "ID", "Name", "Status", "Code", "School"]
+        self.query = Applicant.select().join(City).where(City.name.contains(city_filter))
         self.results = []
 
         for query_object in self.query:
             self.results.append(
-                [query_object.city.name, query_object.name, query_object.code])
+                [query_object.city.name, query_object.id, query_object.name, query_object.status, query_object.code,
+                 query_object.school.name])
 
     def applicants_by_mentor(self, mentor_filter):
         self.results = []
-        self.tags = ["Mentor", "Mentor2", "Applicant name", "Code"]
+        self.tags = ["Mentor", "Mentor2", "ID", "Name", "Status" "Code"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
@@ -75,8 +78,9 @@ class AdministratorData:
 
         for query_object in self.query:
             self.results.append(
-                [query_object.mentor.name, query_object.mentor2.name, query_object.interview.applicant.name,
-                 query_object.interview.applicant.code])
+                [query_object.mentor.name, query_object.mentor2.name,
+                 query_object.interview.applicant.id, query_object.interview.applicant.status,
+                 query_object.interview.applicant.name, query_object.interview.applicant.code])
 
     def applicant_email_by_applicant_code(self, applicant_code):
         self.tags = ["Name", "Email"]
