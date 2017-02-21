@@ -6,7 +6,6 @@ from mentors import MentorsData
 from applicants import ApplicantsData
 import datetime
 
-
 DEBUG = True
 
 app = Flask(__name__)
@@ -98,10 +97,11 @@ def filter_applicants():
         table_content = administrator_data.results
     elif request.form["filter_by"] == "Code":
         administrator_data.applicant_email_by_applicant_code(request.form[
-                                                             "filter"])
+                                                                 "filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
     return render_template('all_applicants.html', header=table_header, content=table_content)
+
 
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
@@ -109,7 +109,6 @@ def listing_all_emails():
     table_header = administrator_data.tags
     table_content = administrator_data.query
     return render_template('email_list.html', header=table_header, content=table_content)
-
 
 
 if __name__ == "__main__":

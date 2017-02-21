@@ -61,7 +61,8 @@ class ApplicantsData:
         application_email = Mail(recipient_list, message, subject)
         application_email.send()
         message = textwrap.shorten(message, width=140, placeholder="...")
-        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(), recipient_name=name_input, recipient_email=email_input)
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_applicant(name_input, email_input, new_interview):
@@ -90,7 +91,8 @@ class ApplicantsData:
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
         message = textwrap.shorten(message, width=140, placeholder="...")
-        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(), recipient_name=name_input, recipient_email=email_input)
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
@@ -107,14 +109,16 @@ class ApplicantsData:
 
         Best regards,
         The Codecool Team
-        """.format(mentor_name= mentor_name, mentor2_name=mentor2_name, start=new_interview.interviewslot.start, end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
+        """.format(mentor_name=mentor_name, mentor2_name=mentor2_name, start=new_interview.interviewslot.start,
+                   end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
         message = textwrap.shorten(message, width=140, placeholder="...")
-        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),recipient_name=mentor_name, recipient_email=recipient_list[0])
-        new_email2 = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),recipient_name=mentor2_name, recipient_email=recipient_list[1])
-
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=mentor_name, recipient_email=recipient_list[0])
+        new_email2 = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                  recipient_name=mentor2_name, recipient_email=recipient_list[1])
 
     @staticmethod
     def new_applicant(city_input, name_input, email_input):

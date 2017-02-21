@@ -4,27 +4,27 @@
 
 {% block content %}
 
-    <h1>All Emails</h1>
-    <div>
-        <form>
-            <input type="button" value="Back to the menu" onclick="location.href = '/';">
-        </form>
-    </div>
-    <table border="1">
-        <tr>
-            {% for tag in header %}
-            <th>{{ tag }}</th>
-            {% endfor %}
-        </tr>
-        {% for row in content %}
-        <tr>
-            <td>{{ row.subject }}</td>
-            <td>{{ row.message }}</td>
-            <td>{{ row.type }}</td>
-            <td>{{ row.submissiondate }}</td>
-            <td>{{ row.recipient_name }}</td>
-            <td>{{ row.recipient_email }}</td>
-            {% endfor %}
-    </table>
+<h1>All Emails</h1>
+<div>
+    <form>
+        <input type="button" value="Back to the menu" onclick="location.href = '/';">
+    </form>
+</div>
+<table border="1">
+    <tr>
+        {% for tag in header %}
+        <th>{{ tag }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in content %}
+    <tr>
+        <td>{{ row.subject }}</td>
+        <td>{{ row.message }}</td>
+        <td>{{ row.type }}</td>
+        <td>{{ row.submissiondate }}</td>
+        <td>{{ row.recipient_name }}</td>
+        <td>{{ row.recipient_email }}</td>
+        {% endfor %}
+</table>
 
 {% endblock %}
