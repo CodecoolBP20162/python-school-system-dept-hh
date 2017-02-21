@@ -1,8 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}All Applicants{% endblock %}
-
-
 {% block content %}
+
+{% if 'admin' in session %}
+<p>{{ message }}</p>
+<form>
+
+    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
+
+</form>
+{% endif %}
+
+
 <h1>All Interviews</h1>
 <p>
 <form>

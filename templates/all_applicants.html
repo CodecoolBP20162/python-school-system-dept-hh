@@ -1,4 +1,17 @@
-{% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+{% extends "layout.html" %}
+{% block title %}All Applicants{% endblock %}
+{% block content %}
+
+{% if 'admin' in session %}
+<p>{{ message }} IS ON THE BRIDGE!</p>
+<form>
+
+    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
+
+</form>
+{% endif %}
+
+
 <h1>All Applicants</h1>
 <p>
     <input type="button" value="Back to the menu" onclick="location.href = '/';">
