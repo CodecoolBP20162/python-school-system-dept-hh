@@ -4,7 +4,7 @@ identify = open("parameter.txt", "r")
 login = identify.readlines()
 identify.close()
 
-db = PostgresqlDatabase('dry', user='dry')
+db = PostgresqlDatabase('petya', user='petya')
 
 
 class BaseModel(Model):

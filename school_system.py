@@ -18,7 +18,7 @@ mentors_data = MentorsData()
 
 
 def init_db():
-    db = PostgresqlDatabase('dry', user='dry')
+    db = PostgresqlDatabase('petya', user='petya')
     try:
         db.connect()
         print("Database connection established.")
@@ -36,11 +36,11 @@ def home_menu():
     return render_template('home.html')
 
 
-@app.route('/login')
+@app.route('/login', methods= ['GET','POST'])
 def login():
 
-    USERNAME = 'adminus'
-    PASSWORD = 'adminpass'
+    USERNAME = 'admin'
+    PASSWORD = 'admin'
 
     name_error = 'Invalid username!'
     password_error = 'Invalid password!'
@@ -62,6 +62,8 @@ def login():
 
     else:
         return redirect('/')
+
+
 
 @app.route('/logout')
 def logout():
