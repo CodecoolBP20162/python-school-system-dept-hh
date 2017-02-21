@@ -56,11 +56,12 @@ def listing_all_applicants():
     table_content = administrator_data.query
     return render_template('all_applicants.html', header=table_header, content=table_content)
 
+
 @app.route('/admin/interview_list')
 def listing_all_interviews():
     administrator_data.listing_all_interviews()
     table_header = administrator_data.tags
-    table_content = administrator_data.query
+    table_content = administrator_data.results
     return render_template('all_interviews.html', header=table_header, content=table_content)
 
 @app.route('/admin/e-mail-log')
@@ -69,6 +70,26 @@ def listing_all_emails():
     table_header = administrator_data.tags
     table_content = administrator_data.query
     return render_template('email_list.html', header=table_header, content=table_content)
+
+@app.route('/admin/interview_list', methods=["POST"])
+def filter_interviews():
+    if request.form["filter_by"] == "School":
+        administrator_data.listing_interviews_by_school(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "Applicant code":
+        administrator_data.listing_interviews_by_applicant_code(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "Mentor":
+        administrator_data.listing_interviews_by_mentor(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "Date":
+        administrator_data.listing_interviews_by_date(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    return render_template('all_interviews.html', header=table_header, content=table_content)
 
 
 if __name__ == "__main__":

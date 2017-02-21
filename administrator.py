@@ -105,7 +105,7 @@ class AdministratorData:
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
             Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
             InterviewSlot.mentor2 == Mentor2.id)).join(School).where(
-            (Mentor1.name == mentor_filter) | (Mentor2.name == mentor_filter))
+            (Mentor1.name.contains(mentor_filter)) | (Mentor2.name.contains(mentor_filter)))
         self.results = []
 
         for query_object in self.query:
@@ -119,7 +119,7 @@ class AdministratorData:
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
             Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
-            InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code == code_filter)
+            InterviewSlot.mentor2 == Mentor2.id)).join(School).where(Applicant.code.contains(code_filter))
         self.results = []
 
         for query_object in self.query:
@@ -133,7 +133,7 @@ class AdministratorData:
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
             Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
-            InterviewSlot.mentor2 == Mentor2.id)).join(School).where(School.name == school_filter)
+            InterviewSlot.mentor2 == Mentor2.id)).join(School).where(School.name.contains(school_filter))
         self.results = []
 
         for query_object in self.query:
