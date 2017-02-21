@@ -4,6 +4,7 @@ from flask import Flask, request, g, redirect, url_for, \
 from administrator import AdministratorData
 from mentors import MentorsData
 from applicants import ApplicantsData
+import datetime
 
 
 DEBUG = True
@@ -71,6 +72,18 @@ def filter_applicants():
         administrator_data.applicants_by_status(request.form["filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
+    elif request.form["filter_by"] == "Interview":
+        try:
+            filter_transfer = datetime.datetime.strptime(
+                request.form["filter"], '%Y-%m-%d')
+        except ValueError:
+            table_header = ["ERROR: wrong date format"]
+            table_content = [
+                ["Please give the interview's date in the following format: 2015-01-01"]]
+        else:
+            administrator_data.applicants_by_interview(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
     elif request.form["filter_by"] == "School":
         administrator_data.applicants_by_location(request.form["filter"])
         table_header = administrator_data.tags

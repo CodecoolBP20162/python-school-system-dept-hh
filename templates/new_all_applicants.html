@@ -15,7 +15,7 @@
     <label for="filter_by">Filter by</label>
     <select id="filter_by" name="filter_by">
                 <option value="Status" name="Status" id="Status">Status</option>
-                <option value="Interview" name="Interview" id="Interview">Interview</option>
+                <option value="Interview" name="Interview" id="Interview">Interview date</option>
                 <option value="School" name="School" id="School">School</option>
                 <option value="City" name="City" id="City">City</option>
                 <option value="Mentor" name="Mentor" id="Mentor">Mentor</option>
@@ -32,13 +32,9 @@
             {% endfor %}
         </tr>
         {% for person in content %}
-        <tr>
-            <td>{{ person[0] }}</td>
-            <td>{{ person[1] }}</td>
-            <td>{{ person[2] }}</td>
-            <td>{{ person[3] }}</td>
-            <td>{{ person[4] }}</td>
-            <td>{{ person[5] }}</td>
+        <tr>{% for personal_data in person %}
+            <td>{{ personal_data }}</td>
+            {% endfor %}
         </tr>
         {% endfor %}
     </table>

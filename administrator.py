@@ -30,8 +30,7 @@ class AdministratorData:
                  query_object.school.name])
 
     def applicants_by_interview(self, date_filter):
-        print(date_filter)
-        self.tags = ["Name", "Code", "School"]
+        self.tags = ["Name", "Code", "School", "Time"]
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
         self.query = Interview.select(Interview, InterviewSlot, Applicant, School).join(InterviewSlot).switch(
             Interview).join(Applicant).switch(Applicant).join(School).where(
