@@ -79,8 +79,13 @@ def filter_applicants():
         administrator_data.applicants_by_city(request.form["filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
-    elif request.form["filter_by"] == "City":
+    elif request.form["filter_by"] == "Mentor":
         administrator_data.applicants_by_mentor(request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+    elif request.form["filter_by"] == "Code":
+        administrator_data.applicant_email_by_applicant_code(request.form[
+                                                             "filter"])
         table_header = administrator_data.tags
         table_content = administrator_data.results
     return render_template('new_all_applicants.html', header=table_header, content=table_content)

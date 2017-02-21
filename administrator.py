@@ -68,13 +68,13 @@ class AdministratorData:
 
     def applicants_by_mentor(self, mentor_filter):
         self.results = []
-        self.tags = ["Mentor", "Mentor2", "ID", "Name", "Status" "Code"]
+        self.tags = ["Mentor", "Mentor2", "ID", "Name", "Status", "Code"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
             Applicant).switch(InterviewSlot).join(Mentor1, on=(InterviewSlot.mentor == Mentor1.id)).join(Mentor2, on=(
                 InterviewSlot.mentor2 == Mentor2.id)).join(School).where(
-            (Mentor1.name == mentor_filter) | (Mentor2.name == mentor_filter))
+            (Mentor1.name.contains(mentor_filter)) | (Mentor2.name.contains(mentor_filter)))
 
         for query_object in self.query:
             self.results.append(
@@ -83,12 +83,14 @@ class AdministratorData:
                  query_object.interview.applicant.name, query_object.interview.applicant.code])
 
     def applicant_email_by_applicant_code(self, applicant_code):
-        self.tags = ["Name", "Email"]
+        self.tags = ["ID", "Name", "Email", "Status", "School", "Code"]
         self.query = Applicant.select().where(Applicant.code == applicant_code)
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.name, query_object.email])
+            self.results.append(
+                [query_object.id, query_object.name, query_object.email,
+                 query_object.status, query_object.school.name, query_object.code])
 
     def listing_all_interviews(self):
         self.tags = ["School", "Applicant code", "Mentor", "Mentor2", "Date"]
