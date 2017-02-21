@@ -53,8 +53,9 @@ def new_applicant_registration():
 def listing_all_applicants():
     administrator_data.listing_all_applicants()
     table_header = administrator_data.tags
-    table_content = administrator_data.query
-    return render_template('all_applicants.html', header=table_header, content=table_content)
+    table_content = administrator_data.results
+    return render_template('new_all_applicants.html', header=table_header, content=table_content)
+
 
 @app.route('/admin/interview_list')
 def listing_all_interviews():
@@ -64,6 +65,14 @@ def listing_all_interviews():
     return render_template('all_interviews.html', header=table_header, content=table_content)
 
 
+@app.route('/admin/applicant_list', methods=["POST"])
+def filter_applicants():
+    if request.form["filter_by"] == "Status":
+        administrator_data.applicants_by_status(
+            status_filter=request.form["filter"])
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+        return render_template('new_all_applicants.html', header=table_header, content=table_content)
 
 
 if __name__ == "__main__":
