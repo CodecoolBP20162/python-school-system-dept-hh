@@ -222,15 +222,15 @@ class AdministratorData:
 
             self.results.append(
                 [query_object.id, query_object.question, query_object.applicant.code])
-self.results.append([query_object.id, query_object.question, query_object.applicant.code])
-
+            self.results.append(
+                [query_object.id, query_object.question, query_object.applicant.code])
 
     def listing_all_emails(self):
-        self.tags = ["Subject", "Message", "Type", "Submission Date", "Recipient's name", "Recipient's e-mail"]
+        self.tags = ["Subject", "Message", "Type", "Submission Date",
+                     "Recipient's name", "Recipient's e-mail"]
         self.query = Email.select()
         self.results = []
 
         for query_object in self.query:
             self.results.append(
                 [query_object.subject, query_object.message, query_object.type, query_object.recipient_name, query_object.recipient_email])
-
