@@ -1,0 +1,29 @@
+<!doctype html>
+
+<head>
+    <title>All Emails</title>
+</head>
+
+<body>
+    <h1>All Emails</h1>
+    <p>
+        <form>
+            <input type="button" value="Add new User Story" onclick="location.href = 'story';">
+        </form>
+    </p>
+    <table border="1">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in content %}
+        <tr>
+            <td>{{ row.subject }}</td>
+            <td>{{ row.message }}</td>
+            <td>{{ row.type }}</td>
+            <td>{{ row.recipient_name }}</td>
+            <td>{{ row.recipient_email }}</td>
+            {% endfor %}
+    </table>
+</body>
