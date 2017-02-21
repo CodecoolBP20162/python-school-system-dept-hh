@@ -39,8 +39,8 @@ def home_menu():
 @app.route('/login')
 def login():
 
-    USERNAME = 'adminus'
-    PASSWORD = 'adminpass'
+    USERNAME = 'admin'
+    PASSWORD = 'admin'
 
     name_error = 'Invalid username!'
     password_error = 'Invalid password!'
