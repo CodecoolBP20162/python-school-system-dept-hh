@@ -65,9 +65,9 @@ class Answer(BaseModel):
 
 
 class Email(BaseModel):
-    subject = TextField()
+    subject = CharField()
     message = TextField()
-    type = TextField()
+    type = CharField()
     submissiondate = DateTimeField()
-    recipient_name = TextField()
-    recipient_email = TextField()
+    recipient_name = CharField(max_length=10000)
+    recipient_email = CharField(max_length=10000)
