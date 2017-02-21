@@ -214,7 +214,7 @@ class AdministratorData:
 
 
     def listing_all_emails(self):
-        self.tags = ["Subject", "Message", "Type", "Recipient's name", "Recipient's e-mail"]
+        self.tags = ["Subject", "Message", "Type", "Submission Date", "Recipient's name", "Recipient's e-mail"]
         self.query = Email.select()
         self.results = []
 

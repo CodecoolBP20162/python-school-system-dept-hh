@@ -63,10 +63,6 @@ def listing_all_interviews():
     table_content = administrator_data.query
     return render_template('all_interviews.html', header=table_header, content=table_content)
 
-
-
-
-
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
     administrator_data.listing_all_emails()
