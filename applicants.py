@@ -2,6 +2,7 @@ import random
 from models import *
 import datetime
 from mail import Mail
+import textwrap
 
 
 class ApplicantsData:
@@ -55,12 +56,12 @@ class ApplicantsData:
         Your code is {code}, and the city you have been assigned to is {city}.
 
         Good luck!
-
         """.format(name_input=name_input, code=application_code, city=applicant_school.name)
 
         application_email = Mail(recipient_list, message, subject)
         application_email.send()
-        new_email = Email.create(subject=subject, message=message, type=type, recipient_name=name_input, recipient_email=email_input)
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(), recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_applicant(name_input, email_input, new_interview):
@@ -88,7 +89,8 @@ class ApplicantsData:
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
-        new_email = Email.create(subject=subject, message=message, type=type, recipient_name=name_input, recipient_email=email_input)
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(), recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
@@ -109,8 +111,9 @@ class ApplicantsData:
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
-        new_email = Email.create(subject=subject, message=message, type=type, recipient_name=mentor_name, recipient_email=recipient_list[0])
-        new_email2 = Email.create(subject=subject, message=message, type=type, recipient_name=mentor2_name, recipient_email=recipient_list[1])
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),recipient_name=mentor_name, recipient_email=recipient_list[0])
+        new_email2 = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),recipient_name=mentor2_name, recipient_email=recipient_list[1])
 
 
     @staticmethod

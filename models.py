@@ -68,5 +68,6 @@ class Email(BaseModel):
     subject = TextField()
     message = TextField()
     type = TextField()
+    submissiondate = DateTimeField()
     recipient_name = TextField()
     recipient_email = TextField()
