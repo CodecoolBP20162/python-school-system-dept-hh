@@ -1,10 +1,9 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}Log In{% endblock %}
 
-<head>
-    <title>All Emails</title>
-</head>
 
-<body>
+{% block content %}
+
     <h1>All Emails</h1>
     <div>
         <form>
@@ -27,4 +26,5 @@
             <td>{{ row.recipient_email }}</td>
             {% endfor %}
     </table>
-</body>
+
+{% endblock %}
