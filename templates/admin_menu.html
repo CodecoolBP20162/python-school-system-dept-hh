@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}All Applicants{% endblock %}
-
-
 {% block content %}
+
+{% if 'admin' in session %}
+<p>ADMIN ON THE BRIDGE!!4!!négy!!</p>
+{% endif %}
+
 <h1>School System Main Menu</h1>
 <div>
     <form>

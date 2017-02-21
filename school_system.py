@@ -1,15 +1,16 @@
 from models import *
-from flask import Flask, request, g, redirect, url_for, \
-    render_template
+from flask import Flask, request, g, redirect, url_for, render_template, session
 from administrator import AdministratorData
 from mentors import MentorsData
 from applicants import ApplicantsData
 import datetime
 
-DEBUG = True
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+
+app.config.update(dict(
+    DEBUG=True, SECRET_KEY='any_random_string'))
 
 administrator_data = AdministratorData()
 applicants_data = ApplicantsData()
@@ -30,9 +31,43 @@ def close_db(error):
     if hasattr(g, 'postgre_db'):
         g.postgre_db.close()
 
-
 @app.route('/')
-def main_menu():
+def login():
+
+    USERNAME = 'adminus'
+    PASSWORD = 'adminpass'
+
+    name_error = 'Invalid username!'
+    password_error = 'Invalid password!'
+
+    if request.method == 'POST':
+
+        if 'admin' not in session:
+
+            if USERNAME != request.form['user-name']:
+                return redirect(url_for('login', error=name_error))
+            elif PASSWORD != request.form['password']:
+                return redirect(url_for('login', error=password_error))
+            else:
+                session['admin'] = request.form['user-name']
+                return redirect(url_for('admin_menu'))
+        else:
+            redirect(url_for('/'))
+
+
+    else:
+        return redirect('/')
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it is there
+    session.pop('admin', None)
+    return redirect(url_for('main_menu'))
+
+
+
+@app.route('/admin_menu')
+def admin_menu():
     return render_template('admin_menu.html')
 
 

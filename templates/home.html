@@ -1,16 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}Log In{% endblock %}
-
-
 {% block content %}
 
-<form action="{{ url_for('add_user_story') }}" method="post">
+{% if 'admin' in session %}
+<p>ADMIN ON THE BRIDGE!!4!!négy!!</p>
+{% endif %}
+
+<form action="{{ url_for('login') }}" method="post">
 
     <label for="user-name">User Name</label>
 
     <textarea name="user-name" rows="2" cols="100"></textarea>
 
-    <label for="password">Story title</label>
+    <label for="password">Password</label>
 
     <textarea name="password" rows="2" cols="100"></textarea>
 
@@ -22,7 +24,14 @@
     </select>
     <input type="submit">
 
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
 </form>
 
 
+<form>
+    <input type="button" value="Back to the menu" onclick="location.href = '/registration';">
+</form>
 {% endblock %}
