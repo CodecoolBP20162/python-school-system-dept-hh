@@ -99,7 +99,7 @@ class AdministratorData:
                                  query_object.mentor.name, query_object.mentor2.name, str(query_object.start)])
 
     def listing_interviews_by_mentor(self, mentor_filter):
-        self.tags = ["School", "Applicant code", "Applicant name", "Date"]
+        self.tags = ["Mentor1", "Mentor2", "School", "Applicant code", "Date"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
@@ -109,12 +109,10 @@ class AdministratorData:
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.mentor.related_school.name, query_object.interview.applicant.code,
-                                 query_object.interview.applicant.name,
-                                 str(query_object.start)])
+            self.results.append([query_object.mentor.name, query_object.mentor2.name, query_object.mentor.related_school.name, query_object.interview.applicant.code, str(query_object.start)])
 
     def listing_interviews_by_applicant_code(self, code_filter):
-        self.tags = ["School", "Mentor", "Mentor2", "Date"]
+        self.tags = ["Applicant code", "School", "Mentor", "Mentor2", "Date"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
@@ -124,11 +122,11 @@ class AdministratorData:
 
         for query_object in self.query:
             self.results.append(
-                [query_object.mentor.related_school.name, query_object.mentor.name, query_object.mentor2.name,
+                [query_object.interview.applicant.code, query_object.mentor.related_school.name, query_object.mentor.name, query_object.mentor2.name,
                  str(query_object.start)])
 
     def listing_interviews_by_school(self, school_filter):
-        self.tags = ["Applicantcode", "ApplicantName", "Mentor", "Mentor2", "Date"]
+        self.tags = ["School", "Applicant code", "Mentor", "Mentor2", "Date"]
         Mentor1 = Mentor.alias()
         Mentor2 = Mentor.alias()
         self.query = InterviewSlot.select(InterviewSlot, Interview, Mentor1, Mentor2, School).join(Interview).join(
@@ -137,20 +135,19 @@ class AdministratorData:
         self.results = []
 
         for query_object in self.query:
-            self.results.append([query_object.interview.applicant.code, query_object.interview.applicant.name,
-                                 query_object.mentor.name, query_object.mentor2.name, str(query_object.start)])
+            self.results.append([query_object.mentor.related_school.name, query_object.interview.applicant.code, query_object.mentor.name, query_object.mentor2.name, str(query_object.start)])
 
     def listing_interviews_by_date(self, date_filter):
         self.results = []
         filter_transfer = datetime.datetime.strptime(date_filter, '%Y-%m-%d')
-        self.tags = ["School", "Applicant code", "Mentor", "Date"]
+        self.tags = ["Date", "School", "Applicant code", "Mentor", "Date"]
         self.query = Interview.select(Interview, School, Applicant, InterviewSlot).join(Applicant).join(
             School).switch(Interview).join(InterviewSlot).join(Mentor).where(
             InterviewSlot.start.between(datetime.datetime.combine(filter_transfer, datetime.time.min),
                                         datetime.datetime.combine(filter_transfer, datetime.time.max)))
 
         for query_object in self.query:
-            self.results.append([query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
+            self.results.append([str(query_object.start), query_object.interviewslot.mentor.related_school.name, query_object.applicant.code,
                                  query_object.interviewslot.mentor.name, str(query_object.interviewslot.start)])
 
     @staticmethod
