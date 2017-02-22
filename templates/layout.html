@@ -16,6 +16,14 @@
 
 
 <body>
+{% if 'admin' in session %}
+<p>{{ message }}</p>
+<form>
+
+    <input type="button" value="LOGOUT" onclick="location.href = '/logout';">
+
+</form>
+{% endif %}
 {% block content %}
 
 {% endblock %}

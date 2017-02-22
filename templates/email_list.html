@@ -2,21 +2,7 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 
-{% if 'admin' in session %}
-<p>{{ message }}</p>
-<form>
-
-    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
-
-</form>
-{% endif %}
-
 <h1>All Emails</h1>
-<div>
-    <form>
-        <input type="button" value="Back to the menu" onclick="location.href = '/';">
-    </form>
-</div>
 <table border="1">
     <tr>
         {% for tag in header %}

@@ -2,15 +2,6 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 
-{% if 'admin' in session %}
-<p>{{ message }}</p>
-<form>
-
-    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
-
-</form>
-{% endif %}
-
 <form action="/login" method="post">
 
     <label for="user-name">User Name</label>
@@ -43,11 +34,5 @@
 
 </form>
 
-    {% if 'admin' in session %}
-    <form>
 
-        <input type="button" value="ADMINISTRATOR MENU" onclick="location.href = '/admin_menu';">
-
-    </form>
-    {% endif %}
 {% endblock %}
