@@ -40,7 +40,11 @@ def close_db(error):
 @app.route('/')
 def home_menu():
     admin_message = 'ADMIN MODE IS ON'
-    return render_template('home.html', message=admin_message)
+    if 'admin' not in session:
+        return render_template('home.html')
+    else:
+        return render_template('admin_menu.html', message=admin_message)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
