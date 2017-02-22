@@ -17,16 +17,15 @@
 <body>
 
 
-
 <header>
     <div>
     {% if 'admin' in session %}
         <div class="col-lg-6">{{ message }}</div>
-        <div class="log-in-status col-lg-6">
-        <a href="{{ url_for('login') }}">Log In</a>
-        </div>
     {% endif %}
-
+        <div class="log-in-status col-lg-6">
+            <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </div>
 </header>
 
 
