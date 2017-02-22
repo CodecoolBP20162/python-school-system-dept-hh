@@ -12,8 +12,7 @@
     <form action="{{ url_for('filter_interviews') }}" method="post">
         <label for="filter">Filter</label>
         <textarea id="filter" name="filter" rows=1 cols=80 maxlength="70"></textarea>
-    </form>
-</p>
+
 <p>
     <label for="filter_by">Filter by</label>
     <select id="filter_by" name="filter_by">
@@ -37,6 +36,8 @@
             <td>{{ personal_data }}</td>
             {% endfor %}
         </tr>
+    {% else %}
+    <strong>There is no data in the database with the given filter!</strong>
         {% endfor %}
     </table>
 </p>

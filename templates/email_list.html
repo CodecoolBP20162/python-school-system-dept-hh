@@ -23,15 +23,14 @@
         <th>{{ tag }}</th>
         {% endfor %}
     </tr>
-    {% for row in content %}
-    <tr>
-        <td>{{ row.subject }}</td>
-        <td>{{ row.message }}</td>
-        <td>{{ row.type }}</td>
-        <td>{{ row.submissiondate }}</td>
-        <td>{{ row.recipient_name }}</td>
-        <td>{{ row.recipient_email }}</td>
+        {% for email in content %}
+        <tr>{% for email_data in email %}
+            <td>{{ email_data }}</td>
+            {% endfor %}
+{% else %}
+    <strong>There is no data in the database with the given filter!</strong>
         {% endfor %}
+    </table>
 </table>
 
 {% endblock %}

@@ -228,5 +228,5 @@ class AdministratorData:
 
         for query_object in self.query:
             self.results.append(
-                [query_object.subject, query_object.message, query_object.type, query_object.recipient_name,
+                [query_object.subject, query_object.message, query_object.type, query_object.submissiondate, query_object.recipient_name,
                  query_object.recipient_email])
