@@ -1,30 +1,37 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block title %}Log In{% endblock %}
+{% block content %}
 
-<head>
-    <title>All Emails</title>
-</head>
+{% if 'admin' in session %}
+<p>{{ message }}</p>
+<form>
 
-<body>
-    <h1>All Emails</h1>
-    <p>
-        <form>
-            <input type="button" value="Add new User Story" onclick="location.href = 'story';">
-        </form>
-    </p>
-    <table border="1">
-        <tr>
-            {% for tag in header %}
-            <th>{{ tag }}</th>
-            {% endfor %}
-        </tr>
-        {% for row in content %}
-        <tr>
-            <td>{{ row.subject }}</td>
-            <td>{{ row.message }}</td>
-            <td>{{ row.type }}</td>
-            <td>{{ row.submissiondate }}</td>
-            <td>{{ row.recipient_name }}</td>
-            <td>{{ row.recipient_email }}</td>
-            {% endfor %}
-    </table>
-</body>
+    <input type="button" value="LOGOUT," onclick="location.href = '/logout';">
+
+</form>
+{% endif %}
+
+<h1>All Emails</h1>
+<div>
+    <form>
+        <input type="button" value="Back to the menu" onclick="location.href = '/';">
+    </form>
+</div>
+<table border="1">
+    <tr>
+        {% for tag in header %}
+        <th>{{ tag }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in content %}
+    <tr>
+        <td>{{ row.subject }}</td>
+        <td>{{ row.message }}</td>
+        <td>{{ row.type }}</td>
+        <td>{{ row.submissiondate }}</td>
+        <td>{{ row.recipient_name }}</td>
+        <td>{{ row.recipient_email }}</td>
+        {% endfor %}
+</table>
+
+{% endblock %}
