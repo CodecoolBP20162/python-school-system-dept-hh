@@ -2,29 +2,29 @@
 {% block title %}New Applicant Registration{% endblock %}
 {% block content %}
 
-<h1>New Applicant Registration</h1>
-<form action="{{ url_for('new_applicant_registration') }}" method=post>
-    <div>
-        <label for="name">Name</label>
-    </div>
-    <div>
-        <textarea id="name" name="name" rows=1 cols=70 maxlength="70" required="required"></textarea>
-    </div>
-    <div>
-        <label for="city">City</label>
-    </div>
-    <div>
-        <select id="city" name="city">
-            {% for possible_city in cities %}
-            <option value={{ possible_city.name }}>{{ possible_city.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <input type="email" id="email" name="email" pattern="[^ @]*@[^ @]*" placeholder="Enter your email">
-    </div>
-    <div>
-        <input type=submit id="Register" value=Register>
-    </div>
-</form>
+    <h1>New Applicant Registration</h1>
+    <form action="{{ url_for('new_applicant_registration') }}" method=post>
+        <div>
+            <label for="name">Name</label>
+        </div>
+        <div>
+            <textarea id="name" name="name" rows=1 cols=70 maxlength="70" required="required"></textarea>
+        </div>
+        <div>
+            <label for="city">City</label>
+        </div>
+        <div>
+            <select id="city" name="city">
+                {% for possible_city in cities %}
+                    <option value={{ possible_city.name }}>{{ possible_city.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input type="email" id="email" name="email" pattern="[^ @]*@[^ @]*" placeholder="Enter your email">
+        </div>
+        <div>
+            <input class="button" type=submit id="Register" value=Register>
+        </div>
+    </form>
 
 {% endblock %}

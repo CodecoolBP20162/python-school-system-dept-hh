@@ -7,26 +7,35 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-    <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
 </head>
 
 
 <body>
-{% if 'admin' in session %}
-<p>{{ message }}</p>
-<form>
 
-    <input type="button" value="LOGOUT" onclick="location.href = '/logout';">
 
-</form>
-{% endif %}
+
+<header>
+    <div>
+    {% if 'admin' in session %}
+        <div class="col-lg-6">{{ message }}</div>
+        <div class="log-in-status col-lg-6">
+        <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    {% endif %}
+
+</header>
+
+
+
+<section class="container">
 {% block content %}
 
 {% endblock %}
+</section>
 </body>
 
 <footer>

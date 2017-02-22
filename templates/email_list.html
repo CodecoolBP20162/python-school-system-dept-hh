@@ -2,21 +2,21 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 
-<h1>All Emails</h1>
-<table border="1">
-    <tr>
-        {% for tag in header %}
-        <th>{{ tag }}</th>
-        {% endfor %}
-    </tr>
-        {% for email in content %}
-        <tr>{% for email_data in email %}
-            <td>{{ email_data }}</td>
+    <h1>All Emails</h1>
+    <table border="1">
+        <tr>
+            {% for tag in header %}
+                <th>{{ tag }}</th>
             {% endfor %}
-{% else %}
-    <strong>There is no data in the database with the given filter!</strong>
+        </tr>
+        {% for email in content %}
+            <tr>{% for email_data in email %}
+            <td>{{ email_data }}</td>
+        {% endfor %}
+        {% else %}
+            <strong>There is no data in the database with the given filter!</strong>
         {% endfor %}
     </table>
-</table>
+    </table>
 
 {% endblock %}

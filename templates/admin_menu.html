@@ -2,28 +2,23 @@
 {% block title %}All Applicants{% endblock %}
 {% block content %}
 
-<h1>School System Main Menu</h1>
-<div>
-    <form>
-        <input type="button" value="New Applicant Registration" onclick="location.href = 'applicant_registration';">
-    </form>
-</div>
-<div>
-    <form>
-        <input type="button" value="Show all Applicants" onclick="location.href = '/admin/applicant_list';">
-    </form>
-</div>
+    <h1>School System Main Menu</h1>
 
-<div>
-    <form>
-        <input type="button" value="Show all Interviews" onclick="location.href = '/admin/interview_list';">
-    </form>
-</div>
+        <div class="button col-lg-3">
+        <a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a>
+        </div>
 
-<div>
-    <form>
-        <input type="button" value="Show all E-mails" onclick="location.href = '/admin/e-mail-log';">
-    </form>
-</div>
+        <div class="button col-lg-3">
+        <a href="{{ url_for('listing_all_applicants') }}">Applicants</a>
+        </div>
+
+
+        <div class="button col-lg-3">
+        <a href="{{ url_for('listing_all_interviews') }}">Interviews</a>
+        </div>
+
+        <div class="button col-lg-3">
+        <a href="{{ url_for('listing_all_emails') }}">E-mails</a>
+        </div>
 
 {% endblock %}

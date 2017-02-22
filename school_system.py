@@ -68,7 +68,7 @@ def login():
                 session['admin'] = request.form['user-name']
                 return render_template('admin_menu.html', message=admin_message)
         else:
-            return render_template('admin_menu', message=admin_message)
+            return render_template('admin_menu.html', message=admin_message)
 
     else:
         return redirect(url_for('home_menu'))

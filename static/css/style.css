@@ -1,10 +1,23 @@
 body {
     font-size: 18px;
-    width: 98%;
     height: auto;
     font-family: 'Roboto', sans-serif;
+    background-color: #7e7e7e;
+
 
 }
+
+.container {
+    width: 1070px;
+    margin: 0 auto;
+}
+
+header {
+    height: 40px;
+    background-color: rgba(122, 122, 122, 0.62);
+    color: aliceblue;
+}
+
 
 label {
     display: block;
@@ -15,16 +28,6 @@ textarea {
     resize: none;
 }
 
-input[type=number] {
-    width: 100px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-}
-
-form img {
-    width: 20px;
-    height: auto;
-}
 
 .icon svg {
     height: 25px;
@@ -50,12 +53,6 @@ th {
     font-weight: bold;
 }
 
-button {
-    border: none;
-    margin: 20px 0;
-    height: 30px;
-}
-
 .small-text {
     font-size: small;
     color: #7e7e7e;
@@ -64,4 +61,48 @@ button {
 .hidden-button {
     background: none;
     border: none;
+}
+
+input[type="submit"] {
+    background: #d1d1d1;
+    color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+.button {
+    background: #d1d1d1;
+    color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+}
+
+input[type="submit"] {
+    background: #d1d1d1;
+    color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    width: 150px;
+    height: 50px;
+}
+
+input[type="submit"]:hover {
+    background: #1e38d1;
+}
+
+.admin-notification{
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.log-in-status{
+    text-align: right;
 }

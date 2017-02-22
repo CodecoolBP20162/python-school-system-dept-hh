@@ -2,37 +2,52 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 
-<form action="/login" method="post">
+    <form action="/login" method="post">
 
-    <label for="user-name">User Name</label>
+        <div>
+        <label for="user-name">User Name</label>
+        </div>
 
-    <textarea name="user-name" rows="2" cols="100"></textarea>
+        <div>
+        <textarea name="user-name" id="user-name" rows="2" cols="100"></textarea>
+        </div>
 
-    <label for="password">Password</label>
+        <div>
+        <label for="password">Password</label>
+        </div>
 
-    <textarea name="password" rows="2" cols="100"></textarea>
+        <div>
+        <textarea name="password" id="password" cols="100"></textarea>
+        </div>
 
-    <label for="role">Status</label>
-    <select name="role">
-        <option value="administrator">Administrator</option>
-        <option value="applicant">Applicant</option>
-        <option value="mentor">Mentor</option>
-    </select>
-    <input type="submit">
+        <div>
+        <label for="role">Status</label>
+        </div>
 
-    {% if error %}
-    <p>{{ error }}</p>
-    {% endif %}
+        <div>
+        <select name="role" id="role">
+            <option value="administrator">Administrator</option>
+            <option value="applicant">Applicant</option>
+            <option value="mentor">Mentor</option>
+        </select>
+        </div>
+
+        <div>
+        <input type="submit">
+        </div>
+
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
 
 
-</form>
+    </form>
 
 
-<form>
+    <div>
+        <a class="button" href="{{ url_for('new_applicant_form') }}">Add New Applicant</a>
+    </div>
 
-    <input type="button" value="NEW APPLICANT REGISTRATION" onclick="location.href = '/applicant_registration';">
-
-</form>
 
 
 {% endblock %}
