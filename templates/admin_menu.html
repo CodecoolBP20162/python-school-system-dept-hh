@@ -1,24 +1,27 @@
-{% extends "layout.html" %}
-{% block title %}All Applicants{% endblock %}
-{% block content %}
+    {% extends "layout.html" %}
+    {% block title %}All Applicants{% endblock %}
+    {% block content %}
 
     <h1>School System Main Menu</h1>
 
-        <div class="button col-lg-3">
-        <a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a>
+
+        <div class="row button-wrapper">
+            <div class="button col-lg-3">
+                <a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a>
+            </div>
+
+            <div class="button col-lg-3">
+                <a href="{{ url_for('listing_all_applicants') }}">Applicants</a>
+            </div>
+
+
+            <div class="button col-lg-3">
+                <a href="{{ url_for('listing_all_interviews') }}">Interviews</a>
+            </div>
+
+            <div class="button col-lg-3">
+                <a href="{{ url_for('listing_all_emails') }}">E-mails</a>
+            </div>
         </div>
 
-        <div class="button col-lg-3">
-        <a href="{{ url_for('listing_all_applicants') }}">Applicants</a>
-        </div>
-
-
-        <div class="button col-lg-3">
-        <a href="{{ url_for('listing_all_interviews') }}">Interviews</a>
-        </div>
-
-        <div class="button col-lg-3">
-        <a href="{{ url_for('listing_all_emails') }}">E-mails</a>
-        </div>
-
-{% endblock %}
+    {% endblock %}
