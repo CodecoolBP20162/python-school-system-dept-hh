@@ -20,7 +20,10 @@ app.config.from_envvar('SUPER_SPRINTER_3000_SETTINGS', silent=True)
 
 
 def init_db():
-    db = PostgresqlDatabase('petya', user='petya')
+    identify = open("parameter.txt", "r")
+    login = identify.readlines()
+    identify.close()
+    db = PostgresqlDatabase(login[0], user=login[0])
     try:
         db.connect()
         print("Database connection established.")
@@ -33,13 +36,14 @@ def close_db(error):
     if hasattr(g, 'postgre_db'):
         g.postgre_db.close()
 
+
 @app.route('/')
 def home_menu():
     admin_message = 'ADMIN MODE IS ON'
     return render_template('home.html', message=admin_message)
 
 
-@app.route('/login', methods= ['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     USERNAME = 'admin'
@@ -48,7 +52,6 @@ def login():
     name_error = 'Invalid username!'
     password_error = 'Invalid password!'
     admin_message = 'ADMIN MODE IS ON'
-
 
     if request.method == 'POST':
 
@@ -59,22 +62,22 @@ def login():
             elif PASSWORD != request.form['password']:
                 return render_template('home.html', error=password_error)
             elif request.form['role'] != 'administrator':
-                return render_template('home.html', error=password_error) # purposeful password error
+                # purposeful password error
+                return render_template('home.html', error=password_error)
             else:
                 session['admin'] = request.form['user-name']
                 return render_template('admin_menu.html', message=admin_message)
         else:
             return render_template('admin_menu', message=admin_message)
 
-
     else:
         return redirect(url_for('home_menu'))
+
 
 @app.route('/admin_menu', methods=['GET'])
 def admin_menu():
     admin_message = 'ADMIN MODE IS ON'
     return render_template('/admin_menu.html', message=admin_message)
-
 
 
 @app.route('/logout')
@@ -121,8 +124,6 @@ def listing_all_interviews():
         return redirect(url_for('new_applicant_form'))
 
 
-
-
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
     if 'admin' in session:
@@ -139,7 +140,8 @@ def filter_applicants():
                 table_content = [
                     ["Please give the interview's date in the following format: 2015-01-01"]]
             else:
-                administrator_data.applicants_by_interview(request.form["filter"])
+                administrator_data.applicants_by_interview(
+                    request.form["filter"])
                 table_header = administrator_data.tags
                 table_content = administrator_data.results
         elif request.form["filter_by"] == "School":
@@ -156,7 +158,7 @@ def filter_applicants():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Code":
             administrator_data.applicant_email_by_applicant_code(request.form[
-                                                                     "filter"])
+                "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
