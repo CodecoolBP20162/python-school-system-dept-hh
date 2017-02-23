@@ -4,23 +4,28 @@
 
     <h1>School System Main Menu</h1>
 
+<!--
+    <div class="clearfix"></div>
+    <div style="clear:both;"></div>
+-->
+
 <div class="button-wrapper">
         <div class="row">
             <div class="button col-lg-3">
-                <p><a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a></p>
+                <div class="inside"><a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a></div>
             </div>
 
             <div class="button col-lg-3">
-                <a href="{{ url_for('listing_all_applicants') }}">Applicants</a>
+                <div class="inside"><a href="{{ url_for('listing_all_applicants') }}">Applicants</a></div>
             </div>
 
 
             <div class="button col-lg-3">
-                <a href="{{ url_for('listing_all_interviews') }}">Interviews</a>
+                <div class="inside"><a href="{{ url_for('listing_all_interviews') }}">Interviews</a></div>
             </div>
 
             <div class="button col-lg-3">
-                <a href="{{ url_for('listing_all_emails') }}">E-mails</a>
+                <div class="inside"><a href="{{ url_for('listing_all_emails') }}">E-mails</a></div>
             </div>
         </div>
     </div>
