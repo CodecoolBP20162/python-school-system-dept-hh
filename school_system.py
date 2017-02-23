@@ -90,7 +90,7 @@ def logout():
         session.pop('admin', None)
         return render_template('home.html')
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 
@@ -119,7 +119,7 @@ def listing_all_applicants():
         table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list')
@@ -131,7 +131,7 @@ def listing_all_interviews():
         table_content = administrator_data.results
         return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/applicant_list', methods=["POST"])
@@ -174,7 +174,7 @@ def filter_applicants():
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/e-mail-log')
@@ -186,7 +186,7 @@ def listing_all_emails():
         table_content = administrator_data.results
         return render_template('email_list.html', header=table_header, content=table_content, message=admin_message)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list', methods=["POST"])
@@ -221,7 +221,7 @@ def filter_interviews():
                 table_content = administrator_data.results
         return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 if __name__ == "__main__":
     init_db()
