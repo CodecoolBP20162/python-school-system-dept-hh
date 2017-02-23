@@ -105,7 +105,7 @@ a:focus {
     color: #dddd58 !important;
 }
 
-.login-button:visited{
+.login-button:visited {
     color: #fff;
 }
 
@@ -228,6 +228,7 @@ select {
 .header-wrapper {
     padding: 11px auto 0 auto;
     width: 1070px;
+    margin: 0 auto;
 }
 
 .register-wrapper {
