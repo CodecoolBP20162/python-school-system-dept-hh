@@ -81,8 +81,12 @@ a {
     transition: all .5s ease-in-out;
 }
 
+a:link {
+    color: #fff;
+}
+
 a:hover {
-    color: #dddd58;
+    color: #dddd58 !important;
 }
 
 a:visited {
@@ -90,6 +94,34 @@ a:visited {
 }
 
 a:active {
+    color: #dddd58;
+}
+
+a:focus {
+    color: #dddd58 !important;
+}
+
+.login-button:hover {
+    color: #dddd58 !important;
+}
+
+.login-button:visited{
+    color: #fff;
+}
+
+.login-button:active {
+    color: #fff;
+}
+
+.new-applicant-wrapper:hover {
+    color: #dddd58 !important;
+}
+
+.new-applicant-wrapper:visited {
+    color: #fff;
+}
+
+.new-applicant-wrapper:active {
     color: #fff;
 }
 
