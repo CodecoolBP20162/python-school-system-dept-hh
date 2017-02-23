@@ -100,7 +100,6 @@ def admin_menu():
 @app.route('/logout')
 def logout():
     if 'admin' in session:
-        # remove the username from the session if it is there
         session.pop('admin', None)
         return render_template('home.html')
     else:
@@ -109,7 +108,10 @@ def logout():
 
 @app.route('/applicant')
 def applicant_menu():
-    return render_template('applicant_menu.html')
+    if 'applicant' in session:
+        return render_template('applicant_menu.html')
+    else:
+        render_template('home.html')
 
 
 @app.route('/applicant/personal_data')
