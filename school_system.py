@@ -39,7 +39,7 @@ def close_db(error):
 
 @app.route('/')
 def home_menu():
-    
+
     if 'admin' not in session:
         return render_template('home.html')
     else:
@@ -66,7 +66,7 @@ def login():
 
                 else:
                     session['applicant'] = user.email
-                    return render_template('applicant_data.html')
+                    return render_template('applicant_menu.html')
 
             elif 'admin' in session:
                 return render_template('admin_menu.html')
@@ -80,18 +80,18 @@ def login():
         if user:
             return render_template('home.html')
 
-
     else:
         return redirect(url_for('home_menu'))
 
 
-@app.route('/admin_menu', methods=['GET','POST'])
+@app.route('/admin_menu', methods=['GET', 'POST'])
 def admin_menu():
     if 'admin' in session:
-        
+
         return render_template('admin_menu.html')
     else:
         return redirect(url_for('new_applicant_form'))
+
 
 @app.route('/logout')
 def logout():
@@ -103,18 +103,16 @@ def logout():
         return redirect(url_for('home_menu'))
 
 
-
 @app.route('/applicant_registration')
 def new_applicant_form():
-    
+
     cities = City.select().order_by(City.id.asc())
     return render_template('register_applicant.html', cities=cities)
 
 
-
 @app.route('/registration', methods=['POST'])
 def new_applicant_registration():
-    
+
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
     return render_template('home.html')
@@ -122,7 +120,7 @@ def new_applicant_registration():
 
 @app.route('/admin/applicant_list')
 def listing_all_applicants():
-    
+
     if 'admin' in session:
         administrator_data.listing_all_applicants()
         table_header = administrator_data.tags
@@ -134,7 +132,7 @@ def listing_all_applicants():
 
 @app.route('/admin/interview_list')
 def listing_all_interviews():
-    
+
     if 'admin' in session:
         administrator_data.listing_all_interviews()
         table_header = administrator_data.tags
@@ -146,7 +144,7 @@ def listing_all_interviews():
 
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
-    
+
     if 'admin' in session:
         if request.form["filter_by"] == "Status":
             administrator_data.applicants_by_status(request.form["filter"])
@@ -189,7 +187,7 @@ def filter_applicants():
 
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
-    
+
     if 'admin' in session:
         administrator_data.listing_all_emails()
         table_header = administrator_data.tags
@@ -201,10 +199,11 @@ def listing_all_emails():
 
 @app.route('/admin/interview_list', methods=["POST"])
 def filter_interviews():
-    
+
     if 'admin' in session:
         if request.form["filter_by"] == "School":
-            administrator_data.listing_interviews_by_school(request.form["filter"])
+            administrator_data.listing_interviews_by_school(
+                request.form["filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
@@ -213,7 +212,8 @@ def filter_interviews():
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
-            administrator_data.listing_interviews_by_mentor(request.form["filter"])
+            administrator_data.listing_interviews_by_mentor(
+                request.form["filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Date":
