@@ -65,9 +65,6 @@ def login():
                 return render_template('home.html', error=name_error)
             elif PASSWORD != request.form['password']:
                 return render_template('home.html', error=password_error)
-            elif request.form['role'] != 'administrator':
-                # purposeful password error
-                return render_template('home.html', error=password_error)
             else:
                 session['admin'] = request.form['user-name']
                 return render_template('admin_menu.html', message=admin_message)
