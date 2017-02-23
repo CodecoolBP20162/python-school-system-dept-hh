@@ -81,9 +81,6 @@ def login():
                 return render_template('applicant_menu.html', message=user.email)
 
 
-        if user:
-            return render_template('home.html')
-
     else:
         return redirect(url_for('home_menu'))
 
