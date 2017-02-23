@@ -40,10 +40,14 @@ def close_db(error):
 @app.route('/')
 def home_menu():
 
-    if 'admin' not in session:
-        return render_template('home.html')
+    if 'admin' in session:
+        return redirect(url_for('admin_menu'))
+    elif 'mentor' in session:
+        return redirect(url_for('mentor_menu'))
+    elif 'applicant' in session:
+        return redirect(url_for('applicant_menu'))
     else:
-        return render_template('admin_menu.html')
+        return render_template('home.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -54,7 +58,7 @@ def login():
             user = User.select().where(
                 (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
         except:
-            return render_template('home.html')
+            return redirect(url_for('new_applicant_form'))
 
         if user is not None:
             if 'admin' or 'applicant' or 'mentor' not in session:
@@ -81,9 +85,6 @@ def login():
                 return render_template('applicant_menu.html', message=user.email)
 
 
-    else:
-        return redirect(url_for('home_menu'))
-
 
 @app.route('/admin_menu', methods=['GET', 'POST'])
 def admin_menu():
@@ -96,7 +97,7 @@ def admin_menu():
 
 @app.route('/logout')
 def logout():
-    if 'admin' in session:
+    if 'admin' or 'applicant' or 'mentor' in session:
         session.pop('admin', None)
         return render_template('home.html')
     else:
@@ -119,7 +120,7 @@ def applicant_personal_data():
     return render_template('applicant_data.html', header=table_header, content=table_content)
 
 
-@app.route('/applicant_registration', methods=['POST'])
+@app.route('/applicant_registration')
 def new_applicant_form():
 
     cities = City.select().order_by(City.id.asc())
