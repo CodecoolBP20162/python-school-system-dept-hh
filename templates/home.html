@@ -2,52 +2,9 @@
 {% block title %}Log In{% endblock %}
 {% block content %}
 
-<div class="col-lg-6">
-    <form action="/login" method="post">
-
-        <div>
-            <label for="user-name">User Name</label>
-        </div>
-
-        <div>
-            <textarea name="user-name" id="user-name"></textarea>
-        </div>
-
-        <div>
-            <label for="password">Password</label>
-        </div>
-
-        <div>
-            <textarea name="password" id="password"></textarea>
-        </div>
-
-        <div>
-            <label for="role">Status</label>
-        </div>
-
-        <div>
-            <div class="col-lg-9">
-            <select name="role" id="role">
-                <option value="administrator">Administrator</option>
-                <option value="applicant">Applicant</option>
-                <option value="mentor">Mentor</option>
-            </select></div>
-            <div class="col-lg-3">
-            <input type="submit">
-        </div>
-        </div>
 
 
-
-        {% if error %}
-        <p>{{ error }}</p>
-        {% endif %}
-
-
-    </form>
-</div>
-
-<div class="col-lg-6">
+<div>
     <a class="button" href="{{ url_for('new_applicant_form') }}">Add New Applicant</a>
 </div>
 
