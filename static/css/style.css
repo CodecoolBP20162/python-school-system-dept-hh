@@ -4,7 +4,7 @@ body {
 }
 
 .opacity-container {
-    background-color: rgba(79, 79, 79, 0.3);
+    background-color: rgba(0, 0, 0, 0.25);
     z-index: 2;
     min-height: 1000px;
     height: auto;
@@ -25,6 +25,12 @@ h1 {
     position: fixed;
     z-index: -99;
     background-size: auto;
+    filter: blur(0px);
+}
+
+#login-menu {
+    background-color: rgba(180, 180, 180, 0.7);
+    border-top: 1px #fff solid
 }
 
 .pattern img {
@@ -36,6 +42,7 @@ header {
     height: 80px;
     background-color: rgba(0, 0, 0, 0.7);
     color: aliceblue;
+    font-size: 22px;
 }
 
 label {
@@ -107,6 +114,7 @@ th {
     -moz-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
+    border-radius: 4px;
 }
 
 .inside:hover {
@@ -131,7 +139,9 @@ th {
     padding-top: 20px;
 }
 
-input[type="submit"], input[type="email"], input[type="text"] {
+input[type="submit"],
+input[type="email"],
+input[type="text"] {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: 1px solid black;
@@ -170,6 +180,7 @@ select {
 
 .button-wrapper {
     padding: 0 10px;
+    font-size: 22px;
 }
 
 .header-wrapper {

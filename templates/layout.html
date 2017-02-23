@@ -51,39 +51,41 @@
             </div>
 
         </header>
-<div class="text-color-wrapper">
-        <div style="display: none;" id="login-menu">
+        <div class="text-color-wrapper">
+            <div style="display: none;" id="login-menu">
 
-            <form action="/login" method="post">
+                <form action="/login" method="post">
 
-                <div class="log-in-wrapper">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div>
-                                <label for="user-name">User Name</label>
+                    <div class="log-in-wrapper">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div>
+                                    <label for="user-name">User Name</label>
+                                </div>
+
+                                <div>
+                                    <textarea name="user-name" id="user-name"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <div>
+                                    <textarea name="password" id="password"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="log-in-button">
+                                    <input type="submit" value="Access"></div>
                             </div>
 
-                            <div>
-                                <textarea name="user-name" id="user-name"></textarea>
-                            </div>
                         </div>
-                        <div class="col-lg-5">
-                            <div>
-                                <label for="password">Password</label>
-                            </div>
-
-                            <div>
-                                <textarea name="password" id="password"></textarea>
-                            </div>
-                        </div> <div class="col-lg-2"><div class="log-in-button">
-                    <input type="submit" value="Log In"></div>
-                </div>
 
                     </div>
 
-                </div>
-
-                <!--
+                    <!--
                 <div>
                     <label for="role">Status</label>
                 </div>
@@ -99,21 +101,21 @@
 
 
 
-                {% if error %}
-                <p>{{ error }}</p>
-                {% endif %}
+                    {% if error %}
+                    <p>{{ error }}</p>
+                    {% endif %}
 
 
-            </form>
+                </form>
 
 
+            </div>
+
+
+            <section class="container">
+                {% block content %} {% endblock %}
+            </section>
         </div>
-
-
-        <section class="container">
-            {% block content %} {% endblock %}
-        </section>
-    </div>
     </div>
 </body>
 
