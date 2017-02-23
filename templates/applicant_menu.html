@@ -1,0 +1,18 @@
+ {% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+
+<h1>Applicant Menu</h1>
+
+<!--
+    <div class="clearfix"></div>
+    <div style="clear:both;"></div>
+-->
+
+<div class="button-wrapper">
+    <div class="row">
+        <div class="button col-lg-3">
+            <div class="inside"><a href="{{ url_for('new_applicant_form') }}">View Personal Data</a></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
