@@ -4,7 +4,7 @@ body {
 }
 
 .opacity-container {
-    background-color: rgba(22, 22, 22, 0.8);
+    background-color: rgba(79, 79, 79, 0.3);
     z-index: 2;
     min-height: 1000px;
     height: auto;
@@ -13,6 +13,7 @@ body {
 h1 {
     text-align: center;
     margin: 70px 0 !important;
+    color: #fff !important;
 }
 
 .container {
@@ -27,12 +28,13 @@ h1 {
 }
 
 .pattern img {
-    filter: blur(5px);
+    width: 100%;
+    height: auto;
 }
 
 header {
     height: 80px;
-    background-color: rgba(87, 87, 87, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     color: aliceblue;
 }
 
@@ -47,7 +49,7 @@ input {
     resize: none;
     width: 80%;
     padding: 0 auto;
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white !important;
     border: 1px solid black;
     border-radius: 4px;
@@ -79,11 +81,11 @@ a:hover {
 tr,
 th,
 td {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0;
     padding: 5px 10px;
     text-align: center !important;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 th {
@@ -97,7 +99,7 @@ th {
 
 .inside {
     border: 1px solid black;
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     position: relative;
     -webkit-transition: all .5s ease-in-out;
@@ -107,7 +109,7 @@ th {
 }
 
 .inside:hover {
-    background: #7c7c7c;
+    background-color: rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
     -moz-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
@@ -128,18 +130,19 @@ th {
     padding-top: 20px;
 }
 
-input[type="submit"] {
-    background: #575757;
+input[type="submit"], input[type="email"], input[type="text"] {
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: 1px solid black;
     border-radius: 4px;
     text-align: center;
     height: 25px;
     padding-left: auto;
+    margin: 10px 0;
 }
 
 select {
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white !important;
     border: 1px solid black;
 }
@@ -170,5 +173,19 @@ select {
 
 .register-wrapper {
     width: 400px;
-    margin: 0 auto;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.text-color-wrapper {
+    color: #fff;
+}
+
+.new-applicant-wrapper {
+    text-align: center;
+    margin: 30vh;
+    padding: 50px;
+    border-radius: 16px;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
