@@ -2,16 +2,12 @@ body {
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     background-color: #7e7e7e;
-
-
 }
 
 h1 {
     text-align: center;
     margin: 70px 0 !important;
 }
-
-
 
 .container {
     width: 1070px;
@@ -24,14 +20,14 @@ header {
     color: aliceblue;
 }
 
-
 label {
     display: block;
     width: 100%;
-    margin: 0 auto ;
+    margin: 0 auto;
 }
 
-textarea {
+textarea,
+input {
     resize: none;
     width: 80%;
     padding: 0 auto;
@@ -40,10 +36,7 @@ textarea {
     border: 1px solid black;
     border-radius: 4px;
     height: 20px;
-
 }
-
-
 
 .icon svg {
     height: 25px;
@@ -57,10 +50,10 @@ table {
 
 a {
     text-decoration: none !important;
-        -webkit-transition: all .5s ease-in-out;
-  -moz-transition: all .5s ease-in-out;
-  -o-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
 
 a:hover {
@@ -81,8 +74,6 @@ th {
     font-weight: bold;
 }
 
-
-
 .button {
     text-align: center;
     padding-top: 13px;
@@ -94,16 +85,16 @@ th {
     color: white;
     position: relative;
     -webkit-transition: all .5s ease-in-out;
-  -moz-transition: all .5s ease-in-out;
-  -o-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }
 
 .inside:hover {
     background: #7c7c7c;
     -webkit-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow:    0px 1px 12px 0px rgba(0, 0, 0, 0.8);
-    box-shadow:         0px 1px 12px 0px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
 }
 
 .inside a {
@@ -117,7 +108,7 @@ th {
     color: white;
 }
 
-.submit-wrapper{
+.submit-wrapper {
     padding-top: 20px;
 }
 
@@ -133,21 +124,21 @@ input[type="submit"] {
 }
 
 select {
-     background: #575757;
+    background: #575757;
     color: white !important;
     border: 1px solid black;
 }
 
-.admin-notification{
+.admin-notification {
     margin-top: 30px;
     margin-bottom: 100px;
 }
 
-.log-in-status{
+.log-in-status {
     text-align: right;
 }
 
-.button-wrapper{
+.button-wrapper {
     padding: 0 10px;
 }
 
