@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 </head>
 
@@ -18,17 +19,80 @@
 
 
 <header>
-    <div class="header-wrapper">
-        <div class="col-lg-6" >
-            {% if 'admin' in session %}
-            <div>{{ message }}</div>
+
+
+    <div class="button-wrapper">
+        <div class="row">
+            <div class="button col-lg-6">
+                <p>sadsadas</p>
+            </div>
+
+
+            {% if "admin" in session %}
+
+            <div class="log-in-status col-lg-6">
+                <a href="{{url_for('logout')  }}">Log Out</a>
+            </div>
+
+            {% else %}
+            <div class="log-in-status col-lg-6 trigger-button">
+                <p>Log In</p>
+            </div>
             {% endif %}
-        </div>
-        <div class="log-in-status col-lg-6">
-            <a href="{{ url_for('login') }}">Log In</a>
+
+
         </div>
     </div>
+
+
 </header>
+
+<div style="display: none;" id="login-menu">
+
+    <form action="/login" method="post">
+
+        <div>
+            <label for="user-name">User Name</label>
+        </div>
+
+        <div>
+            <textarea name="user-name" id="user-name"></textarea>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+        </div>
+
+        <div>
+            <textarea name="password" id="password"></textarea>
+        </div>
+
+        <div>
+            <label for="role">Status</label>
+        </div>
+
+        <div>
+            <div class="col-lg-9">
+                <select name="role" id="role">
+                    <option value="administrator">Administrator</option>
+                    <option value="applicant">Applicant</option>
+                    <option value="mentor">Mentor</option>
+                </select></div>
+            <div class="col-lg-3">
+                <input type="submit">
+            </div>
+        </div>
+
+
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+
+
+    </form>
+
+
+</div>
 
 
 <section class="container">
@@ -39,6 +103,12 @@
 </body>
 
 <footer>
+
+    <script>
+        jQuery(".trigger-button").click(function () {
+            jQuery("#login-menu").slideToggle("slow");
+        });
+    </script>
 
 </footer>
 

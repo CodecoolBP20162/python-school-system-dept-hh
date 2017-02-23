@@ -39,11 +39,11 @@ def close_db(error):
 
 @app.route('/')
 def home_menu():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' not in session:
         return render_template('home.html')
     else:
-        return render_template('admin_menu.html', message=admin_message)
+        return render_template('admin_menu.html')
 
 
 
@@ -55,7 +55,7 @@ def login():
 
     name_error = 'Invalid username!'
     password_error = 'Invalid password!'
-    admin_message = 'ADMIN MODE IS ON'
+    
 
     if request.method == 'POST':
 
@@ -65,11 +65,14 @@ def login():
                 return render_template('home.html', error=name_error)
             elif PASSWORD != request.form['password']:
                 return render_template('home.html', error=password_error)
+            elif request.form['role'] != 'administrator':
+                # purposeful password error
+                return render_template('home.html', error=password_error)
             else:
                 session['admin'] = request.form['user-name']
-                return render_template('admin_menu.html', message=admin_message)
+                return render_template('admin_menu.html')
         else:
-            return render_template('admin_menu.html', message=admin_message)
+            return render_template('admin_menu.html')
 
     else:
         return redirect(url_for('home_menu'))
@@ -78,8 +81,8 @@ def login():
 @app.route('/admin_menu', methods=['GET','POST'])
 def admin_menu():
     if 'admin' in session:
-        admin_message = 'ADMIN MODE IS ON'
-        return render_template('admin_menu.html', message=admin_message)
+        
+        return render_template('admin_menu.html')
     else:
         return redirect(url_for('new_applicant_form'))
 
@@ -90,53 +93,53 @@ def logout():
         session.pop('admin', None)
         return render_template('home.html')
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 
 @app.route('/applicant_registration')
 def new_applicant_form():
-    admin_message = 'ADMIN MODE IS ON'
+    
     cities = City.select().order_by(City.id.asc())
-    return render_template('register_applicant.html', cities=cities, message=admin_message)
+    return render_template('register_applicant.html', cities=cities)
 
 
 
 @app.route('/registration', methods=['POST'])
 def new_applicant_registration():
-    admin_message = 'ADMIN MODE IS ON'
+    
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
-    return render_template('home.html', message=admin_message)
+    return render_template('home.html')
 
 
 @app.route('/admin/applicant_list')
 def listing_all_applicants():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' in session:
         administrator_data.listing_all_applicants()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_applicants.html', header=table_header, content=table_content)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list')
 def listing_all_interviews():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' in session:
         administrator_data.listing_all_interviews()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_interviews.html', header=table_header, content=table_content)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' in session:
         if request.form["filter_by"] == "Status":
             administrator_data.applicants_by_status(request.form["filter"])
@@ -172,26 +175,26 @@ def filter_applicants():
                 "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
-        return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_applicants.html', header=table_header, content=table_content)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' in session:
         administrator_data.listing_all_emails()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('email_list.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('email_list.html', header=table_header, content=table_content)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list', methods=["POST"])
 def filter_interviews():
-    admin_message = 'ADMIN MODE IS ON'
+    
     if 'admin' in session:
         if request.form["filter_by"] == "School":
             administrator_data.listing_interviews_by_school(request.form["filter"])
@@ -219,9 +222,9 @@ def filter_interviews():
                     request.form["filter"])
                 table_header = administrator_data.tags
                 table_content = administrator_data.results
-        return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_interviews.html', header=table_header, content=table_content)
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 if __name__ == "__main__":
     init_db()
