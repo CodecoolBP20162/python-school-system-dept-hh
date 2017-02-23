@@ -15,8 +15,8 @@ h1 {
 }
 
 header {
-    height: 40px;
-    background-color: #575757;
+    height: 80px;
+    background-color: rgba(87, 87, 87, 0.7);
     color: aliceblue;
 }
 
@@ -118,7 +118,7 @@ input[type="submit"] {
     border: 1px solid black;
     border-radius: 4px;
     text-align: center;
-    width: 150px;
+
     height: 25px;
     padding-left: auto;
 }
@@ -136,6 +136,12 @@ select {
 
 .log-in-status {
     text-align: right;
+    padding-top: 29px;
+}
+
+.log-in-wrapper {
+    width: 1070px;
+    margin: 0 auto;
 }
 
 .button-wrapper {
@@ -143,10 +149,12 @@ select {
 }
 
 .header-wrapper {
-    padding-top: 11px;
+    padding: 11px auto 0 auto;
+    width: 1070px;
 }
 
 .register-wrapper {
     width: 400px;
     margin: 0 auto;
 }
+

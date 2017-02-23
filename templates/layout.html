@@ -20,30 +20,31 @@
 
 <header>
 
-
-    <div class="button-wrapper">
-        <div class="row">
-            <div class="button col-lg-6">
-                <p>sadsadas</p>
-            </div>
-
-
-            {% if "admin" in session %}
-
-            <div class="log-in-status col-lg-6">
-                <a href="{{url_for('logout')  }}">Log Out</a>
-            </div>
-
-            {% else %}
-            <div class="log-in-status col-lg-6 trigger-button">
-                <p>Log In</p>
-            </div>
-            {% endif %}
-
-
+    <div class="header-wrapper>
+    <div class=" button-wrapper
+    ">
+    <div class="row">
+        <div class="button col-lg-6">
+            <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="50" height="50" alt="logo"></a>
         </div>
-    </div>
 
+
+        {% if "admin" in session %}
+
+        <div class="log-in-status col-lg-6">
+            <a href="{{url_for('logout')  }}">Log Out</a>
+        </div>
+
+        {% else %}
+        <div class="log-in-status col-lg-6 trigger-button">
+            <p>Log In</p>
+        </div>
+        {% endif %}
+
+
+    </div>
+    </div>
+    </div>
 
 </header>
 
@@ -51,37 +52,45 @@
 
     <form action="/login" method="post">
 
-        <div>
-            <label for="user-name">User Name</label>
-        </div>
+        <div class="log-in-wrapper">
+            <div class="row">
+<div class="col-lg-5">
+                <div>
+                    <label for="user-name">User Name</label>
+                </div>
 
-        <div>
-            <textarea name="user-name" id="user-name"></textarea>
-        </div>
+                <div>
+                    <textarea name="user-name" id="user-name"></textarea>
+                </div>
+</div>
+                <div class="col-lg-5">
+                <div>
+                    <label for="password">Password</label>
+                </div>
 
-        <div>
-            <label for="password">Password</label>
-        </div>
-
-        <div>
-            <textarea name="password" id="password"></textarea>
-        </div>
-
-        <div>
-            <label for="role">Status</label>
-        </div>
-
-        <div>
-            <div class="col-lg-9">
-                <select name="role" id="role">
-                    <option value="administrator">Administrator</option>
-                    <option value="applicant">Applicant</option>
-                    <option value="mentor">Mentor</option>
-                </select></div>
-            <div class="col-lg-3">
-                <input type="submit">
+                <div>
+                    <textarea name="password" id="password"></textarea>
+                </div>
+                    </div>
             </div>
         </div>
+                <div class="col-lg-2">
+            <input type="submit">
+        </div>
+        <!--
+                <div>
+                    <label for="role">Status</label>
+                </div>
+
+                <div>
+                    <div class="col-lg-9">
+                        <select name="role" id="role">
+                            <option value="administrator">Administrator</option>
+                            <option value="applicant">Applicant</option>
+                            <option value="mentor">Mentor</option>
+                        </select></div></div>
+        -->
+
 
 
         {% if error %}
