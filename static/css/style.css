@@ -53,7 +53,8 @@ input {
     color: white !important;
     border: 1px solid black;
     border-radius: 4px;
-    height: 20px;
+    height: 40px;
+    font-size: 22px !important;
 }
 
 .icon svg {
@@ -85,7 +86,7 @@ td {
     margin: 0;
     padding: 5px 10px;
     text-align: center !important;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.55);
 }
 
 th {
@@ -136,7 +137,7 @@ input[type="submit"], input[type="email"], input[type="text"] {
     border: 1px solid black;
     border-radius: 4px;
     text-align: center;
-    height: 25px;
+    height: 40px;
     padding-left: auto;
     margin: 10px 0;
 }
@@ -160,6 +161,11 @@ select {
 .log-in-wrapper {
     width: 1070px;
     margin: 0 auto;
+    text-align: center;
+}
+
+.log-in-button {
+    padding-top: 16px;
 }
 
 .button-wrapper {
