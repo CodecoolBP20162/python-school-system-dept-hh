@@ -50,8 +50,11 @@ def home_menu():
 def login():
 
     if request.method == 'POST':
-        user = User.select().where(
+        try:
+            user = User.select().where(
             (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
+        except:
+            return render_template('home.html')
 
         if user is not None:
             if 'admin' or 'applicant' or 'mentor' not in session:
@@ -66,7 +69,7 @@ def login():
 
                 else:
                     session['applicant'] = user.email
-                    return render_template('applicant_menu.html')
+                    return redirect(url_for('applicant_menu'), message=user.email)
 
             elif 'admin' in session:
                 return render_template('admin_menu.html')
@@ -75,7 +78,7 @@ def login():
                 return render_template('mentor_menu.html')
 
             else:
-                return render_template('applicant_data.html')
+                return redirect(url_for('applicant_menu'), message=user.email)
 
         if user:
             return render_template('home.html')
