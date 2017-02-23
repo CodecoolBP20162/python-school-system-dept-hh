@@ -25,6 +25,7 @@ class City(BaseModel):
 
 class Admin(BaseModel):
     name = CharField()
+    email = CharField()
     password = CharField()
     user_status = IntegerField(default=1)
 
@@ -83,6 +84,6 @@ class Email(BaseModel):
 
 
 class User(BaseModel):
-    name = CharField()
+    email = CharField()
     password = CharField()
     user_status = IntegerField()
