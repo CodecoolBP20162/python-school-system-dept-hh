@@ -52,7 +52,7 @@ def login():
     if request.method == 'POST':
         try:
             user = User.select().where(
-            (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
+                (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
         except:
             return render_template('home.html')
 
@@ -80,6 +80,7 @@ def login():
             else:
                 return render_template('applicant_menu.html', message=user.email)
 
+
         if user:
             return render_template('home.html')
 
@@ -106,7 +107,20 @@ def logout():
         return redirect(url_for('home_menu'))
 
 
-@app.route('/applicant_registration')
+@app.route('/applicant')
+def applicant_menu():
+    return render_template('applicant_menu.html')
+
+
+@app.route('/applicant/personal_data')
+def applicant_personal_data():
+    applicants_data.get_applicant_personal_data()
+    table_header = applicants_data.tags
+    table_content = applicants_data.results
+    return render_template('applicant_data.html', header=table_header, content=table_content)
+
+
+@app.route('/applicant_registration', methods=['POST'])
 def new_applicant_form():
 
     cities = City.select().order_by(City.id.asc())
