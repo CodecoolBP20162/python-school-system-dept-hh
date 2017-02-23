@@ -1,0 +1,130 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <div class="pattern">
+        <img src="../static/img/background.jpg" alt="background">
+    </div>
+
+    <div class="opacity-container">
+
+        <header>
+
+            <div class="header-wrapper">
+                <div class="button-wrapper">
+                    <div class="row">
+                        <div class="button col-lg-6">
+                            <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="50" height="50" alt="logo"></a>
+                        </div>
+
+
+                        {% if "admin" in session %}
+
+                        <div class="log-in-status col-lg-6">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
+                        {% else %}
+                        <div class="log-in-status col-lg-6 trigger-button">
+                            <div class="login-button">Log In</div>
+                        </div>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <div class="text-color-wrapper">
+            <div style="display: none;" id="login-menu">
+
+                <form action="/login" method="post">
+
+                    <div class="log-in-wrapper">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div>
+                                    <label for="user-name">User Name</label>
+                                </div>
+
+                                <div>
+                                    <input type="text" name="user-name" id="user-name">
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <div>
+                                    <input type="password" name="password" id="password">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="log-in-button">
+                                    <input type="submit" value="Access"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--
+                <div>
+                    <label for="role">Status</label>
+                </div>
+
+                <div>
+                    <div class="col-lg-9">
+                        <select name="role" id="role">
+                            <option value="administrator">Administrator</option>
+                            <option value="applicant">Applicant</option>
+                            <option value="mentor">Mentor</option>
+                        </select></div></div>
+        -->
+
+
+
+                    {% if error %}
+                    <p>{{ error }}</p>
+                    {% endif %}
+
+
+                </form>
+
+
+            </div>
+
+
+            <section class="container">
+                {% block content %} {% endblock %}
+            </section>
+        </div>
+    </div>
+</body>
+
+<footer>
+
+    <script>
+        jQuery(".trigger-button").click(function() {
+            jQuery("#login-menu").slideToggle("slow");
+        });
+    </script>
+
+</footer>

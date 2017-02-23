@@ -2,6 +2,7 @@ import random
 from models import *
 import datetime
 from mail import Mail
+import textwrap
 
 
 class ApplicantsData:
@@ -48,21 +49,27 @@ class ApplicantsData:
 
         recipient_list = [email_input]
         subject = "New Application"
+        type = "To applicant about personal data"
         message = """
         Hi {name_input},
         Your application process to Codecool has been started!
         Your code is {code}, and the city you have been assigned to is {city}.
 
-        Good luck!""".format(name_input=name_input, code=application_code, city=applicant_school.name)
+        Good luck!
+        """.format(name_input=name_input, code=application_code, city=applicant_school.name)
 
         application_email = Mail(recipient_list, message, subject)
         application_email.send()
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_applicant(name_input, email_input, new_interview):
 
         recipient_list = [email_input]
         subject = "New Interview"
+        type = "To applicant about interview data"
         try:
             message = """
             Hi {name_input},
@@ -83,12 +90,18 @@ class ApplicantsData:
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=name_input, recipient_email=email_input)
 
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
 
         recipient_list = [new_interview.interviewslot.mentor.email, new_interview.interviewslot.mentor2.email]
         subject = "You've been assigned to a new interview"
+        type = "To mentor about interview data"
+        mentor_name = new_interview.interviewslot.mentor.name
+        mentor2_name = new_interview.interviewslot.mentor2.name
         message = """
         Hi {mentor_name} and {mentor2_name},
         You have been assigned to a new interview from {start} to {end}.
@@ -96,12 +109,16 @@ class ApplicantsData:
 
         Best regards,
         The Codecool Team
-        """.format(mentor_name=new_interview.interviewslot.mentor.name,
-                   mentor2_name=new_interview.interviewslot.mentor2.name, start=new_interview.interviewslot.start,
+        """.format(mentor_name=mentor_name, mentor2_name=mentor2_name, start=new_interview.interviewslot.start,
                    end=new_interview.interviewslot.end, applicant_name=new_interview.applicant.name)
 
         interview_email = Mail(recipient_list, message, subject)
         interview_email.send()
+        message = textwrap.shorten(message, width=140, placeholder="...")
+        new_email = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                 recipient_name=mentor_name, recipient_email=recipient_list[0])
+        new_email2 = Email.create(subject=subject, message=message, type=type, submissiondate=datetime.datetime.now(),
+                                  recipient_name=mentor2_name, recipient_email=recipient_list[1])
 
     @staticmethod
     def new_applicant(city_input, name_input, email_input):

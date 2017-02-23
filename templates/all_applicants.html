@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}All Applicants{% endblock %}
+{% block content %}
+
+<h1>All Applicants</h1>
+<div class="row">
+
+    <form action="{{ url_for('filter_applicants') }}" method="post">
+        <div class="col-lg-6">
+            <label for="filter">Filter</label>
+            <textarea id="filter" name="filter" rows=1 cols=80 maxlength="70"></textarea>
+        </div>
+        <div class="col-lg-4">
+            <label for="filter_by">Filter by</label>
+            <select id="filter_by" name="filter_by">
+                <option value="Status" name="Status" id="Status">Status</option>
+                <option value="Interview" name="Interview" id="Interview">Interview</option>
+                <option value="School" name="School" id="School">School</option>
+                <option value="City" name="City" id="City">City</option>
+                <option value="Mentor" name="Mentor" id="Mentor">Mentor</option>
+                <option value="Code" name="Code" id="Code">Email by Code</option>
+            </select>
+        </div>
+        <div class="submit-wrapper">
+            <div class="col-lg-2">
+
+                <input type=submit id=filter_button value="Filter it!">
+            </div>
+        </div>
+</div>
+</form>
+<p>
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        {% for tag in header %}
+        <th>{{ tag }}</th>
+        {% endfor %}
+    </tr>
+    {% for person in content %}
+    <tr>{% for personal_data in person %}
+        <td>{{ personal_data }}</td>
+        {% endfor %}
+    </tr>
+    {% else %}
+    <strong>There is no data in the database with the given filter!</strong> {% endfor %}
+</table>
+</p>
+{% endblock %}

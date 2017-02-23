@@ -1,0 +1,31 @@
+ {% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+
+<h1>Admin Main Menu</h1>
+
+<!--
+    <div class="clearfix"></div>
+    <div style="clear:both;"></div>
+-->
+
+<div class="button-wrapper">
+    <div class="row">
+        <div class="button col-lg-3">
+            <div class="inside"><a href="{{ url_for('new_applicant_form') }}">Add New Applicant</a></div>
+        </div>
+
+        <div class="button col-lg-3">
+            <div class="inside"><a href="{{ url_for('listing_all_applicants') }}">Applicants</a></div>
+        </div>
+
+
+        <div class="button col-lg-3">
+            <div class="inside"><a href="{{ url_for('listing_all_interviews') }}">Interviews</a></div>
+        </div>
+
+        <div class="button col-lg-3">
+            <div class="inside"><a href="{{ url_for('listing_all_emails') }}">E-mails</a></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

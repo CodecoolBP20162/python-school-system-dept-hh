@@ -62,3 +62,12 @@ class Question(BaseModel):
 class Answer(BaseModel):
     answer = TextField()
     question = ForeignKeyField(Question, related_name="questions")
+
+
+class Email(BaseModel):
+    subject = CharField()
+    message = TextField()
+    type = CharField()
+    submissiondate = DateTimeField()
+    recipient_name = CharField(max_length=10000)
+    recipient_email = CharField(max_length=10000)

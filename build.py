@@ -7,7 +7,8 @@ class Builder:
         self.data_creator = ExampleDataCreator()
 
     def create_tables_and_dummy_data(self):
-        self.data_creator.build_tables([School, City, Mentor, Applicant, InterviewSlot, Interview, Question, Answer])
+        self.data_creator.build_tables(
+            [School, City, Mentor, Applicant, InterviewSlot, Interview, Question, Answer, Email])
         self.data_creator.create_dummy_schools(["Budapest", "Miskolc", "Krakow"])
         self.data_creator.create_dummy_cities(["Budapest", "Székesfehérvár", "Tata", "Miskolc",
                                                "Eger", "Tokaj", "Krakow", "Warsaw", "Katovice"])
