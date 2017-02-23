@@ -207,3 +207,13 @@ class ApplicantsData:
                 for answer in answers:
                     self.results.append(
                         [question.question, question.status, answer.answer])
+
+    def get_applicant_personal_data(self, email):
+        self.results = []
+        self.tags = ['Name', 'Code' 'City', 'School', 'Status']
+        self.query = Applicant.select().where(Applicant.email == email)
+
+        for query_object in self.query:
+            self.results.append(
+                [query_object.name, query_object.code, query_object.city.name,
+                 query_object.school.name, query_object.status])
