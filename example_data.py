@@ -72,10 +72,13 @@ class ExampleDataCreator:
     @staticmethod
     def create_dummy_admins():
         name_list = ["Dénes", "Eszti", "Petya", "Tomi", "admin"]
+        email_list = ["codecool.depth+szdenes@gmail.com", "codecool.depth+leszter@gmail.com",
+                      "codecool.depth+szpeter@gmail.com", "codecool.depth+vtamas@gmail.com", "codecool.depth+admin@gmail.com"]
         password_list = ["1234", "5678", "9111", "1213", "admin"]
 
         for x in range(len(name_list)):
-            Admin.create(name=name_list[x], password=password_list[x])
+            Admin.create(name=name_list[x], password=password_list[
+                         x], email=email_list[x])
 
     @staticmethod
     def create_dummy_interview_slots_by_csv(interviewslot_table):
@@ -94,13 +97,13 @@ class ExampleDataCreator:
         mentors = Mentor.select()
         admins = Admin.select()
         for applicant in applicants:
-            User.create(name=applicant.name, password=applicant.code,
+            User.create(email=applicant.email, password=applicant.code,
                         user_status=applicant.user_status)
         for mentor in mentors:
-            User.create(name=mentor.name, password=mentor.password,
+            User.create(email=mentor.email, password=mentor.password,
                         user_status=mentor.user_status)
         for admin in admins:
-            User.create(name=admin.name, password=admin.password,
+            User.create(email=admin.email, password=admin.password,
                         user_status=admin.user_status)
 
     @staticmethod
