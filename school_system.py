@@ -46,33 +46,40 @@ def home_menu():
         return render_template('admin_menu.html')
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    USERNAME = 'admin'
-    PASSWORD = 'admin'
-
-    name_error = 'Invalid username!'
-    password_error = 'Invalid password!'
-    
-
     if request.method == 'POST':
+        user = User.select().where(
+            (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
 
-        if 'admin' not in session:
+        if user is not None:
+            if 'admin' or 'applicant' or 'mentor' not in session:
 
-            if USERNAME != request.form['user-name']:
-                return render_template('home.html', error=name_error)
-            elif PASSWORD != request.form['password']:
-                return render_template('home.html', error=password_error)
-            elif request.form['role'] != 'administrator':
-                # purposeful password error
-                return render_template('home.html', error=password_error)
-            else:
-                session['admin'] = request.form['user-name']
+                if user.user_status == 1:
+                    session['admin'] = user.email
+                    return render_template('admin_menu.html')
+
+                elif user.user_status == 2:
+                    session['mentor'] = user.email
+                    return render_template('mentor_menu.html')
+
+                else:
+                    session['applicant'] = user.email
+                    return render_template('applicant_data.html')
+
+            elif 'admin' in session:
                 return render_template('admin_menu.html')
-        else:
-            return render_template('admin_menu.html')
+
+            elif 'mentor' in session:
+                return render_template('mentor_menu.html')
+
+            else:
+                return render_template('applicant_data.html')
+
+        if user:
+            return render_template('home.html')
+
 
     else:
         return redirect(url_for('home_menu'))
