@@ -69,7 +69,7 @@ def login():
 
                 else:
                     session['applicant'] = user.email
-                    return redirect(url_for('applicant_menu'), message=user.email)
+                    return render_template('applicant_menu.html', message = user.email)
 
             elif 'admin' in session:
                 return render_template('admin_menu.html')
@@ -78,7 +78,7 @@ def login():
                 return render_template('mentor_menu.html')
 
             else:
-                return redirect(url_for('applicant_menu'), message=user.email)
+                return render_template('applicant_menu.html', message=user.email)
 
         if user:
             return render_template('home.html')
