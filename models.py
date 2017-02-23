@@ -23,10 +23,17 @@ class City(BaseModel):
     related_school = ForeignKeyField(School, related_name="cities")
 
 
+class Admin(BaseModel):
+    name = CharField()
+    password = CharField()
+    user_status = IntegerField(default=1)
+
+
 class Mentor(BaseModel):
     name = CharField()
     email = CharField()
     password = CharField()
+    user_status = IntegerField(default=2)
     related_school = ForeignKeyField(School, related_name="workplaces")
 
 
@@ -36,6 +43,7 @@ class Applicant(BaseModel):
     status = CharField()
     code = CharField()
     email = CharField()
+    user_status = IntegerField(default=3)
     school = ForeignKeyField(School, related_name="registered_schools")
 
 
@@ -72,3 +80,9 @@ class Email(BaseModel):
     submissiondate = DateTimeField()
     recipient_name = CharField(max_length=10000)
     recipient_email = CharField(max_length=10000)
+
+
+class User(BaseModel):
+    name = CharField()
+    password = CharField()
+    user_status = IntegerField()

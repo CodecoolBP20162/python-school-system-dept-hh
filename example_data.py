@@ -70,6 +70,14 @@ class ExampleDataCreator:
                              code=ApplicantsData.random_app_code("applicant"), school=related_school)
 
     @staticmethod
+    def create_dummy_admins():
+        name_list = ["Dénes", "Eszti", "Petya", "Tomi", "admin"]
+        password_list = ["1234", "5678", "9111", "1213", "admin"]
+
+        for x in range(len(name_list)):
+            Admin.create(name=name_list[x], password=password_list[x])
+
+    @staticmethod
     def create_dummy_interview_slots_by_csv(interviewslot_table):
         for slot in interviewslot_table:
             mentor_select = Mentor.select().order_by(fn.Random()).limit(1)
@@ -79,6 +87,21 @@ class ExampleDataCreator:
             InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'),
                                  end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1,
                                  mentor2=mentor2)
+
+    @staticmethod
+    def create_user_login_data():
+        applicants = Applicant.select()
+        mentors = Mentor.select()
+        admins = Admin.select()
+        for applicant in applicants:
+            User.create(name=applicant.name, password=applicant.code,
+                        user_status=applicant.user_status)
+        for mentor in mentors:
+            User.create(name=mentor.name, password=mentor.password,
+                        user_status=mentor.user_status)
+        for admin in admins:
+            User.create(name=admin.name, password=admin.password,
+                        user_status=admin.user_status)
 
     @staticmethod
     def build_tables(tables):
