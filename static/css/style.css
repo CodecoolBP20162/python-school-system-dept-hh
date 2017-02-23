@@ -1,6 +1,5 @@
 body {
     font-size: 18px;
-    height: auto;
     font-family: 'Roboto', sans-serif;
     background-color: #7e7e7e;
 
@@ -12,6 +11,8 @@ h1 {
     margin: 70px 0 !important;
 }
 
+
+
 .container {
     width: 1070px;
     padding: 0 auto;
@@ -19,7 +20,7 @@ h1 {
 
 header {
     height: 40px;
-    background-color: rgba(122, 122, 122, 0.62);
+    background-color: #575757;
     color: aliceblue;
 }
 
@@ -27,11 +28,22 @@ header {
 label {
     display: block;
     width: 100%;
+    margin: 0 auto ;
 }
 
 textarea {
     resize: none;
+    width: 80%;
+    padding: 0 auto;
+    background: #575757;
+    color: white !important;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 20px;
+
 }
+
+
 
 
 .icon svg {
@@ -50,7 +62,7 @@ td {
     border: 1px solid #ccc;
     margin: 0;
     padding: 5px 10px;
-    text-align: center;
+    text-align: center !important;
     background-color: white;
 }
 
@@ -58,50 +70,38 @@ th {
     font-weight: bold;
 }
 
-.small-text {
-    font-size: small;
-    color: #7e7e7e;
-}
 
-.hidden-button {
-    background: none;
-    border: none;
-}
-
-input[type="submit"] {
-    background: #d1d1d1;
-    color: white;
-    border: 1px solid black;
-    border-radius: 4px;
-    text-align: center;
-    width: 150px;
-    height: 50px;
-}
 
 .button {
-    background: #d1d1d1;
+    background: #575757;
     color: white;
     border: 1px solid black;
-    border-radius: 4px;
     text-align: center;
     width: 150px;
     height: 50px;
+    padding: 13px;
 }
 
 
+.submit-wrapper{
+    padding-top: 20px;
+}
 
 input[type="submit"] {
-    background: #d1d1d1;
+    background: #575757;
     color: white;
     border: 1px solid black;
     border-radius: 4px;
     text-align: center;
     width: 150px;
-    height: 50px;
+    height: 25px;
+    padding-left: auto;
 }
 
-input[type="submit"]:hover {
-    background: #1e38d1;
+select {
+     background: #575757;
+    color: white !important;
+    border: 1px solid black;
 }
 
 .admin-notification{
@@ -115,4 +115,13 @@ input[type="submit"]:hover {
 
 .button-wrapper{
     padding: 0 10px;
+}
+
+.header-wrapper {
+    padding-top: 11px;
+}
+
+.register-wrapper {
+    width: 400px;
+    margin: 0 auto;
 }

@@ -26,16 +26,19 @@
         </div>
 
         <div>
+            <div class="col-lg-9"
             <select name="role" id="role">
                 <option value="administrator">Administrator</option>
                 <option value="applicant">Applicant</option>
                 <option value="mentor">Mentor</option>
             </select>
-        </div>
 
-        <div>
+            <div class="col-lg-3">
             <input type="submit">
         </div>
+        </div>
+
+
 
         {% if error %}
         <p>{{ error }}</p>
