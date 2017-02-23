@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 class ExampleDataCreator:
+
     @staticmethod
     def csv_reader(filename):
         current_file_path = os.path.dirname(os.path.abspath(__file__))
@@ -45,7 +46,8 @@ class ExampleDataCreator:
     def create_dummy_mentors_by_csv(mentor_table):
         for mentor in mentor_table:
             school = School.select().where(School.name == mentor[2]).get()
-            Mentor.create(name=mentor[0], email=mentor[1], related_school=school)
+            Mentor.create(name=mentor[0], email=mentor[
+                          1], password=ApplicantsData.random_app_code("mentor"), related_school=school)
 
     @staticmethod
     def create_dummy_applicants_by_csv(applicants_table):
@@ -65,7 +67,7 @@ class ExampleDataCreator:
                 related_school = School.select().where(School.name == "Krakow").get()
 
             Applicant.create(name=applicant[0], city=applicant_city, email=applicant[2], status=applicant[3],
-                             code=ApplicantsData.random_app_code(), school=related_school)
+                             code=ApplicantsData.random_app_code("applicant"), school=related_school)
 
     @staticmethod
     def create_dummy_interview_slots_by_csv(interviewslot_table):
