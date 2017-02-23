@@ -85,44 +85,20 @@ a:link {
     color: #fff;
 }
 
-a:hover {
+a:hover, .login-button:hover, .new-applicant-wrapper:hover, input[type="submit"]:hover {
     color: #dddd58 !important;
 }
 
-a:visited {
+a:visited, .login-button:visited, .new-applicant-wrapper:visited {
     color: #fff;
 }
 
-a:active {
+a:active, .login-button:active, .new-applicant-wrapper:active {
     color: #dddd58;
 }
 
 a:focus {
     color: #dddd58 !important;
-}
-
-.login-button:hover {
-    color: #dddd58 !important;
-}
-
-.login-button:visited {
-    color: #fff;
-}
-
-.login-button:active {
-    color: #fff;
-}
-
-.new-applicant-wrapper:hover {
-    color: #dddd58 !important;
-}
-
-.new-applicant-wrapper:visited {
-    color: #fff;
-}
-
-.new-applicant-wrapper:active {
-    color: #fff;
 }
 
 tr,
@@ -217,12 +193,16 @@ select {
 }
 
 .log-in-button {
-    padding-top: 16px;
+    padding-top: 24px;
 }
 
 .button-wrapper {
     padding: 0 10px;
     font-size: 22px;
+}
+
+.logo-wrapper {
+    padding: 10px;
 }
 
 .header-wrapper {
