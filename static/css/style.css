@@ -6,7 +6,7 @@ body {
 .opacity-container {
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 2;
-    min-height: 1000px;
+    min-height: 1600px;
     height: auto;
 }
 
