@@ -145,10 +145,7 @@ def listing_all_applicants():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
-    elif 'mentor' in session:
-        return redirect(url_for('mentor_menu'))
-    elif 'applicant' in session:
-        return redirect(url_for('applicant_menu'))
+
     else:
         return redirect(url_for('home_menu'))
 
