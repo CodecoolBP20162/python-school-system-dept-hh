@@ -92,8 +92,14 @@ def admin_menu():
 
 @app.route('/logout')
 def logout():
-    if 'admin' or 'applicant' or 'mentor' in session:
+    if 'admin' in session:
         session.pop('admin', None)
+        return render_template('home.html')
+    if 'applicant' in session:
+        session.pop('applicant', None)
+        return render_template('home.html')
+    if 'mentor' in session:
+        session.pop('mentor', None)
         return render_template('home.html')
     else:
         return redirect(url_for('home_menu'))
