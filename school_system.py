@@ -53,46 +53,41 @@ def home_menu():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return redirect(url_for('home_menu'))
+
+    else:
         try:
             user = User.select().where(
                 (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
+
+            if user is not None:
+                if 'admin' or 'applicant' or 'mentor' not in session:
+
+                    if user.user_status == 1:
+                        session['admin'] = user.email
+                        return redirect(url_for('admin_menu'))
+
+                    elif user.user_status == 2:
+                        session['mentor'] = user.email
+                        return redirect(url_for('mentor_menu'))
+
+                    else:
+                        session['applicant'] = user.email
+                        return redirect(url_for('applicant_menu'))
+            else:
+                return redirect(url_for('home_menu'))
         except:
             return redirect(url_for('new_applicant_form'))
 
-        if user is not None:
-            if 'admin' or 'applicant' or 'mentor' not in session:
 
-                if user.user_status == 1:
-                    session['admin'] = user.email
-                    return render_template('admin_menu.html')
-
-                elif user.user_status == 2:
-                    session['mentor'] = user.email
-                    return render_template('mentor_menu.html')
-
-                else:
-                    session['applicant'] = user.email
-                    return render_template('applicant_menu.html', message = user.email)
-
-            elif 'admin' in session:
-                return render_template('admin_menu.html')
-
-            elif 'mentor' in session:
-                return render_template('mentor_menu.html')
-
-            else:
-                return render_template('applicant_menu.html', message=user.email)
-
-
-
-@app.route('/admin_menu', methods=['GET', 'POST'])
+@app.route('/admin/admin_menu')
 def admin_menu():
     if 'admin' in session:
-
         return render_template('admin_menu.html')
+
     else:
-        return redirect(url_for('new_applicant_form'))
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/logout')
@@ -104,12 +99,19 @@ def logout():
         return redirect(url_for('home_menu'))
 
 
-@app.route('/applicant')
+@app.route('/applicant_menu')
 def applicant_menu():
     if 'applicant' in session:
         return render_template('applicant_menu.html')
     else:
-        render_template('home.html')
+        return redirect(url_for('home_menu'))
+
+@app.route('/mentor_menu')
+def mentor_menu():
+    if 'mentor' in session:
+        return render_template('mentor_menu.html')
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/applicant/personal_data')
@@ -120,7 +122,7 @@ def applicant_personal_data():
     return render_template('applicant_data.html', header=table_header, content=table_content)
 
 
-@app.route('/applicant_registration')
+@app.route('/new_applicant_form')
 def new_applicant_form():
 
     cities = City.select().order_by(City.id.asc())
@@ -128,7 +130,7 @@ def new_applicant_form():
 
 
 @app.route('/registration', methods=['POST'])
-def new_applicant_registration():
+def registration():
 
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
@@ -143,6 +145,10 @@ def listing_all_applicants():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
+    elif 'mentor' in session:
+        return redirect(url_for('mentor_menu'))
+    elif 'applicant' in session:
+        return redirect(url_for('applicant_menu'))
     else:
         return redirect(url_for('home_menu'))
 
@@ -155,6 +161,7 @@ def listing_all_interviews():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_interviews.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
@@ -198,6 +205,7 @@ def filter_applicants():
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
@@ -210,6 +218,7 @@ def listing_all_emails():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('email_list.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
@@ -247,6 +256,7 @@ def filter_interviews():
                 table_header = administrator_data.tags
                 table_content = administrator_data.results
         return render_template('all_interviews.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
