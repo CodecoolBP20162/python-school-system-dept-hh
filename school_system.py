@@ -168,6 +168,19 @@ def applicant_ask_question():
 
 
 
+@app.route('/applicant/interview_data')
+def applicant_interview_data():
+    if 'applicant' in session:
+        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        try:
+            interview = Interview.select().where(Interview.applicant == applicant).get()
+            return render_template('interview_details_for_applicant.html', time=interview.interviewslot.start, school=interview.applicant.school.name, mentor=interview.interviewslot.mentor.name, mentor2=interview.interviewslot.mentor2.name)
+        except:
+            return render_template('interview_details_for_applicant.html', time=None, school=None, mentor=None, mentor2=None)
+    else:
+        return redirect(url_for('home_menu'))
+
+
 @app.route('/new_applicant_form')
 def new_applicant_form():
 

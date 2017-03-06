@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Interview data{% endblock %}
+{% block content %}
+<div class="interview_data">
+    <h1>Interview Data:</h1>
+    {% if time %}
+    <h2>Time:</h2>
+    <p>{{ time }}</p>
+    <h2>School:</h2>
+    <p>{{ school }}</p>
+    <h2>Mentors:</h2>
+    <p>{{ mentor }}</p>
+    <p>{{ mentor2 }}</p>
+    {% else %}
+    <p>You do not have an appointment yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
