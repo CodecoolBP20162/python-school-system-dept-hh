@@ -1,12 +1,19 @@
 body {
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
-    background-color: #7e7e7e;
+}
+
+.opacity-container {
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 2;
+    min-height: 1600px;
+    height: auto;
 }
 
 h1 {
     text-align: center;
     margin: 70px 0 !important;
+    color: #fff !important;
 }
 
 .container {
@@ -14,10 +21,27 @@ h1 {
     padding: 0 auto;
 }
 
+.pattern {
+    position: fixed;
+    z-index: -99;
+    background-size: auto;
+    filter: blur(0px);
+}
+
+#login-menu {
+    background-color: rgba(120, 120, 120, 0.7);
+}
+
+.pattern img {
+    width: 100%;
+    height: auto;
+}
+
 header {
-    height: 40px;
-    background-color: #575757;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.7);
     color: aliceblue;
+    font-size: 22px;
 }
 
 label {
@@ -31,11 +55,12 @@ input {
     resize: none;
     width: 80%;
     padding: 0 auto;
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white !important;
     border: 1px solid black;
     border-radius: 4px;
-    height: 20px;
+    height: 40px;
+    font-size: 22px !important;
 }
 
 .icon svg {
@@ -56,18 +81,34 @@ a {
     transition: all .5s ease-in-out;
 }
 
-a:hover {
-    opacity: .8;
+a:link {
+    color: #fff;
+}
+
+a:hover, .login-button:hover, .new-applicant-wrapper:hover, input[type="submit"]:hover {
+    color: #dddd58 !important;
+}
+
+a:visited, .login-button:visited, .new-applicant-wrapper:visited {
+    color: #fff;
+}
+
+a:active, .login-button:active, .new-applicant-wrapper:active {
+    color: #dddd58;
+}
+
+a:focus {
+    color: #dddd58 !important;
 }
 
 tr,
 th,
 td {
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 0;
     padding: 5px 10px;
     text-align: center !important;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.55);
 }
 
 th {
@@ -81,17 +122,18 @@ th {
 
 .inside {
     border: 1px solid black;
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     position: relative;
     -webkit-transition: all .5s ease-in-out;
     -moz-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
+    border-radius: 4px;
 }
 
 .inside:hover {
-    background: #7c7c7c;
+    background-color: rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
     -moz-box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.8);
@@ -112,21 +154,26 @@ th {
     padding-top: 20px;
 }
 
-input[type="submit"] {
-    background: #575757;
+input[type="submit"],
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: 1px solid black;
     border-radius: 4px;
     text-align: center;
-    width: 150px;
-    height: 25px;
+    height: 40px;
     padding-left: auto;
+    margin: 10px 0;
 }
 
 select {
-    background: #575757;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white !important;
     border: 1px solid black;
+    height: 40px;
+    border-radius: 4px;
 }
 
 .admin-notification {
@@ -136,17 +183,49 @@ select {
 
 .log-in-status {
     text-align: right;
+    padding-top: 29px;
+}
+
+.log-in-wrapper {
+    width: 1070px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.log-in-button {
+    padding-top: 24px;
 }
 
 .button-wrapper {
     padding: 0 10px;
+    font-size: 22px;
+}
+
+.logo-wrapper {
+    padding: 10px;
 }
 
 .header-wrapper {
-    padding-top: 11px;
+    padding: 11px auto 0 auto;
+    width: 1070px;
+    margin: 0 auto;
 }
 
 .register-wrapper {
     width: 400px;
-    margin: 0 auto;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.text-color-wrapper {
+    color: #fff;
+}
+
+.new-applicant-wrapper {
+    text-align: center;
+    margin: 30vh;
+    padding: 50px;
+    border-radius: 16px;
+    font-size: 48px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
