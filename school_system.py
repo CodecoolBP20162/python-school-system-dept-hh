@@ -122,10 +122,11 @@ def mentor_menu():
 
 @app.route('/applicant/personal_data')
 def applicant_personal_data():
-    applicants_data.get_applicant_personal_data()
-    table_header = applicants_data.tags
-    table_content = applicants_data.results
-    return render_template('applicant_data.html', header=table_header, content=table_content)
+    if 'applicant' in session:
+        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        return render_template('applicant_data.html', name=applicant.name ,status=applicant.status, school=applicant.school.name)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/new_applicant_form')

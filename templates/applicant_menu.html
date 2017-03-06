@@ -1,9 +1,10 @@
- {% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+{% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
 
 
-<a href="{{ url_for('logout') }}"><div class="new-applicant-wrapper">Applicant features coming soon!
-Click here to log out!</div></a>
 
+    <div class="button col-lg-6">
+        <div class="inside"><a href="{{ url_for('applicant_personal_data') }}">Applicant personal data</a></div>
+    </div>
 
 
 
