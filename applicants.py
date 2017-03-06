@@ -133,7 +133,7 @@ class ApplicantsData:
                                          status="new", code=application_code, email=email_input)
 
         new_user = User.create(email=email_input, password=application_code,
-                               user_status=1)
+                               user_status=3)
 
         try:
             interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,

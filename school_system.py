@@ -49,10 +49,10 @@ def home_menu():
     else:
         return render_template('home.html')
 
+
 @app.route('/about_us')
 def about_us():
     return render_template('about_us.html')
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -127,13 +127,45 @@ def mentor_menu():
         return redirect(url_for('home_menu'))
 
 
+@app.route('/mentor_menu/interviews')
+def list_mentor_interviews():
+    if 'mentor' in session:
+        mentor = Mentor.get(Mentor.email == session['mentor'])
+        mentors_data.mentors_interviews_data(mentor.id)
+        table_header = mentors_data.tags
+        table_content = mentors_data.results
+        return render_template('mentor_interviews.html', name=mentor.name, header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
+
+
 @app.route('/applicant/personal_data')
 def applicant_personal_data():
     if 'applicant' in session:
-        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
-        return render_template('applicant_data.html', name=applicant.name ,status=applicant.status, school=applicant.school.name)
+        applicant = Applicant.select().where(
+            Applicant.email == session['applicant']).get()
+        return render_template('applicant_data.html', name=applicant.name, status=applicant.status, school=applicant.school.name)
     else:
         return redirect(url_for('home_menu'))
+
+@app.route('/applicant/question_form')
+def question_form():
+    return render_template('applicant_ask_question.html')
+
+
+@app.route('/applicant/ask_question', methods=['POST'])
+def applicant_ask_question():
+
+    if 'applicant' in session:
+        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        question = request.form['question']
+        applicants_data.add_question_to_database(applicant.code, question)
+        return render_template('home.html')
+    else:
+        return redirect(url_for('home_menu'))
+
+
+
 
 
 @app.route('/new_applicant_form')
