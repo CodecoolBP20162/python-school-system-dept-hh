@@ -15,7 +15,7 @@
 </head>
 
 
-<body>
+<body id="page_top">
 
 <div class="pattern">
     <img src="../static/img/background.jpg" alt="background">
@@ -170,6 +170,26 @@
     <script>
         jQuery(".trigger-button").click(function () {
             jQuery("#login-menu").slideToggle("slow");
+        });
+
+
+        var pxShow = 100; //height on which the button will show
+        var fadeInTime = 500; //how slow/fast you want the button to show
+        var fadeOutTime = 500; //how slow/fast you want the button to hide
+        var scrollSpeed = 700; //how slow/fast you want the button to scroll to top. can be a value, 'slow', 'normal' or 'fast'
+        jQuery(window).scroll(function () {
+            if (jQuery(window).scrollTop() >= pxShow) {
+                jQuery("#back_top").fadeIn(fadeInTime);
+            } else {
+                jQuery("#back_top").fadeOut(fadeOutTime);
+            }
+        });
+
+        jQuery('#back_top').click(function () {
+            jQuery('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
         });
     </script>
 
