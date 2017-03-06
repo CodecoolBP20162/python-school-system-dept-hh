@@ -128,6 +128,15 @@ def applicant_personal_data():
     return render_template('applicant_data.html', header=table_header, content=table_content)
 
 
+@app.route('/applicant/interview_data')
+def applicant_interview_data():
+    if 'applicant' in session:
+        interview = Interview.select().where(Interview.applicant.email == session['applicant']).get()
+        return render_template('interview_details_for_applicant.html', time=interview.interviewslot.start, school=interview.applicant.school.name, mentor=interview.interviewslot.mentor.name, mentor2=interview.interviewslot.mentor2.name)
+    else:
+        return redirect(url_for('home_menu'))
+
+
 @app.route('/new_applicant_form')
 def new_applicant_form():
 
