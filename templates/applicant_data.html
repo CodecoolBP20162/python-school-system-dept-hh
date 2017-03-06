@@ -1,1 +1,13 @@
-<p>APLLICANT DATA VIEW</p>
+{% extends "layout.html" %}
+{% block title %}Personal data{% endblock %}
+{% block content %}
+    <div class="personal_data">
+        <h1>Personal Datas:</h1>
+
+        <h2>Your status is:</h2>
+        <p>{{ status }}</p>
+        <h2>Your school:</h2>
+        <p>{{ school }}</p>
+    </div>
+
+{% endblock %}
