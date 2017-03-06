@@ -1,4 +1,4 @@
- {% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
+ {% extends "layout.html" %} {% block title %}Welcome {{ name }}{% endblock %} {% block content %}
 
 <div class="button-wrapper">
     <div class="row">
@@ -7,7 +7,7 @@
         </div>
 
         <div class="button col-lg-4">
-            <div class="inside"><a href="{{ url_for('new_applicant_form') }}">Interviews</a></div>
+            <div class="inside"><a href="{{ url_for('list_mentor_interviews') }}">Interviews</a></div>
         </div>
 
         {% endblock %}
