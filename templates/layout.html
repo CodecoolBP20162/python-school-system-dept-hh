@@ -40,6 +40,18 @@
                             <a href="{{url_for('logout')  }}">Log Out</a>
                         </div>
 
+                         {% elif "mentor" in session %}
+
+                        <div class="log-in-status col-lg-6">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
+                         {% elif "applicant" in session %}
+
+                        <div class="log-in-status col-lg-6">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
                         {% else %}
                         <div class="log-in-status col-lg-6 trigger-button">
                             <div class="login-button">Log In</div>
@@ -61,11 +73,11 @@
                         <div class="row">
                             <div class="col-lg-5">
                                 <div>
-                                    <label for="user-name">User Name</label>
+                                    <label for="user-email">User Name</label>
                                 </div>
 
                                 <div>
-                                    <input type="text" name="user-name" id="user-name">
+                                    <input type="text" name="user-email" id="user-email">
                                 </div>
                             </div>
                             <div class="col-lg-5">

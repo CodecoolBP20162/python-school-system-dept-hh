@@ -39,12 +39,15 @@ def close_db(error):
 
 @app.route('/')
 def home_menu():
-    admin_message = 'ADMIN MODE IS ON'
-    if 'admin' not in session:
-        return render_template('home.html')
-    else:
-        return render_template('admin_menu.html', message=admin_message)
 
+    if 'admin' in session:
+        return redirect(url_for('admin_menu'))
+    elif 'mentor' in session:
+        return redirect(url_for('mentor_menu'))
+    elif 'applicant' in session:
+        return redirect(url_for('applicant_menu'))
+    else:
+        return render_template('home.html')
 
 @app.route('/about_us')
 def about_us():
@@ -55,93 +58,125 @@ def about_us():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    USERNAME = 'admin'
-    PASSWORD = 'admin'
+    if request.method == 'GET':
+        return redirect(url_for('home_menu'))
 
-    name_error = 'Invalid username!'
-    password_error = 'Invalid password!'
-    admin_message = 'ADMIN MODE IS ON'
+    else:
+        try:
+            user = User.select().where(
+                (User.email == request.form['user-email']) & (User.password == request.form['password'])).get()
 
-    if request.method == 'POST':
+            if user is not None:
+                if 'admin' or 'applicant' or 'mentor' not in session:
 
-        if 'admin' not in session:
+                    if user.user_status == 1:
+                        session['admin'] = user.email
+                        return redirect(url_for('admin_menu'))
 
-            if USERNAME != request.form['user-name']:
-                return render_template('home.html', error=name_error)
-            elif PASSWORD != request.form['password']:
-                return render_template('home.html', error=password_error)
+                    elif user.user_status == 2:
+                        session['mentor'] = user.email
+                        return redirect(url_for('mentor_menu'))
+
+                    else:
+                        session['applicant'] = user.email
+                        return redirect(url_for('applicant_menu'))
             else:
-                session['admin'] = request.form['user-name']
-                return render_template('admin_menu.html', message=admin_message)
-        else:
-            return render_template('admin_menu.html', message=admin_message)
+                return redirect(url_for('home_menu'))
+        except:
+            return redirect(url_for('new_applicant_form'))
+
+
+@app.route('/admin/admin_menu')
+def admin_menu():
+    if 'admin' in session:
+        return render_template('admin_menu.html')
 
     else:
         return redirect(url_for('home_menu'))
 
 
-@app.route('/admin_menu', methods=['GET','POST'])
-def admin_menu():
-    if 'admin' in session:
-        admin_message = 'ADMIN MODE IS ON'
-        return render_template('admin_menu.html', message=admin_message)
-    else:
-        return redirect(url_for('new_applicant_form'))
-
 @app.route('/logout')
 def logout():
     if 'admin' in session:
-        # remove the username from the session if it is there
         session.pop('admin', None)
+        return render_template('home.html')
+    if 'applicant' in session:
+        session.pop('applicant', None)
+        return render_template('home.html')
+    if 'mentor' in session:
+        session.pop('mentor', None)
         return render_template('home.html')
     else:
         return redirect(url_for('home_menu'))
 
 
+@app.route('/applicant_menu')
+def applicant_menu():
+    if 'applicant' in session:
+        return render_template('applicant_menu.html')
+    else:
+        return redirect(url_for('home_menu'))
 
-@app.route('/applicant_registration')
+@app.route('/mentor_menu')
+def mentor_menu():
+    if 'mentor' in session:
+        return render_template('mentor_menu.html')
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/applicant/personal_data')
+def applicant_personal_data():
+    applicants_data.get_applicant_personal_data()
+    table_header = applicants_data.tags
+    table_content = applicants_data.results
+    return render_template('applicant_data.html', header=table_header, content=table_content)
+
+
+@app.route('/new_applicant_form')
 def new_applicant_form():
-    admin_message = 'ADMIN MODE IS ON'
-    cities = City.select().order_by(City.id.asc())
-    return render_template('register_applicant.html', cities=cities, message=admin_message)
 
+    cities = City.select().order_by(City.id.asc())
+    return render_template('register_applicant.html', cities=cities)
 
 
 @app.route('/registration', methods=['POST'])
-def new_applicant_registration():
-    admin_message = 'ADMIN MODE IS ON'
+def registration():
+
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
-    return render_template('home.html', message=admin_message)
+    return render_template('home.html')
 
 
 @app.route('/admin/applicant_list')
 def listing_all_applicants():
-    admin_message = 'ADMIN MODE IS ON'
+
     if 'admin' in session:
         administrator_data.listing_all_applicants()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_applicants.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list')
 def listing_all_interviews():
-    admin_message = 'ADMIN MODE IS ON'
+
     if 'admin' in session:
         administrator_data.listing_all_interviews()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_interviews.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
-    admin_message = 'ADMIN MODE IS ON'
+
     if 'admin' in session:
         if request.form["filter_by"] == "Status":
             administrator_data.applicants_by_status(request.form["filter"])
@@ -177,29 +212,32 @@ def filter_applicants():
                 "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
-        return render_template('all_applicants.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_applicants.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
-    admin_message = 'ADMIN MODE IS ON'
+
     if 'admin' in session:
         administrator_data.listing_all_emails()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('email_list.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('email_list.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/interview_list', methods=["POST"])
 def filter_interviews():
-    admin_message = 'ADMIN MODE IS ON'
+
     if 'admin' in session:
         if request.form["filter_by"] == "School":
-            administrator_data.listing_interviews_by_school(request.form["filter"])
+            administrator_data.listing_interviews_by_school(
+                request.form["filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
@@ -208,7 +246,8 @@ def filter_interviews():
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
-            administrator_data.listing_interviews_by_mentor(request.form["filter"])
+            administrator_data.listing_interviews_by_mentor(
+                request.form["filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Date":
@@ -224,7 +263,8 @@ def filter_interviews():
                     request.form["filter"])
                 table_header = administrator_data.tags
                 table_content = administrator_data.results
-        return render_template('all_interviews.html', header=table_header, content=table_content, message=admin_message)
+        return render_template('all_interviews.html', header=table_header, content=table_content)
+
     else:
         return redirect(url_for('home_menu'))
 
