@@ -59,7 +59,7 @@ def login():
     else:
         try:
             user = User.select().where(
-                (User.email == request.form['user-name']) & (User.password == request.form['password'])).get()
+                (User.email == request.form['user-email']) & (User.password == request.form['password'])).get()
 
             if user is not None:
                 if 'admin' or 'applicant' or 'mentor' not in session:
