@@ -49,6 +49,11 @@ def home_menu():
     else:
         return render_template('home.html')
 
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -266,8 +271,6 @@ def filter_interviews():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-
 
 if __name__ == "__main__":
     init_db()
