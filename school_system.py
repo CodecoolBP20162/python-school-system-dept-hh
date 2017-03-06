@@ -135,6 +135,25 @@ def applicant_personal_data():
     else:
         return redirect(url_for('home_menu'))
 
+@app.route('/applicant/question_form')
+def question_form():
+    return render_template('applicant_ask_question.html')
+
+
+@app.route('/applicant/ask_question', methods=['POST'])
+def applicant_ask_question():
+
+    if 'applicant' in session:
+        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        question = request.form['question']
+        applicants_data.add_question_to_database(applicant.code, question)
+        return render_template('home.html')
+    else:
+        return redirect(url_for('home_menu'))
+
+
+
+
 
 @app.route('/new_applicant_form')
 def new_applicant_form():
