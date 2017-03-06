@@ -49,6 +49,11 @@ def home_menu():
     else:
         return render_template('home.html')
 
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -124,10 +129,11 @@ def mentor_menu():
 
 @app.route('/applicant/personal_data')
 def applicant_personal_data():
-    applicants_data.get_applicant_personal_data()
-    table_header = applicants_data.tags
-    table_content = applicants_data.results
-    return render_template('applicant_data.html', header=table_header, content=table_content)
+    if 'applicant' in session:
+        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        return render_template('applicant_data.html', name=applicant.name ,status=applicant.status, school=applicant.school.name)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/new_applicant_form')
