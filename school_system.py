@@ -46,6 +46,11 @@ def home_menu():
         return render_template('admin_menu.html', message=admin_message)
 
 
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html')
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

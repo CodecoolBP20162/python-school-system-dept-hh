@@ -229,3 +229,33 @@ select {
     font-size: 48px;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.photo-wrapper {
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+.profile-photo img {
+    height: 100px;
+    width: auto;
+}
+
+.about-us-wrapper {
+    width: 600px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.names {
+    text-align: center;
+}
+
+.devteam-wrapper {
+    padding-top: 30px;
+}
