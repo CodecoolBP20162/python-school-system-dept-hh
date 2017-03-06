@@ -1,5 +1,13 @@
  {% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
 
-<a href="{{ url_for('logout') }}"><div class="new-applicant-wrapper">Mentor features coming soon! Click here to log out! </div></a>
+<div class="button-wrapper">
+    <div class="row">
+        <div class="col-lg-4">
 
- {% endblock %}
+        </div>
+
+        <div class="button col-lg-4">
+            <div class="inside"><a href="{{ url_for('new_applicant_form') }}">Interviews</a></div>
+        </div>
+
+        {% endblock %}

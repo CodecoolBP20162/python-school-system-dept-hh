@@ -112,10 +112,12 @@ def applicant_menu():
     else:
         return redirect(url_for('home_menu'))
 
+
 @app.route('/mentor_menu')
 def mentor_menu():
     if 'mentor' in session:
-        return render_template('mentor_menu.html')
+        mentor = Mentor.get(Mentor.email == session['mentor'])
+        return render_template('mentor_menu.html', name=mentor.name)
     else:
         return redirect(url_for('home_menu'))
 
@@ -263,10 +265,10 @@ def filter_interviews():
     else:
         return redirect(url_for('home_menu'))
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
 
 
 if __name__ == "__main__":

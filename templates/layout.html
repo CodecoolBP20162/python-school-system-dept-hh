@@ -28,32 +28,36 @@
             <div class="header-wrapper">
                 <div class="button-wrapper">
                     <div class="row">
-                        <div class="col-lg-6 logo-wrapper">
-                            <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60"
-    alt="logo"></a>
+                        <div class="col-lg-4 logo-wrapper">
+                            <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60" alt="logo"></a>
+                        </div>
+
+
+                        <div class="log-in-status col-lg-4">
+                            Welcome {% if "admin" in session %}{{ name }}{% elif "mentor" in session %}{{ name }}{% elif "applicant" in session %}{{ name }}{% else %}stranger{% endif %}
                         </div>
 
 
                         {% if "admin" in session %}
 
-                        <div class="log-in-status col-lg-6">
+                        <div class="log-in-status col-lg-4">
                             <a href="{{url_for('logout')  }}">Log Out</a>
                         </div>
 
-                         {% elif "mentor" in session %}
+                        {% elif "mentor" in session %}
 
-                        <div class="log-in-status col-lg-6">
+                        <div class="log-in-status col-lg-4">
                             <a href="{{url_for('logout')  }}">Log Out</a>
                         </div>
 
-                         {% elif "applicant" in session %}
+                        {% elif "applicant" in session %}
 
-                        <div class="log-in-status col-lg-6">
+                        <div class="log-in-status col-lg-4">
                             <a href="{{url_for('logout')  }}">Log Out</a>
                         </div>
 
                         {% else %}
-                        <div class="log-in-status col-lg-6 trigger-button">
+                        <div class="log-in-status col-lg-4 trigger-button">
                             <div class="login-button">Log In</div>
                         </div>
                         {% endif %}
