@@ -17,129 +17,158 @@
 
 <body>
 
-    <div class="pattern">
-        <img src="../static/img/background.jpg" alt="background">
-    </div>
+<div class="pattern">
+    <img src="../static/img/background.jpg" alt="background">
+</div>
 
-    <div class="opacity-container">
+<div class="opacity-container">
 
-        <header>
+    <header>
 
-            <div class="header-wrapper">
-                <div class="button-wrapper">
-                    <div class="row">
-                        <div class="col-lg-4 logo-wrapper">
-                            <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60" alt="logo"></a>
-                        </div>
-
-
-                        <div class="log-in-status col-lg-4">
-                            Welcome {% if "admin" in session %}{{ name }}{% elif "mentor" in session %}{{ name }}{% elif "applicant" in session %}{{ name }}{% else %}stranger{% endif %}
-                        </div>
-
-
-                        {% if "admin" in session %}
-
-                        <div class="log-in-status col-lg-4">
-                            <a href="{{url_for('logout')  }}">Log Out</a>
-                        </div>
-
-                        {% elif "mentor" in session %}
-
-                        <div class="log-in-status col-lg-4">
-                            <a href="{{url_for('logout')  }}">Log Out</a>
-                        </div>
-
-                        {% elif "applicant" in session %}
-
-                        <div class="log-in-status col-lg-4">
-                            <a href="{{url_for('logout')  }}">Log Out</a>
-                        </div>
-
-                        {% else %}
-                        <div class="log-in-status col-lg-4 trigger-button">
-                            <div class="login-button">Log In</div>
-                        </div>
-                        {% endif %}
-
-
-                    </div>
-                </div>
-            </div>
-
-        </header>
-        <div class="text-color-wrapper">
-            <div style="display: none;" id="login-menu">
-
-                <form action="/login" method="post">
-
-                    <div class="log-in-wrapper">
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <div>
-                                    <label for="user-email">User Name</label>
-                                </div>
-
-                                <div>
-                                    <input type="text" name="user-email" id="user-email">
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div>
-                                    <label for="password">Password</label>
-                                </div>
-
-                                <div>
-                                    <input type="password" name="password" id="password">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="log-in-button">
-                                    <input type="submit" value="Access"></div>
-                            </div>
-
-                        </div>
-
+        <div class="header-wrapper">
+            <div class="button-wrapper">
+                <div class="row">
+                    <div class="col-lg-4 logo-wrapper">
+                        <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60"
+                                                                alt="logo"></a>
                     </div>
 
-                    <!--
-                <div>
-                    <label for="role">Status</label>
-                </div>
 
-                <div>
-                    <div class="col-lg-9">
-                        <select name="role" id="role">
-                            <option value="administrator">Administrator</option>
-                            <option value="applicant">Applicant</option>
-                            <option value="mentor">Mentor</option>
-                        </select></div></div>
-        -->
+                    <div class="log-in-status col-lg-4">
+                        {% if "admin" in session %}Welcome {{ name }}{% elif "mentor" in session %}Welcome {{ name }}{%
+                        elif "applicant" in session %}Welcome {{ name }}{% else %}{% endif %}
+                    </div>
 
 
+                    {% if "admin" in session %}
 
-                    {% if error %}
-                    <p>{{ error }}</p>
+                    <div class="log-in-status col-lg-4">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "mentor" in session %}
+
+                    <div class="log-in-status col-lg-4">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "applicant" in session %}
+
+                    <div class="log-in-status col-lg-4">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% else %}
+                    <div class="log-in-status col-lg-4 trigger-button">
+                        <div class="login-button">Log In</div>
+                    </div>
                     {% endif %}
 
 
-                </form>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <div class="text-color-wrapper">
+        <div style="display: none;" id="login-menu">
+
+            <form action="/login" method="post">
+
+                <div class="log-in-wrapper">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div>
+                                <label for="user-email">User Name</label>
+                            </div>
+
+                            <div>
+                                <input type="text" name="user-email" id="user-email">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <div>
+                                <input type="password" name="password" id="password">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="log-in-button">
+                                <input type="submit" value="Access"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--
+            <div>
+                <label for="role">Status</label>
+            </div>
+
+            <div>
+                <div class="col-lg-9">
+                    <select name="role" id="role">
+                        <option value="administrator">Administrator</option>
+                        <option value="applicant">Applicant</option>
+                        <option value="mentor">Mentor</option>
+                    </select></div></div>
+    -->
+
+
+                {% if error %}
+                <p>{{ error }}</p>
+                {% endif %}
+
+
+            </form>
+
+
+        </div>
+
+
+        <section class="container">
+            {% block content %} {% endblock %}
+        </section>
+    </div>
+</div>
+</body>
+
+<footer>
+    <div class="footer-wrapper">
+
+        <div class="container">
+            <div class="row">
+                <div class="logo-placer col-lg-3">
+                    <img src="../static/img/email.svg" width="auto" height="60" alt="logo">
+
+                </div>
+                <div class="logo-placer col-lg-3">
+                    <img src="../static/img/linkedin-box.svg" width="auto" height="60" alt="logo">
+                </div>
+                <div class="logo-placer col-lg-3">
+
+                    <img src="../static/img/facebook.svg" width="auto" height="60" alt="logo">
+
+                </div>
+                <div class="logo-placer col-lg-3">
+
+                    <img src="../static/img/phone.svg" width="auto" height="60" alt="logo">
+
+                </div>
 
 
             </div>
 
-
-            <section class="container">
-                {% block content %} {% endblock %}
-            </section>
         </div>
     </div>
-</body>
 
-<footer>
 
     <script>
-        jQuery(".trigger-button").click(function() {
+        jQuery(".trigger-button").click(function () {
             jQuery("#login-menu").slideToggle("slow");
         });
     </script>

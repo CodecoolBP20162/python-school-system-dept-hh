@@ -6,7 +6,7 @@ body {
 .opacity-container {
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 2;
-    min-height: 1600px;
+    min-height: calc( 100vh - 100px );
     height: auto;
 }
 
@@ -24,8 +24,10 @@ h1 {
 .pattern {
     position: fixed;
     z-index: -99;
-    background-size: auto;
+    background-size: cover;
     filter: blur(0px);
+    overflow: hidden;
+    width: 100%;
 }
 
 #login-menu {
@@ -224,7 +226,7 @@ select {
 .new-applicant-wrapper {
     text-align: center;
     margin: 150px;
-    padding: 50px;
+    padding: 30px;
     border-radius: 16px;
     font-size: 48px;
     background-color: rgba(0, 0, 0, 0.7);
@@ -258,4 +260,17 @@ select {
 
 .devteam-wrapper {
     padding-top: 30px;
+}
+
+.footer-wrapper {
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #dddd58;
+}
+
+
+.logo-placer {
+    text-align: center;
+    color: #5bc0de;
+    padding: 20px 0;
 }
