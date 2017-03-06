@@ -188,6 +188,11 @@ select {
     padding-top: 29px;
 }
 
+.about-us-positioner{
+    text-align: center;
+    padding-top: 29px;
+}
+
 .log-in-wrapper {
     width: 1070px;
     margin: 0 auto;
