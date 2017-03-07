@@ -1,6 +1,4 @@
-{% extends "layout.html" %}
-{% block title %}All Applicants{% endblock %}
-{% block content %}
+{% extends "layout.html" %} {% block title %}All Applicants{% endblock %} {% block content %}
 
 <h1>All Applicants</h1>
 <div class="row">
@@ -30,19 +28,19 @@
 </div>
 </form>
 <p>
-<table cellspacing="0" cellpadding="0">
-    <tr>
-        {% for tag in header %}
-        <th>{{ tag }}</th>
-        {% endfor %}
-    </tr>
-    {% for person in content %}
-    <tr>{% for personal_data in person %}
-        <td>{{ personal_data }}</td>
-        {% endfor %}
-    </tr>
-    {% else %}
-    <strong>There is no data in the database with the given filter!</strong> {% endfor %}
-</table>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+        </tr>
+        {% for person in content %}
+        <tr>{% for personal_data in person %}
+            <td>{{ personal_data }}</td>
+            {% endfor %}
+        </tr>
+        {% else %}
+        <strong>There is no data in the database with the given filter!</strong> {% endfor %}
+    </table>
 </p>
 {% endblock %}
