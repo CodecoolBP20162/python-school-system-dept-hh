@@ -313,3 +313,8 @@ left: 0;
 width: 100%;
 height: 100%;
 }
+
+.admin-buttons {
+    float: none;
+    margin: 0 auto;
+}
