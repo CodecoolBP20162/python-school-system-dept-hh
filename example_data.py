@@ -73,7 +73,7 @@ class ExampleDataCreator:
     def create_dummy_admins():
         name_list = ["Dénes", "Eszti", "Petya", "Tomi", "admin"]
         email_list = ["codecool.depth+szdenes@gmail.com", "codecool.depth+leszter@gmail.com",
-                      "codecool.depth+szpeter@gmail.com", "codecool.depth+vtamas@gmail.com", "codecool.depth+admin@gmail.com"]
+                      "codecool.depth+szpeter@gmail.com", "codecool.depth+vtamas@gmail.com", "admin"]
         password_list = ["1234", "5678", "9111", "1213", "admin"]
 
         for x in range(len(name_list)):

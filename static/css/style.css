@@ -184,7 +184,7 @@ select {
 }
 
 .log-in-status {
-    text-align: right;
+    text-align: center;
     padding-top: 29px;
 }
 
@@ -252,6 +252,11 @@ select {
     width: 1170px;
     margin: 0 auto;
     padding: 0;
+}
+
+.about-us-positioner{
+        text-align: center;
+    padding-top: 29px;
 }
 
 .names {
