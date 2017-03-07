@@ -15,6 +15,7 @@ app.config.update(dict(
 administrator_data = AdministratorData()
 applicants_data = ApplicantsData()
 mentors_data = MentorsData()
+login_error = 'Invalid password or username!'
 
 app.config.from_envvar('SUPER_SPRINTER_3000_SETTINGS', silent=True)
 
@@ -83,7 +84,7 @@ def login():
             else:
                 return redirect(url_for('home_menu'))
         except:
-            return redirect(url_for('new_applicant_form'))
+            return render_template('home.html', error=login_error)
 
 
 @app.route('/admin/admin_menu')
