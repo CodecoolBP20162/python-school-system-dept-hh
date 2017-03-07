@@ -148,6 +148,7 @@ def applicant_personal_data():
     else:
         return redirect(url_for('home_menu'))
 
+
 @app.route('/applicant/question_form')
 def question_form():
     return render_template('applicant_ask_question.html')
@@ -157,7 +158,8 @@ def question_form():
 def applicant_ask_question():
 
     if 'applicant' in session:
-        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        applicant = Applicant.select().where(
+            Applicant.email == session['applicant']).get()
         question = request.form['question']
         applicants_data.add_question_to_database(applicant.code, question)
         return render_template('home.html')
@@ -165,13 +167,11 @@ def applicant_ask_question():
         return redirect(url_for('home_menu'))
 
 
-
-
-
 @app.route('/applicant/interview_data')
 def applicant_interview_data():
     if 'applicant' in session:
-        applicant = Applicant.select().where(Applicant.email == session['applicant']).get()
+        applicant = Applicant.select().where(
+            Applicant.email == session['applicant']).get()
         try:
             interview = Interview.select().where(Interview.applicant == applicant).get()
             return render_template('interview_details_for_applicant.html', time=interview.interviewslot.start, school=interview.applicant.school.name, mentor=interview.interviewslot.mentor.name, mentor2=interview.interviewslot.mentor2.name)
@@ -315,6 +315,15 @@ def filter_interviews():
 
     else:
         return redirect(url_for('home_menu'))
+
+
+@app.route('/admin/mentor_list')
+def listing_all_mentors():
+    if 'admin' in session:
+        administrator_data.iterate_mentors()
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+        return render_template('all_mentors.html', header=table_header, content=table_content)
 
 
 @app.errorhandler(404)
