@@ -54,9 +54,10 @@ class ApplicantsData:
         message = """
         Hi {name_input},
         Your application process to Codecool has been started!
-        Your code is {code}, and the city you have been assigned to is {city}.
+        The city you have been assigned to is {city}.
+        Your application code and your login password to the site is {code}.
 
-        Good luck!
+        Good luck! :)
         """.format(name_input=name_input, code=application_code, city=applicant_school.name)
 
         application_email = Mail(recipient_list, message, subject)
