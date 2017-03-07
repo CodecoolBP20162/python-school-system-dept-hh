@@ -33,8 +33,10 @@
                                                                 alt="logo"></a>
                     </div>
 
-                    <div class="col-lg-4">
-
+                    <div class="col-lg-4 error-massage">
+                        {% if error %}
+                        <p>{{ error }}</p>
+                        {% endif %}
                     </div>
 
                     <div class="about-us-positioner col-lg-2">
