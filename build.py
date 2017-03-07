@@ -3,7 +3,6 @@ from example_data import ExampleDataCreator
 
 
 class Builder:
-
     def __init__(self):
         self.data_creator = ExampleDataCreator()
 

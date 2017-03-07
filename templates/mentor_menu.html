@@ -1,4 +1,4 @@
- {% extends "layout.html" %} {% block title %}Welcome {{ name }}{% endblock %} {% block content %}
+{% extends "layout.html" %} {% block title %}Welcome {{ name }}{% endblock %} {% block content %}
 
 <div class="button-wrapper menu-button-placer">
     <div class="row">
@@ -9,5 +9,8 @@
         <div class="button col-lg-4">
             <div class="inside"><a href="{{ url_for('list_mentor_interviews') }}">Interviews</a></div>
         </div>
+    </div>
+</div>
 
-        {% endblock %}
+
+{% endblock %}

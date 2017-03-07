@@ -2,7 +2,6 @@ from models import *
 
 
 class MentorsIterable:
-
     def __init__(self, mentors=Mentor.select().join(School)):
         self.mentors = mentors
 
@@ -11,7 +10,6 @@ class MentorsIterable:
 
 
 class MentorsIterator:
-
     def __init__(self, mentors):
         self.results = [[mentor.name, mentor.email, mentor.password,
                          mentor.related_school.name] for mentor in mentors]

@@ -6,7 +6,7 @@ body {
 .opacity-container {
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 2;
-    min-height: calc( 100vh - 100px );
+    min-height: calc(100vh - 100px);
     height: auto;
 }
 
@@ -225,7 +225,7 @@ select {
 
 .new-applicant-wrapper {
     text-align: center;
-    margin: 150px;
+    margin: 25%;
     padding: 30px;
     border-radius: 16px;
     font-size: 48px;
@@ -250,22 +250,29 @@ select {
 
 .about-us-wrapper {
     width: 1170px;
-    margin: 0 auto;
-    padding: 0;
+    margin: 50px auto;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 15px;
 }
 
-.about-us-positioner{
-        text-align: center;
+.about-us-positioner {
+    text-align: center;
     padding-top: 29px;
 }
 
 .names {
     text-align: center;
+    padding-top: 10px;
+    font-size: 18px;
+
 }
 
 .devteam-wrapper {
     padding-top: 30px;
     margin-bottom: 30px;
+
 }
 
 .footer-wrapper {
@@ -273,7 +280,6 @@ select {
     background-color: rgba(0, 0, 0, 0.7);
     color: #dddd58;
 }
-
 
 .logo-placer {
     text-align: center;
@@ -303,23 +309,37 @@ select {
     text-align: left;
 }
 
-.iframe-rwd  {
-position: relative;
-padding-bottom: 65.25%;
-padding-top: 30px;
-height: 0;
-overflow: hidden;
+.iframe-rwd {
+    position: relative;
+    padding-bottom: 65.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
 }
 
 .iframe-rwd iframe {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .admin-buttons {
     float: none;
     margin: 0 auto;
+}
+
+.personal_data {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.interview_data {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 15px;
 }

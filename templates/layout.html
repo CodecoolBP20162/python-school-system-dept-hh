@@ -27,49 +27,49 @@
 
         <div class="header-wrapper">
 
-                <div class="row">
-                    <div class="col-lg-4 logo-wrapper">
-                        <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60"
-                                                                alt="logo"></a>
-                    </div>
-
-                    <div class="col-lg-4 error-massage">
-                        {% if error %}
-                        <p>{{ error }}</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="about-us-positioner col-lg-2">
-                         <a href="{{ url_for('about_us') }}">About Us</a>
-                    </div>
-
-
-                    {% if "admin" in session %}
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-                    {% elif "mentor" in session %}
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-                    {% elif "applicant" in session %}
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-                    {% else %}
-                    <div class="log-in-status col-lg-2 trigger-button">
-                        <div class="login-button">Log In</div>
-                    </div>
-                    {% endif %}
-
-
+            <div class="row">
+                <div class="col-lg-4 logo-wrapper">
+                    <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60"
+                                                            alt="logo"></a>
                 </div>
+
+                <div class="col-lg-4 error-massage">
+                    {% if error %}
+                    <p>{{ error }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="about-us-positioner col-lg-2">
+                    <a href="{{ url_for('about_us') }}">About Us</a>
+                </div>
+
+
+                {% if "admin" in session %}
+
+                <div class="log-in-status col-lg-2">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "mentor" in session %}
+
+                <div class="log-in-status col-lg-2">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "applicant" in session %}
+
+                <div class="log-in-status col-lg-2">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% else %}
+                <div class="log-in-status col-lg-2 trigger-button">
+                    <div class="login-button">Log In</div>
+                </div>
+                {% endif %}
+
+
+            </div>
 
         </div>
 
@@ -107,7 +107,6 @@
                     </div>
 
                 </div>
-
 
 
             </form>

@@ -11,22 +11,22 @@
             <input type="text" id="name" name="name" required="required">
         </div>
 
-            <div >
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" pattern="[^ @]*@[^ @]*" required="required">
+        <div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" pattern="[^ @]*@[^ @]*" required="required">
+        </div>
+        <div>
+            <div>
+                <label for="city">City</label>
             </div>
             <div>
-                <div>
-                    <label for="city">City</label>
-                </div>
-                <div>
-                    <select id="city" name="city">
-                        {% for possible_city in cities %}
-                        <option value={{ possible_city.name }}>{{ possible_city.name }}</option>
-                        {% endfor %}
-                    </select>
+                <select id="city" name="city">
+                    {% for possible_city in cities %}
+                    <option value={{ possible_city.name }}>{{ possible_city.name }}</option>
+                    {% endfor %}
+                </select>
 
-                </div>
+            </div>
 
         </div>
 

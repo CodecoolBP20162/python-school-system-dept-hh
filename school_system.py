@@ -5,7 +5,6 @@ from mentors import MentorsData
 from applicants import ApplicantsData
 import datetime
 
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -40,7 +39,6 @@ def close_db(error):
 
 @app.route('/')
 def home_menu():
-
     if 'admin' in session:
         return redirect(url_for('admin_menu'))
     elif 'mentor' in session:
@@ -58,7 +56,6 @@ def about_us():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'GET':
         return redirect(url_for('home_menu'))
 
@@ -145,7 +142,8 @@ def applicant_personal_data():
     if 'applicant' in session:
         applicant = Applicant.select().where(
             Applicant.email == session['applicant']).get()
-        return render_template('applicant_data.html', name=applicant.name, status=applicant.status, school=applicant.school.name)
+        return render_template('applicant_data.html', name=applicant.name, status=applicant.status,
+                               school=applicant.school.name)
     else:
         return redirect(url_for('home_menu'))
 
@@ -157,7 +155,6 @@ def question_form():
 
 @app.route('/applicant/ask_question', methods=['POST'])
 def applicant_ask_question():
-
     if 'applicant' in session:
         applicant = Applicant.select().where(
             Applicant.email == session['applicant']).get()
@@ -175,23 +172,23 @@ def applicant_interview_data():
             Applicant.email == session['applicant']).get()
         try:
             interview = Interview.select().where(Interview.applicant == applicant).get()
-            return render_template('interview_details_for_applicant.html', time=interview.interviewslot.start, school=interview.applicant.school.name, mentor=interview.interviewslot.mentor.name, mentor2=interview.interviewslot.mentor2.name)
+            return render_template('applican_interview_details.html', time=interview.interviewslot.start,
+                                   school=interview.applicant.school.name, mentor=interview.interviewslot.mentor.name,
+                                   mentor2=interview.interviewslot.mentor2.name)
         except:
-            return render_template('interview_details_for_applicant.html', time=None, school=None, mentor=None, mentor2=None)
+            return render_template('applican_interview_details.html', time=None, school=None, mentor=None, mentor2=None)
     else:
         return redirect(url_for('home_menu'))
 
 
 @app.route('/new_applicant_form')
 def new_applicant_form():
-
     cities = City.select().order_by(City.id.asc())
     return render_template('register_applicant.html', cities=cities)
 
 
 @app.route('/registration', methods=['POST'])
 def registration():
-
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
     return render_template('home.html')
@@ -199,7 +196,6 @@ def registration():
 
 @app.route('/admin/applicant_list')
 def listing_all_applicants():
-
     if 'admin' in session:
         administrator_data.listing_all_applicants()
         table_header = administrator_data.tags
@@ -212,7 +208,6 @@ def listing_all_applicants():
 
 @app.route('/admin/interview_list')
 def listing_all_interviews():
-
     if 'admin' in session:
         administrator_data.listing_all_interviews()
         table_header = administrator_data.tags
@@ -225,7 +220,6 @@ def listing_all_interviews():
 
 @app.route('/admin/applicant_list', methods=["POST"])
 def filter_applicants():
-
     if 'admin' in session:
         if request.form["filter_by"] == "Status":
             administrator_data.applicants_by_status(request.form["filter"])
@@ -258,7 +252,7 @@ def filter_applicants():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Code":
             administrator_data.applicant_email_by_applicant_code(request.form[
-                "filter"])
+                                                                     "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
@@ -269,7 +263,6 @@ def filter_applicants():
 
 @app.route('/admin/e-mail-log')
 def listing_all_emails():
-
     if 'admin' in session:
         administrator_data.listing_all_emails()
         table_header = administrator_data.tags
@@ -282,7 +275,6 @@ def listing_all_emails():
 
 @app.route('/admin/interview_list', methods=["POST"])
 def filter_interviews():
-
     if 'admin' in session:
         if request.form["filter_by"] == "School":
             administrator_data.listing_interviews_by_school(
@@ -291,7 +283,7 @@ def filter_interviews():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
             administrator_data.listing_interviews_by_applicant_code(request.form[
-                                                                    "filter"])
+                                                                        "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
