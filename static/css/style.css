@@ -188,11 +188,6 @@ select {
     padding-top: 29px;
 }
 
-.about-us-positioner{
-    text-align: center;
-    padding-top: 29px;
-}
-
 .log-in-wrapper {
     width: 1070px;
     margin: 0 auto;
@@ -240,7 +235,7 @@ select {
 .photo-wrapper {
     background-repeat: no-repeat;
     background-position: 50%;
-    border-radius: 50%;
+    border-radius: 10px;
     height: 100px;
     width: 100px;
     margin: 0 auto;
@@ -254,9 +249,9 @@ select {
 }
 
 .about-us-wrapper {
-    width: 600px;
-    margin: 30px auto;
-    text-align: center;
+    width: 1170px;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .names {
@@ -265,6 +260,7 @@ select {
 
 .devteam-wrapper {
     padding-top: 30px;
+    margin-bottom: 30px;
 }
 
 .footer-wrapper {
@@ -278,4 +274,42 @@ select {
     text-align: center;
     color: #5bc0de;
     padding: 20px 0;
+}
+
+.menu-button-placer {
+    padding-top: 175px;
+}
+
+.map-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 530px;
+    height: 330px;
+    margin: 0;
+    padding: 0;
+}
+
+.address {
+    margin: 25px auto auto auto;
+    text-align: left;
+}
+
+.lorem-ipsum-wrapper {
+    text-align: left;
+}
+
+.iframe-rwd  {
+position: relative;
+padding-bottom: 65.25%;
+padding-top: 30px;
+height: 0;
+overflow: hidden;
+}
+
+.iframe-rwd iframe {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
 }
