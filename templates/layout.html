@@ -14,13 +14,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/queries.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" href="{{ url_for('static', filename='js/classie.js') }}"></script>
-    <script type="text/javascript" href="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
 
 </head>
 
@@ -32,75 +28,74 @@
 </div>
 
 
+<div class="menu-wrap">
+    <nav class="menu">
+        <div class="icon-list">
+            <a href="#"><i class="home"></i><span>Home</span></a>
+            <a href="#"><i class="info"></i><span>About Us</span></a>
+            <a href="#"><i class="user-o"></i><span>Registration</span></a>
 
-
-            		<div class="container">
-			<div class="menu-wrap">
-				<nav class="menu">
-					<div class="icon-list">
-						<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
-						<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
-						<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
-						<a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
-						<a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
-						<a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
-					</div>
-				</nav>
-				<button class="close-button" id="close-button">Close Menu</button>
-			</div>
+        </div>
+    </nav>
+    <button class="close-button" id="close-button">Close Menu</button>
 </div>
+
+<button class="menu-button" id="open-button">Open Menu</button>
+
 
 <div class="opacity-container">
 
     <header>
 
         <div class="desktop-header">
-        <div class="header-wrapper">
+            <div class="header-wrapper">
 
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="logo-wrapper">
-                    <a href="{{url_for('home_menu')}}"><div class="logo-img"></div></a>
-                </div></div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="logo-wrapper">
+                            <a href="{{url_for('home_menu')}}">
+                                <div class="logo-img"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
 
-                <div class="col-lg-4">
-                    <button class="menu-button" id="open-button">Open Menu</button>
+
+                    <div class="about-us-positioner col-lg-2">
+                        <a href="{{ url_for('about_us') }}">About Us</a>
+                    </div>
+
+
+                    {% if "admin" in session %}
+
+                    <div class="log-in-status col-lg-2">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "mentor" in session %}
+
+                    <div class="log-in-status col-lg-2">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "applicant" in session %}
+
+                    <div class="log-in-status col-lg-2">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% else %}
+                    <div class="log-in-status col-lg-2 trigger-button">
+                        <div class="login-button">Log In</div>
+                    </div>
+                    {% endif %}
+
+
                 </div>
-
-                <div class="about-us-positioner col-lg-2">
-                    <a href="{{ url_for('about_us') }}">About Us</a>
-                </div>
-
-
-                {% if "admin" in session %}
-
-                <div class="log-in-status col-lg-2">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% elif "mentor" in session %}
-
-                <div class="log-in-status col-lg-2">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% elif "applicant" in session %}
-
-                <div class="log-in-status col-lg-2">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% else %}
-                <div class="log-in-status col-lg-2 trigger-button">
-                    <div class="login-button">Log In</div>
-                </div>
-                {% endif %}
-
 
             </div>
-
         </div>
-</div>
         <div class="mobile-header">
 
         </div>
@@ -150,16 +145,11 @@
         <section class="container content">
 
 
-
-
-
-
-
             {% block content %} {% endblock %}
         </section>
     </div>
 </div>
-</body>
+
 
 <footer>
 
@@ -201,4 +191,12 @@
 
     </script>
 
+    <script type="text/javascript" src="{{ url_for('static', filename='js/classie.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
 </footer>
+
+
+</body>
+
