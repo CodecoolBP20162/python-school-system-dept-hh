@@ -5,12 +5,22 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="School System.">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu_sideslide.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/queries.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" href="{{ url_for('static', filename='js/classie.js') }}"></script>
+    <script type="text/javascript" href="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 
 </head>
 
@@ -21,22 +31,40 @@
     <img src="../static/img/background.jpg" alt="background">
 </div>
 
+
+
+
+            		<div class="container">
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="icon-list">
+						<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>
+						<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>
+						<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>
+						<a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>
+						<a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>
+						<a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+			</div>
+</div>
+
 <div class="opacity-container">
 
     <header>
 
+        <div class="desktop-header">
         <div class="header-wrapper">
 
             <div class="row">
-                <div class="col-lg-4 logo-wrapper">
-                    <a href="{{url_for('home_menu')}}"><img src="../static/img/logo.svg" width="auto" height="60"
-                                                            alt="logo"></a>
-                </div>
+                <div class="col-lg-4">
+                    <div class="logo-wrapper">
+                    <a href="{{url_for('home_menu')}}"><div class="logo-img"></div></a>
+                </div></div>
 
-                <div class="col-lg-4 error-massage">
-                    {% if error %}
-                    <p>{{ error }}</p>
-                    {% endif %}
+                <div class="col-lg-4">
+                    <button class="menu-button" id="open-button">Open Menu</button>
                 </div>
 
                 <div class="about-us-positioner col-lg-2">
@@ -72,8 +100,12 @@
             </div>
 
         </div>
+</div>
+        <div class="mobile-header">
 
+        </div>
     </header>
+
     <div class="text-color-wrapper">
         <div style="display: none;" id="login-menu">
 
@@ -115,7 +147,14 @@
         </div>
 
 
-        <section class="container">
+        <section class="container content">
+
+
+
+
+
+
+
             {% block content %} {% endblock %}
         </section>
     </div>
