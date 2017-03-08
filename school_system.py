@@ -160,7 +160,7 @@ def applicant_ask_question():
             Applicant.email == session['applicant']).get()
         question = request.form['question']
         applicants_data.add_question_to_database(applicant.code, question)
-        return render_template('home.html')
+        return render_template('applicant_menu.html')
     else:
         return redirect(url_for('home_menu'))
 
@@ -191,7 +191,10 @@ def new_applicant_form():
 def registration():
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
-    return render_template('home.html')
+    if 'admin' in session:
+        return redirect(url_for('applicant_menu'))
+    else:
+        return render_template('home.html')
 
 
 @app.route('/admin/applicant_list')
@@ -252,7 +255,7 @@ def filter_applicants():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Code":
             administrator_data.applicant_email_by_applicant_code(request.form[
-                                                                     "filter"])
+                "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
@@ -283,7 +286,7 @@ def filter_interviews():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
             administrator_data.listing_interviews_by_applicant_code(request.form[
-                                                                        "filter"])
+                "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
@@ -317,6 +320,54 @@ def listing_all_mentors():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_mentors.html', header=table_header, content=table_content)
+
+
+@app.route('/admin/question_list')
+def listing_all_questions():
+    if 'admin' in session:
+        administrator_data.listing_all_questions()
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+        return render_template('all_questions.html', header=table_header, content=table_content)
+
+
+@app.route('/admin/question_list', methods=["POST"])
+def filter_questions():
+    if 'admin' in session:
+        if request.form["filter_by"] == "Status":
+            administrator_data.question_by_status(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Date":
+            try:
+                filter_transfer = datetime.datetime.strptime(
+                    request.form["filter"], '%Y-%m-%d')
+            except ValueError:
+                table_header = ["ERROR: wrong date format"]
+                table_content = [
+                    ["Please give the questions's date in the following format: 2015-01-01"]]
+            else:
+                administrator_data.question_by_date(
+                    request.form["filter"])
+                table_header = administrator_data.tags
+                table_content = administrator_data.results
+        elif request.form["filter_by"] == "School":
+            administrator_data.question_by_school(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Mentor":
+            administrator_data.question_by_mentor(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Applicant code":
+            administrator_data.question_by_applicants(request.form[
+                "filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        return render_template('all_questions.html', header=table_header, content=table_content)
+
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.errorhandler(404)

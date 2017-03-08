@@ -1,0 +1,57 @@
+{% extends "layout.html" %} {% block title %}All Questions{% endblock %} {% block content %}
+
+<h1>All Question</h1>
+
+<div class="row">
+
+    <form action="{{ url_for('filter_questions') }}" method="post">
+        <div class="col-lg-6">
+            <label for="filter">Filter</label>
+            <textarea id="filter" name="filter"></textarea>
+        </div>
+
+        <div class="col-lg-4">
+            <label for="filter_by">Filter by</label>
+            <select id="filter_by" name="filter_by">
+                <option value="School" name="School" id="School">School</option>
+                <option value="Status" name="Status" id="Status">Status</option>
+                <option value="Applicant code" name="Applicant code" id="Applicant code">Applicant code</option>
+                <option value="Mentor" name="Mentor" id="Mentor">Mentor</option>
+                <option value="Date" name="Date" id="Date">Date</option>
+            </select>
+        </div>
+        <div class="col-lg-2 submit-wrapper">
+            <input type=submit id=filter_button value="Filter it!">
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+            <th>Assign mentor</th>
+        </tr>
+        {% for person in content %}
+        <tr>{% for personal_data in person %}
+            <td>{{ personal_data }}</td>
+            {% endfor %}
+            <td>
+                <a href="/admin/question_list/{{ person[0] }}" class="button" data-toggle="tooltip" title="Assign a mentor to the question">
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+   <path fill="#ffffff" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+</svg></a>
+            </td>
+
+        </tr>
+        {% else %}
+        <strong>There is no data in the database with the given filter!</strong> {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
