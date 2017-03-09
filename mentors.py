@@ -2,7 +2,6 @@ from models import *
 
 
 class MentorsData:
-
     def __init__(self):
         self.query = None
         self.results = []

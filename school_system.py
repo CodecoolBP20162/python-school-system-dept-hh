@@ -293,7 +293,7 @@ def filter_applicants():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Code":
             administrator_data.applicant_email_by_applicant_code(request.form[
-                "filter"])
+                                                                     "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
@@ -324,7 +324,7 @@ def filter_interviews():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
             administrator_data.listing_interviews_by_applicant_code(request.form[
-                "filter"])
+                                                                        "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
@@ -405,7 +405,7 @@ def filter_questions():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
             administrator_data.question_by_applicants(request.form[
-                "filter"])
+                                                          "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
