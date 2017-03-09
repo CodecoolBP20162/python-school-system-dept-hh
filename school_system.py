@@ -55,6 +55,10 @@ def home_menu():
 def about_us():
     return render_template('about_us.html')
 
+@app.route('/new_about_us')
+def new_about_us():
+    return render_template('new_about_us.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
