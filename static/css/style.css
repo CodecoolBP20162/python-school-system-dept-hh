@@ -87,15 +87,22 @@ a:link {
     color: #fff;
 }
 
-a:hover, .login-button:hover, .new-applicant-wrapper:hover, input[type="submit"]:hover {
+a:hover,
+.login-button:hover,
+.new-applicant-wrapper:hover,
+input[type="submit"]:hover {
     color: #dddd58 !important;
 }
 
-a:visited, .login-button:visited, .new-applicant-wrapper:visited {
+a:visited,
+.login-button:visited,
+.new-applicant-wrapper:visited {
     color: #fff;
 }
 
-a:active, .login-button:active, .new-applicant-wrapper:active {
+a:active,
+.login-button:active,
+.new-applicant-wrapper:active {
     color: #dddd58;
 }
 
@@ -120,6 +127,11 @@ th {
 .button {
     text-align: center;
     padding-top: 13px;
+}
+
+.assign-button button {
+    background: none;
+    border: none;
 }
 
 .inside {
@@ -266,13 +278,11 @@ select {
     text-align: center;
     padding-top: 10px;
     font-size: 18px;
-
 }
 
 .devteam-wrapper {
     padding-top: 30px;
     margin-bottom: 30px;
-
 }
 
 .footer-wrapper {

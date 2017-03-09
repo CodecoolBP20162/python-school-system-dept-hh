@@ -325,15 +325,17 @@ def listing_all_mentors():
 @app.route('/admin/question_list')
 def listing_all_questions():
     if 'admin' in session:
+        mentors_list = Mentor.select()
         administrator_data.listing_all_questions()
         table_header = administrator_data.tags
         table_content = administrator_data.results
-        return render_template('all_questions.html', header=table_header, content=table_content)
+        return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
 
 
 @app.route('/admin/question_list', methods=["POST"])
 def filter_questions():
     if 'admin' in session:
+        mentors_list = Mentor.select()
         if request.form["filter_by"] == "Status":
             administrator_data.question_by_status(request.form["filter"])
             table_header = administrator_data.tags
@@ -364,10 +366,20 @@ def filter_questions():
                 "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
-        return render_template('all_questions.html', header=table_header, content=table_content)
+        return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
 
     else:
         return redirect(url_for('home_menu'))
+
+
+@app.route('/admin/question_list/question_assign', methods=["POST"])
+def assign_mentor_to_question():
+    mentor = Mentor.get(Mentor.name == request.form["mentors"])
+    question = Question.get(Question.id == int(request.form["question_id"]))
+    question.chosenmentor = mentor
+    question.status = "waiting for answer"
+    question.save()
+    return redirect(url_for('listing_all_questions'))
 
 
 @app.errorhandler(404)
