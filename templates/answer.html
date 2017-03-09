@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block title %}Answer{% endblock %} {% block content %}
 <h1>Answer question</h1>
-<div class="register-wrapper">
+<div>
     <form action="{{ url_for('question_answering_process') }}" method=post>
         <label for="question">Question ID</label>
         <textarea readonly id="question_id" name="question_id">{{ question.id }}</textarea>
