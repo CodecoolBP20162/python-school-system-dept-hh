@@ -14,7 +14,6 @@
         content = document.querySelector('.content-wrap'),
         openbtn = document.getElementById('open-button'),
         closebtn = document.getElementById('close-button'),
-        closebtn = document.getElementsByClassName("zaroggyal"),
         isOpen = false;
 
     function init() {

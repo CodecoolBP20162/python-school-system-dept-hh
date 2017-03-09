@@ -12,8 +12,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/queries.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/queries.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -23,9 +24,7 @@
 
 <body id="page_top">
 
-    <div class="pattern">
-        <img src="../static/img/background.jpg" alt="background">
-    </div>
+    <div class="background-pic"></div>
 
 
 
@@ -33,116 +32,119 @@
 
 
     <header>
+        <div class="menu-wrap">
+            <nav class="menu">
+                <div class="icon-list">
+                    <a href="{{url_for('home_menu')}}"><i class="home"></i><span>Home</span></a>
+                    <a href="{{url_for( 'about_us')}}"><i class="info"></i><span>About Us</span></a>
+                    <a href="{{ url_for('new_applicant_form') }}"><i class="user-o"></i><span>Registration</span></a>
 
 
-        <div class="desktop-header hidden-md hidden-sm hidden-xs">
-            <div class="header-wrapper">
+                </div>
+            </nav>
+            <button class="close-button" id="close-button">Close Menu</button>
+        </div>
+        <div class="header-inside-wrapper">
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="logo-wrapper">
-                            <a href="{{url_for('home_menu')}}">
-                                <div class="logo-img"></div>
-                            </a>
+
+            <div class="desktop-header hidden-md hidden-sm hidden-xs">
+                <div class="header-wrapper">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="logo-wrapper">
+                                <a href="{{url_for('home_menu')}}">
+                                    <div class="logo-img"></div>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                        </div>
+
+
+                        <div class="about-us-positioner col-lg-2">
+                            <a href="{{ url_for('about_us') }}">About Us</a>
+                        </div>
+
+
+                        {% if "admin" in session %}
+
+
+                        <div class="log-in-status col-lg-2">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
+
+                        {% elif "mentor" in session %}
+
+
+                        <div class="log-in-status col-lg-2">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
+
+                        {% elif "applicant" in session %}
+
+
+                        <div class="log-in-status col-lg-2">
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+                        </div>
+
+                        {% else %}
+                        <div class="log-in-status col-lg-2 trigger-button">
+                            <div class="login-button">Log In</div>
 
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                    </div>
+                        {% endif %}
 
 
-                    <div class="about-us-positioner col-lg-2">
-                        <a href="{{ url_for('about_us') }}">About Us</a>
                     </div>
 
+                </div>
+            </div>
+            <div class="mobile-header hidden-lg">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <button class="menu-button " id="open-button">Open Menu</button>
 
-                    {% if "admin" in session %}
-
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-
-                    {% elif "mentor" in session %}
-
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-
-                    {% elif "applicant" in session %}
-
-
-                    <div class="log-in-status col-lg-2">
-                        <a href="{{url_for('logout')  }}">Log Out</a>
-                    </div>
-
-                    {% else %}
-                    <div class="log-in-status col-lg-2 trigger-button">
-                        <div class="login-button">Log In</div>
-
-                    </div>
-                    {% endif %}
 
 
                 </div>
 
-            </div>
-        </div>
-        <div class="mobile-header hidden-lg">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <button class="menu-button " id="open-button">Open Menu</button>
+
+                {% if "admin" in session %}
+
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "mentor" in session %}
+
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "applicant" in session %}
+
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% else %}
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6 trigger-button">
+                    <div class="login-button">Log In</div>
+                </div>
+                {% endif %}
+
+
+
+
 
 
 
             </div>
-
-
-            {% if "admin" in session %}
-
-            <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                <a href="{{url_for('logout')  }}">Log Out</a>
-            </div>
-
-            {% elif "mentor" in session %}
-
-            <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                <a href="{{url_for('logout')  }}">Log Out</a>
-            </div>
-
-            {% elif "applicant" in session %}
-
-            <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                <a href="{{url_for('logout')  }}">Log Out</a>
-            </div>
-
-            {% else %}
-            <div class="log-in-status col-md-6 col-sm-6 col-xs-6 trigger-button">
-                <div class="login-button">Log In</div>
-            </div>
-            {% endif %}
-
-            <div class="menu-wrap">
-                <nav class="menu">
-                    <div class="icon-list">
-                        <a href="{{url_for('home_menu')}}"><i class="home"></i><span>Home</span></a>
-                        <a href="{{url_for( 'about_us')}}"><i class="info"></i><span>About Us</span></a>
-                        <a href="{{ url_for('new_applicant_form') }}"><i class="user-o"></i><span>Registration</span></a>
-
-
-                    </div>
-                </nav>
-                <button class="close-button" id="close-button">Close Menu</button>
-            </div>
-
-
-
-
 
         </div>
-
     </header>
 
     <div class="text-color-wrapper">
@@ -152,7 +154,7 @@
 
                 <div class="log-in-wrapper">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="log-in-field col-lg-5 col-md-12 col-sm-12 col-xs-12">
                             <div>
                                 <label for="user-email">Email</label>
                             </div>
@@ -161,7 +163,7 @@
                                 <input type="text" name="user-email" id="user-email">
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                             <div>
                                 <label for="password">Password</label>
                             </div>
@@ -170,7 +172,7 @@
                                 <input type="password" name="password" id="password">
                             </div>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                             <div class="log-in-button">
                                 <input type="submit" value="Access"></div>
                         </div>
@@ -186,10 +188,13 @@
         </div>
 
 
-        <section class="container content">
+        <section class="container">
 
+            <div class="front-positioner">
 
-            {% block content %} {% endblock %}
+                {% block content %} {% endblock %}
+
+            </div>
         </section>
     </div>
     </div>
@@ -198,25 +203,25 @@
     <footer>
 
 
-        <div class="footer-wrapper">
+        <div class="footer-wrapper navbar-fixed-bottom">
 
             <div class="container">
                 <div class="row">
-                    <div class="logo-placer col-lg-3">
+                    <div class="logo-placer col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         <a href="mailto:hello@codecool.com">
                             <img src="../static/img/email.svg" width="auto" height="40" alt="logo">
                         </a>
                     </div>
-                    <div class="logo-placer col-lg-3">
+                    <div class="logo-placer col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         <a href="https://www.linkedin.com/edu/school?id=3156086">
                             <img src="../static/img/linkedin-box.svg" width="auto" height="40" alt="logo"></a>
                     </div>
-                    <div class="logo-placer col-lg-3">
+                    <div class="logo-placer col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         <a href="https://www.facebook.com/CodecoolOfficial/">
                             <img src="../static/img/facebook.svg" width="auto" height="40" alt="logo">
                         </a>
                     </div>
-                    <div class="logo-placer col-lg-3">
+                    <div class="logo-placer col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         <a href="tel:+3615888588">
                             <img src="../static/img/phone.svg" width="auto" height="40" alt="logo">
                         </a>
