@@ -512,7 +512,7 @@ select {
 /* Menu */
 
 .menu-wrap {
-    position: absolute;
+    position: fixed;
     z-index: 1001;
     width: 300px;
     height: 100%;

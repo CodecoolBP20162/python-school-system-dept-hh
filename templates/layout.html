@@ -26,13 +26,8 @@
 
     <div class="background-pic"></div>
 
-
-
-
-
-
     <header>
-        <div class="menu-wrap">
+        <div class="menu-wrap hidden-lg">
             <nav class="menu">
                 <div class="icon-list">
                     <a href="{{url_for('home_menu')}}"><i class="home"></i><span>Home</span></a>
@@ -234,7 +229,7 @@
 
 
         <script>
-            jQuery(".trigger-button").click(function() {
+            jQuery(".trigger-button").click(function () {
                 jQuery("#login-menu").slideToggle("slow");
             });
         </script>
