@@ -1,7 +1,7 @@
 from models import *
 
-class MentorsData:
 
+class MentorsData:
 
     def __init__(self):
         self.query = None
