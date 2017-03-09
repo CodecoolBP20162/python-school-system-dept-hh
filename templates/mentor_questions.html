@@ -14,7 +14,7 @@
         <tr>{% for data in data_list %}
             <td>{{ data }}</td>
             {% endfor %}
-            <td><a href="/mentor_menu/questions/{{ data_list[0] }}">Answer question</a></td>
+            <td><a href="/mentor_menu/{{ data_list[0] }}">Answer question</a></td>
         </tr>
         {% else %}
         <strong>There is no data in the database with the given filter!</strong> {% endfor %}

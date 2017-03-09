@@ -149,10 +149,23 @@ def list_mentor_questions():
         return redirect(url_for('home_menu'))
 
 
-@app.route('/mentor_menu/questions/<question_id>')
+@app.route('/mentor_menu/<question_id>', methods=['GET'])
 def answer_question(question_id):
-    selected_question = Question.get(Question.id == question_id)
-    return render_template('answer.html', question=selected_question)
+    if 'mentor' in session:
+        selected_question = Question.get(Question.id == question_id)
+        return render_template('answer.html', question=selected_question)
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/mentor_menu/answering', methods=['POST'])
+def question_answering_process():
+    if 'mentor' in session:
+        mentors_data.question_answering(
+            request.form['question_id'], request.form['answer'])
+        return redirect(url_for('list_mentor_questions'))
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/applicant/personal_data')
