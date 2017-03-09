@@ -34,6 +34,7 @@
 
     <header>
 
+
         <div class="desktop-header hidden-md hidden-sm hidden-xs">
             <div class="header-wrapper">
 
@@ -43,6 +44,7 @@
                             <a href="{{url_for('home_menu')}}">
                                 <div class="logo-img"></div>
                             </a>
+
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -56,17 +58,22 @@
 
                     {% if "admin" in session %}
 
+
                     <div class="log-in-status col-lg-2">
                         <a href="{{url_for('logout')  }}">Log Out</a>
                     </div>
+
 
                     {% elif "mentor" in session %}
 
+
                     <div class="log-in-status col-lg-2">
                         <a href="{{url_for('logout')  }}">Log Out</a>
                     </div>
 
+
                     {% elif "applicant" in session %}
+
 
                     <div class="log-in-status col-lg-2">
                         <a href="{{url_for('logout')  }}">Log Out</a>
@@ -75,6 +82,7 @@
                     {% else %}
                     <div class="log-in-status col-lg-2 trigger-button">
                         <div class="login-button">Log In</div>
+
                     </div>
                     {% endif %}
 
@@ -88,7 +96,9 @@
                 <button class="menu-button " id="open-button">Open Menu</button>
 
 
+
             </div>
+
 
             {% if "admin" in session %}
 
@@ -130,7 +140,9 @@
 
 
 
+
         </div>
+
     </header>
 
     <div class="text-color-wrapper">
@@ -191,23 +203,24 @@
             <div class="container">
                 <div class="row">
                     <div class="logo-placer col-lg-3">
-                        <img src="../static/img/email.svg" width="auto" height="40" alt="logo">
-
+                        <a href="mailto:hello@codecool.com">
+                            <img src="../static/img/email.svg" width="auto" height="40" alt="logo">
+                        </a>
                     </div>
                     <div class="logo-placer col-lg-3">
-                        <img src="../static/img/linkedin-box.svg" width="auto" height="40" alt="logo">
+                        <a href="https://www.linkedin.com/edu/school?id=3156086">
+                            <img src="../static/img/linkedin-box.svg" width="auto" height="40" alt="logo"></a>
                     </div>
                     <div class="logo-placer col-lg-3">
-
-                        <img src="../static/img/facebook.svg" width="auto" height="40" alt="logo">
-
+                        <a href="https://www.facebook.com/CodecoolOfficial/">
+                            <img src="../static/img/facebook.svg" width="auto" height="40" alt="logo">
+                        </a>
                     </div>
                     <div class="logo-placer col-lg-3">
-
-                        <img src="../static/img/phone.svg" width="auto" height="40" alt="logo">
-
+                        <a href="tel:+3615888588">
+                            <img src="../static/img/phone.svg" width="auto" height="40" alt="logo">
+                        </a>
                     </div>
-
 
                 </div>
 
