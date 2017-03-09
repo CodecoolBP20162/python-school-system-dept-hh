@@ -95,6 +95,15 @@ def admin_menu():
     else:
         return redirect(url_for('home_menu'))
 
+@app.route('/new_layout')
+def new_layout():
+    return render_template('new_layout.html')
+
+@app.route('/new_home')
+def new_home():
+    return render_template('new_home.html')
+
+
 
 @app.route('/logout')
 def logout():

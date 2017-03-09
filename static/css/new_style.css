@@ -1,1 +1,84 @@
-body { padding-top: 70px; }
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 70px;
+    background: url(../img/maxresdefault.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+}
+
+.navbar-default {
+    background-color: rgba(12, 11, 11, 0.8) !important;
+    border-color: transparent !important;
+}
+
+.navbar-btn {
+    margin-right: 8px !important;
+    padding: 5px !important;
+}
+
+.btn-default {
+
+    color: rgb(255, 255, 255) !important;
+    background-color: transparent !important;
+    border: none !important;
+
+}
+
+.btn-default:hover {
+    color: rgba(255, 12, 12, 0.7) !important;
+}
+
+.dropdown-menu {
+    background-color: rgba(12, 11, 11, 0.8) !important;
+    margin-top: 2px !important;
+
+}
+
+.navbar-text {
+
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif !important;
+    color: ivory !important;
+    font-style: oblique !important;
+}
+
+header {
+    background: transparent !important;
+}
+
+section.container {
+    background: transparent !important;
+}
+
+.register-button {
+    text-align: center;
+    margin: 150px;
+    padding: 30px;
+    border-radius: 16px;
+    font-size: 48px;
+    background-color: rgba(12, 11, 11, 0.8) !important;
+    color: #a6e1ec;
+}
+
+.register-button-text {
+    color: lightyellow;
+
+}
+
+.register-button-text:hover {
+    color: rgba(255, 12, 12, 0.7) !important;
+    text-decoration: none !important;
+
+}

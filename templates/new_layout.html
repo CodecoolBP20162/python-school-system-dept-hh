@@ -1,23 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/new_style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+
 </head>
 <body>
 
 <div class="container">
-  <h1>My First Bootstrap Page</h1>
-  <div class="row">
-  <div class="col-sm-4">.col-sm-4</div>
-  <div class="col-sm-4">.col-sm-4</div>
-  <div class="col-sm-4">.col-sm-4</div>
-</div>
+    <div class="navbar navbar-default navbar-fixed-top">
+
+
+        <div class=" col-lg-1">
+            <a class="navbar-brand" href="#">
+                <img class="logo" alt="Brand" src="../static/img/logobatman.png">
+            </a>
+        </div>
+                <div class=" col-lg-3">
+                    <p class="navbar-text"><strong>DEPT-H School System</strong></p>
+        </div>
+
+        <div class="navbar-right">
+            <div class="col-lg-1">
+
+                <div class="dropdown" id="menuLogin">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">
+                        <button type="button" class="btn btn-default navbar-btn"><span
+                                class="glyphicon glyphicon-log-in"
+                                aria-hidden="true"></span> Sign in
+                        </button>
+                    </a>
+                    <div class="dropdown-menu" style="padding:10px; padding-bottom: inherit;">
+                        <form class="form" id="formLogin">
+                            <input name="username" id="username" type="text" placeholder="Username">
+                            <input name="password" id="password" type="password" placeholder="Password"><br>
+                            <button type="button" id="btnLogin" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-share-alt"
+                                                                               aria-hidden="true"></span>Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="navbar-right">
+            <div class="col-lg-1">
+            <a href="{{ url_for('about_us') }}">
+                    <button type="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-info-sign"
+                                                                                   aria-hidden="true"></span> About Ass
+                    </button>
+            </a>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+        <section class="container">
+            {% block content %} {% endblock %}
+        </section>
+
 </body>
+<footer>
+    <script>
+        $(document).ready(function () {
+            //Handles menu drop down
+            $('.dropdown-menu').find('form').click(function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</footer>
 </html>
