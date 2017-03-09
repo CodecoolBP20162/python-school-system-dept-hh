@@ -10,7 +10,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu_sideslide.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/queries.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
@@ -23,82 +23,113 @@
 
 <body id="page_top">
 
-<div class="pattern">
-    <img src="../static/img/background.jpg" alt="background">
-</div>
+    <div class="pattern">
+        <img src="../static/img/background.jpg" alt="background">
+    </div>
 
 
-<div class="menu-wrap">
-    <nav class="menu">
-        <div class="icon-list">
-            <a href="#"><i class="home"></i><span>Home</span></a>
-            <a href="#"><i class="info"></i><span>About Us</span></a>
-            <a href="#"><i class="user-o"></i><span>Registration</span></a>
+    <div class="menu-wrap">
+        <nav class="menu">
+            <div class="icon-list">
+                <a href="#"><i class="home"></i><span>Home</span></a>
+                <a href="#"><i class="info"></i><span>About Us</span></a>
+                <a href="#"><i class="user-o"></i><span>Registration</span></a>
 
-        </div>
-    </nav>
-    <button class="close-button" id="close-button">Close Menu</button>
-</div>
-
-<button class="menu-button" id="open-button">Open Menu</button>
+            </div>
+        </nav>
+        <button class="close-button" id="close-button">Close Menu</button>
+    </div>
 
 
-<div class="opacity-container">
+    <div class="opacity-container">
 
-    <header>
+        <header>
 
-        <div class="desktop-header">
-            <div class="header-wrapper">
+            <div class="desktop-header hidden-md hidden-sm hidden-xs">
+                <div class="header-wrapper">
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="logo-wrapper">
-                            <a href="{{ url_for('home_menu') }}">
-                                <div class="logo-img"></div>
-                            </a>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="logo-wrapper">
+                                <a href="{{url_for('home_menu')}}">
+                                    <div class="logo-img"></div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                    </div>
+                        <div class="col-lg-4">
+                        </div>
+
+                        <div class="about-us-positioner col-lg-2">
+                            <a href="{{ url_for('about_us') }}">About Us</a>
+
+                        </div>
 
 
-                    <div class="about-us-positioner col-lg-2">
-                        <a href="{{ url_for('about_us') }}">About Us</a>
-                    </div>
-
-
-                    {% if "admin" in session %}
+                        {% if "admin" in session %}
 
                         <div class="log-in-status col-lg-2">
-                            <a href="{{ url_for('logout') }}">Log Out</a>
+                            <a href="{{url_for('logout')  }}">Log Out</a>
                         </div>
 
-                    {% elif "mentor" in session %}
+                        {% elif "mentor" in session %}
 
                         <div class="log-in-status col-lg-2">
-                            <a href="{{ url_for('logout') }}">Log Out</a>
+
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+
                         </div>
 
-                    {% elif "applicant" in session %}
+                        {% elif "applicant" in session %}
 
                         <div class="log-in-status col-lg-2">
-                            <a href="{{ url_for('logout') }}">Log Out</a>
+
+                            <a href="{{url_for('logout')  }}">Log Out</a>
+
                         </div>
 
-                    {% else %}
+                        {% else %}
                         <div class="log-in-status col-lg-2 trigger-button">
                             <div class="login-button">Log In</div>
                         </div>
-                    {% endif %}
+                        {% endif %}
 
+                    </div>
+
+                </div>
+            </div>
+            <div class="mobile-header hidden-lg">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <button class="menu-button " id="open-button">Open Menu</button>
 
                 </div>
 
-            </div>
-        </div>
-        <div class="mobile-header">
+                {% if "admin" in session %}
 
-        </div>
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "mentor" in session %}
+
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% elif "applicant" in session %}
+
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                    <a href="{{url_for('logout')  }}">Log Out</a>
+                </div>
+
+                {% else %}
+                <div class="log-in-status col-md-6 col-sm-6 col-xs-6 trigger-button">
+                    <div class="login-button">Log In</div>
+                </div>
+                {% endif %}
+
+
+            </div>
+
     </header>
 
     <div class="text-color-wrapper">
@@ -148,57 +179,53 @@
             {% block content %} {% endblock %}
         </section>
     </div>
-</div>
+    </div>
 
 
-<footer>
+    <footer>
 
 
-    <div class="footer-wrapper">
+        <div class="footer-wrapper">
 
         <div class="container">
             <div class="row">
                 <div class="logo-placer col-lg-3">
                     <a href="mailto:hello@codecool.com">
-                        <img src="../static/img/email.svg" width="auto" height="60" alt="logo">
+                        <img src="../static/img/email.svg" width="auto" height="40" alt="logo">
                     </a>
                 </div>
                 <div class="logo-placer col-lg-3">
                     <a href="https://www.linkedin.com/edu/school?id=3156086">
-                        <img src="../static/img/linkedin-box.svg" width="auto" height="60" alt="logo"></a>
+                        <img src="../static/img/linkedin-box.svg" width="auto" height="40" alt="logo"></a>
                 </div>
                 <div class="logo-placer col-lg-3">
                     <a href="https://www.facebook.com/CodecoolOfficial/">
-                        <img src="../static/img/facebook.svg" width="auto" height="60" alt="logo">
+                        <img src="../static/img/facebook.svg" width="auto" height="40" alt="logo">
                     </a>
                 </div>
                 <div class="logo-placer col-lg-3">
                     <a href="tel:+3615888588">
-                        <img src="../static/img/phone.svg" width="auto" height="60" alt="logo">
+                        <img src="../static/img/phone.svg" width="auto" height="40" alt="logo">
                     </a>
                 </div>
 
+                </div>
 
             </div>
-
         </div>
-    </div>
 
 
-    <script>
-        jQuery(".trigger-button").click(function () {
-            jQuery("#login-menu").slideToggle("slow");
-        });
+        <script>
+            jQuery(".trigger-button").click(function() {
+                jQuery("#login-menu").slideToggle("slow");
+            });
+        </script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/classie.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 
-    </script>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='js/classie.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-
-</footer>
+    </footer>
 
 
 </body>
-
