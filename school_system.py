@@ -358,6 +358,8 @@ def listing_all_mentors():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_mentors.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/question_list')
@@ -368,6 +370,8 @@ def listing_all_questions():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/admin/question_list', methods=["POST"])
