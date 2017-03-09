@@ -2,6 +2,7 @@ from models import *
 
 
 class MentorsData:
+
     def __init__(self):
         self.query = None
         self.results = []
@@ -20,13 +21,14 @@ class MentorsData:
                  query_object.applicant.code])
 
     def question_data(self, mentor_id):
-        self.tags = ["Submission date", "Question", "Application code", "ID"]
+        self.tags = ["ID", "Question", "Application code", "Submission date"]
         self.query = Question.select().join(Mentor).where(
             (Mentor.id == mentor_id) & (Question.status == "waiting for answer"))
         self.results = []
 
         for question in self.query:
-            self.results.append([str(question.submissiondate), question.question, question.applicant.code, question.id])
+            self.results.append([question.id, question.question, question.applicant.code, str(
+                question.submissiondate)])
 
     @staticmethod
     def question_answering(question_id, answer):

@@ -120,7 +120,7 @@ def applicant_menu():
 def mentor_menu():
     if 'mentor' in session:
         mentor = Mentor.get(Mentor.email == session['mentor'])
-        return render_template('mentor_menu.html', name=mentor.name)
+        return render_template('mentor_menu.html')
     else:
         return redirect(url_for('home_menu'))
 
@@ -132,7 +132,19 @@ def list_mentor_interviews():
         mentors_data.mentors_interviews_data(mentor.id)
         table_header = mentors_data.tags
         table_content = mentors_data.results
-        return render_template('mentor_interviews.html', name=mentor.name, header=table_header, content=table_content)
+        return render_template('mentor_interviews.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/mentor_menu/questions')
+def list_mentor_questions():
+    if 'mentor' in session:
+        mentor = Mentor.get(Mentor.email == session['mentor'])
+        mentors_data.question_data(mentor.id)
+        table_header = mentors_data.tags
+        table_content = mentors_data.results
+        return render_template('mentor_questions.html', header=table_header, content=table_content)
     else:
         return redirect(url_for('home_menu'))
 
@@ -142,7 +154,7 @@ def applicant_personal_data():
     if 'applicant' in session:
         applicant = Applicant.select().where(
             Applicant.email == session['applicant']).get()
-        return render_template('applicant_data.html', name=applicant.name, status=applicant.status,
+        return render_template('applicant_data.html', status=applicant.status,
                                school=applicant.school.name)
     else:
         return redirect(url_for('home_menu'))
@@ -374,12 +386,16 @@ def filter_questions():
 
 @app.route('/admin/question_list/question_assign', methods=["POST"])
 def assign_mentor_to_question():
-    mentor = Mentor.get(Mentor.name == request.form["mentors"])
-    question = Question.get(Question.id == int(request.form["question_id"]))
-    question.chosenmentor = mentor
-    question.status = "waiting for answer"
-    question.save()
-    return redirect(url_for('listing_all_questions'))
+    if 'admin' in session:
+        mentor = Mentor.get(Mentor.name == request.form["mentors"])
+        question = Question.get(
+            Question.id == int(request.form["question_id"]))
+        question.chosenmentor = mentor
+        question.status = "waiting for answer"
+        question.save()
+        return redirect(url_for('listing_all_questions'))
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.errorhandler(404)
