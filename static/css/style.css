@@ -129,6 +129,11 @@ th {
     padding-top: 13px;
 }
 
+.assign-button button {
+    background: none;
+    border: none;
+}
+
 .inside {
     border: 1px solid black;
     background-color: rgba(0, 0, 0, 0.7);

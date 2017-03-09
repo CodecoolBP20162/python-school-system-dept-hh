@@ -1,14 +1,29 @@
-{% extends "layout.html" %}
-{% block title %}Personal data{% endblock %}
-{% block content %}
+{% extends "layout.html" %} {% block title %}Personal data{% endblock %} {% block content %}
 
 <div class="register-wrapper">
     <form action="{{ url_for('applicant_ask_question') }}" method=post>
+
+        <h1>Your questions</h1>
 
         <div>
             <label for="question">Ask your question!</label>
             <input type="text" id="question" name="question" required="required">
         </div>
 
+        <div>
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                    {% for tag in header %}
+                    <th>{{ tag }}</th>
+                    {% endfor %}
+                </tr>
+                {% for data_list in content %}
+                <tr>{% for data in data_list %}
+                    <td>{{ data }}</td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <strong>You don't have any questions!</strong> {% endfor %}
+            </table>
+        </div>
         {% endblock %}
-

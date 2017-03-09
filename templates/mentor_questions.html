@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block title %}Your Interviews{% endblock %} {% block content %}
+
+<h1>Your Questions</h1>
+
+<div>
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            {% for tag in header %}
+            <th>{{ tag }}</th>
+            {% endfor %}
+            <th>Action</th>
+        </tr>
+        {% for data_list in content %}
+        <tr>{% for data in data_list %}
+            <td>{{ data }}</td>
+            {% endfor %}
+            <td><a href="/mentor_menu/{{ data_list[0] }}">Answer question</a></td>
+        </tr>
+        {% else %}
+        <strong>There is no data in the database with the given filter!</strong> {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
