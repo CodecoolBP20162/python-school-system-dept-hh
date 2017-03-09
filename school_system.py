@@ -153,7 +153,7 @@ def list_mentor_questions():
 def answer_question(question_id):
     if 'mentor' in session:
         selected_question = Question.get(Question.id == question_id)
-        return render_template('answer.html', question=selected_question)
+        return render_template('mentor_answer.html', question=selected_question)
     else:
         return redirect(url_for('home_menu'))
 
