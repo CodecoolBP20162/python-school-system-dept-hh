@@ -33,21 +33,17 @@
             {% for tag in header %}
             <th>{{ tag }}</th>
             {% endfor %}
-            <th>Assign mentor</th>
         </tr>
-        {% for person in content %}
-        <tr>{% for personal_data in person %}
-            <td>{{ personal_data }}</td>
-            {% endfor %}
-            <td>
-                <a href="/admin/question_list/{{ person[0] }}" class="button" data-toggle="tooltip" title="Assign a mentor to the question">
+        {% for data_list in content %}
+        <tr>{% for data in data_list %}
+            <td>{{ data }}{% if data == "Not yet assinged" %}
+                <a href="/admin/question_list/{{ data[0] }}" class="button" data-toggle="tooltip" title="Assign a mentor to the question">
                     <?xml version="1.0" encoding="UTF-8"?>
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24">
    <path fill="#ffffff" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-</svg></a>
-            </td>
-
+</svg></a>{% endif %}</td>
+            {% endfor %}
         </tr>
         {% else %}
         <strong>There is no data in the database with the given filter!</strong> {% endfor %}
