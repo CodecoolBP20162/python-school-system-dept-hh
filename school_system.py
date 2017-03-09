@@ -181,7 +181,14 @@ def applicant_personal_data():
 
 @app.route('/applicant/question_form')
 def question_form():
-    return render_template('applicant_ask_question.html')
+    if 'applicant' in session:
+        applicant = Applicant.get(Applicant.email == session['applicant'])
+        applicants_data.get_question_info(applicant.code)
+        table_header = applicants_data.tags
+        table_content = applicants_data.results
+        return render_template('applicant_ask_question.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/applicant/ask_question', methods=['POST'])
