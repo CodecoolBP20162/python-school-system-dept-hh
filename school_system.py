@@ -120,7 +120,7 @@ def applicant_menu():
 def mentor_menu():
     if 'mentor' in session:
         mentor = Mentor.get(Mentor.email == session['mentor'])
-        return render_template('mentor_menu.html', name=mentor.name)
+        return render_template('mentor_menu.html')
     else:
         return redirect(url_for('home_menu'))
 
@@ -132,7 +132,38 @@ def list_mentor_interviews():
         mentors_data.mentors_interviews_data(mentor.id)
         table_header = mentors_data.tags
         table_content = mentors_data.results
-        return render_template('mentor_interviews.html', name=mentor.name, header=table_header, content=table_content)
+        return render_template('mentor_interviews.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/mentor_menu/questions')
+def list_mentor_questions():
+    if 'mentor' in session:
+        mentor = Mentor.get(Mentor.email == session['mentor'])
+        mentors_data.question_data(mentor.id)
+        table_header = mentors_data.tags
+        table_content = mentors_data.results
+        return render_template('mentor_questions.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/mentor_menu/<question_id>', methods=['GET'])
+def answer_question(question_id):
+    if 'mentor' in session:
+        selected_question = Question.get(Question.id == question_id)
+        return render_template('answer.html', question=selected_question)
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/mentor_menu/answering', methods=['POST'])
+def question_answering_process():
+    if 'mentor' in session:
+        mentors_data.question_answering(
+            request.form['question_id'], request.form['answer'])
+        return redirect(url_for('list_mentor_questions'))
     else:
         return redirect(url_for('home_menu'))
 
@@ -142,7 +173,7 @@ def applicant_personal_data():
     if 'applicant' in session:
         applicant = Applicant.select().where(
             Applicant.email == session['applicant']).get()
-        return render_template('applicant_data.html', name=applicant.name, status=applicant.status,
+        return render_template('applicant_data.html', status=applicant.status,
                                school=applicant.school.name)
     else:
         return redirect(url_for('home_menu'))
@@ -150,7 +181,14 @@ def applicant_personal_data():
 
 @app.route('/applicant/question_form')
 def question_form():
-    return render_template('applicant_ask_question.html')
+    if 'applicant' in session:
+        applicant = Applicant.get(Applicant.email == session['applicant'])
+        applicants_data.get_question_info(applicant.code)
+        table_header = applicants_data.tags
+        table_content = applicants_data.results
+        return render_template('applicant_ask_question.html', header=table_header, content=table_content)
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.route('/applicant/ask_question', methods=['POST'])
@@ -160,7 +198,7 @@ def applicant_ask_question():
             Applicant.email == session['applicant']).get()
         question = request.form['question']
         applicants_data.add_question_to_database(applicant.code, question)
-        return render_template('home.html')
+        return render_template('applicant_menu.html')
     else:
         return redirect(url_for('home_menu'))
 
@@ -191,7 +229,10 @@ def new_applicant_form():
 def registration():
     applicants_data.new_applicant(city_input=request.form["city"], name_input=request.form[
         "name"], email_input=request.form["email"])
-    return render_template('home.html')
+    if 'admin' in session:
+        return redirect(url_for('applicant_menu'))
+    else:
+        return render_template('home.html')
 
 
 @app.route('/admin/applicant_list')
@@ -252,7 +293,7 @@ def filter_applicants():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Code":
             administrator_data.applicant_email_by_applicant_code(request.form[
-                                                                     "filter"])
+                "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         return render_template('all_applicants.html', header=table_header, content=table_content)
@@ -283,7 +324,7 @@ def filter_interviews():
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Applicant code":
             administrator_data.listing_interviews_by_applicant_code(request.form[
-                                                                        "filter"])
+                "filter"])
             table_header = administrator_data.tags
             table_content = administrator_data.results
         elif request.form["filter_by"] == "Mentor":
@@ -317,6 +358,70 @@ def listing_all_mentors():
         table_header = administrator_data.tags
         table_content = administrator_data.results
         return render_template('all_mentors.html', header=table_header, content=table_content)
+
+
+@app.route('/admin/question_list')
+def listing_all_questions():
+    if 'admin' in session:
+        mentors_list = Mentor.select()
+        administrator_data.listing_all_questions()
+        table_header = administrator_data.tags
+        table_content = administrator_data.results
+        return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
+
+
+@app.route('/admin/question_list', methods=["POST"])
+def filter_questions():
+    if 'admin' in session:
+        mentors_list = Mentor.select()
+        if request.form["filter_by"] == "Status":
+            administrator_data.question_by_status(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Date":
+            try:
+                filter_transfer = datetime.datetime.strptime(
+                    request.form["filter"], '%Y-%m-%d')
+            except ValueError:
+                table_header = ["ERROR: wrong date format"]
+                table_content = [
+                    ["Please give the questions's date in the following format: 2015-01-01"]]
+            else:
+                administrator_data.question_by_date(
+                    request.form["filter"])
+                table_header = administrator_data.tags
+                table_content = administrator_data.results
+        elif request.form["filter_by"] == "School":
+            administrator_data.question_by_school(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Mentor":
+            administrator_data.question_by_mentor(request.form["filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        elif request.form["filter_by"] == "Applicant code":
+            administrator_data.question_by_applicants(request.form[
+                "filter"])
+            table_header = administrator_data.tags
+            table_content = administrator_data.results
+        return render_template('all_questions.html', header=table_header, content=table_content, mentors=mentors_list)
+
+    else:
+        return redirect(url_for('home_menu'))
+
+
+@app.route('/admin/question_list/question_assign', methods=["POST"])
+def assign_mentor_to_question():
+    if 'admin' in session:
+        mentor = Mentor.get(Mentor.name == request.form["mentors"])
+        question = Question.get(
+            Question.id == int(request.form["question_id"]))
+        question.chosenmentor = mentor
+        question.status = "waiting for answer"
+        question.save()
+        return redirect(url_for('listing_all_questions'))
+    else:
+        return redirect(url_for('home_menu'))
 
 
 @app.errorhandler(404)
