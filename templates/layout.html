@@ -43,7 +43,7 @@
 
 
             <div class="desktop-header hidden-md hidden-sm hidden-xs">
-                <div class="header-wrapper">
+                <div class="header-wrapper container-fluid">
 
                     <div class="row">
                         <div class="col-lg-4">
@@ -99,47 +99,48 @@
                 </div>
             </div>
             <div class="mobile-header hidden-lg">
-                <div class="col-md-6 col-sm-6 col-xs-6">
-                    <button class="menu-button " id="open-button">Open Menu</button>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button class="menu-button " id="open-button">Open Menu</button>
+
+
+
+                    </div>
+
+
+                    {% if "admin" in session %}
+
+                    <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "mentor" in session %}
+
+                    <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% elif "applicant" in session %}
+
+                    <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
+                        <a href="{{url_for('logout')  }}">Log Out</a>
+                    </div>
+
+                    {% else %}
+                    <div class="log-in-status col-md-6 col-sm-6 col-xs-6 trigger-button">
+                        <div class="login-button">Log In</div>
+                    </div>
+                    {% endif %}
+
+
+
+
 
 
 
                 </div>
-
-
-                {% if "admin" in session %}
-
-                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% elif "mentor" in session %}
-
-                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% elif "applicant" in session %}
-
-                <div class="log-in-status col-md-6 col-sm-6 col-xs-6">
-                    <a href="{{url_for('logout')  }}">Log Out</a>
-                </div>
-
-                {% else %}
-                <div class="log-in-status col-md-6 col-sm-6 col-xs-6 trigger-button">
-                    <div class="login-button">Log In</div>
-                </div>
-                {% endif %}
-
-
-
-
-
-
 
             </div>
-
-        </div>
     </header>
 
     <div class="text-color-wrapper">
@@ -147,7 +148,7 @@
 
             <form action="/login" method="post">
 
-                <div class="log-in-wrapper">
+                <div class="log-in-wrapper container-fluid">
                     <div class="row">
                         <div class="log-in-field col-lg-5 col-md-12 col-sm-12 col-xs-12">
                             <div>
@@ -183,7 +184,7 @@
         </div>
 
 
-        <section class="container">
+        <section class="container-fluid">
 
             <div class="front-positioner">
 
@@ -200,7 +201,7 @@
 
         <div class="footer-wrapper navbar-fixed-bottom">
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="logo-placer col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         <a href="mailto:hello@codecool.com">
