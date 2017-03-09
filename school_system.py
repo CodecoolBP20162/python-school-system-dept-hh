@@ -149,6 +149,12 @@ def list_mentor_questions():
         return redirect(url_for('home_menu'))
 
 
+@app.route('/mentor_menu/questions/<question_id>')
+def answer_question(question_id):
+    selected_question = Question.get(Question.id == question_id)
+    return render_template('answer.html', question=selected_question)
+
+
 @app.route('/applicant/personal_data')
 def applicant_personal_data():
     if 'applicant' in session:

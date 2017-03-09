@@ -8,11 +8,13 @@
             {% for tag in header %}
             <th>{{ tag }}</th>
             {% endfor %}
+            <th>Action</th>
         </tr>
-        {% for person in content %}
-        <tr>{% for personal_data in person %}
-            <td>{{ personal_data }}</td>
+        {% for data_list in content %}
+        <tr>{% for data in data_list %}
+            <td>{{ data }}</td>
             {% endfor %}
+            <td><a href="/mentor_menu/questions/{{ data_list[0] }}">Answer question</a></td>
         </tr>
         {% else %}
         <strong>There is no data in the database with the given filter!</strong> {% endfor %}
