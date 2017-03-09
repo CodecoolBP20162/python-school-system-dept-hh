@@ -1,0 +1,6 @@
+{% if "admin" in session %}
+<a href="{{url_for('logout')  }}">Log Out</a> {% elif "mentor" in session %}
+<a href="{{url_for('logout')  }}">Log Out</a> {% elif "applicant" in session %}
+<a href="{{url_for('logout')  }}">Log Out</a> {% else %}
+<div class="login-button">Log In</div>
+{% endif %}
