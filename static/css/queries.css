@@ -1,17 +1,11 @@
 @media only screen and (max-width: 1200px) {
-    .desktop-header {
-        display: none;
+    .opacity-container {
+        height: auto
     }
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 1023px) {}
 
-}
+@media only screen and (max-width: 767px) {}
 
-@media only screen and (max-width: 767px) {
-
-}
-
-@media only screen and (max-width: 480px) {
-
-}
+@media only screen and (max-width: 480px) {}
