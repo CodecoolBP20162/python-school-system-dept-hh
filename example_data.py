@@ -45,7 +45,8 @@ class ExampleDataCreator:
     def create_dummy_mentors_by_csv(mentor_table):
         for mentor in mentor_table:
             school = School.select().where(School.name == mentor[2]).get()
-            Mentor.create(name=mentor[0], email=mentor[1], related_school=school)
+            Mentor.create(name=mentor[0], email=mentor[
+                1], password=ApplicantsData.random_app_code("mentor"), related_school=school)
 
     @staticmethod
     def create_dummy_applicants_by_csv(applicants_table):
@@ -65,7 +66,18 @@ class ExampleDataCreator:
                 related_school = School.select().where(School.name == "Krakow").get()
 
             Applicant.create(name=applicant[0], city=applicant_city, email=applicant[2], status=applicant[3],
-                             code=ApplicantsData.random_app_code(), school=related_school)
+                             code=ApplicantsData.random_app_code("applicant"), school=related_school)
+
+    @staticmethod
+    def create_dummy_admins():
+        name_list = ["Dénes", "Eszti", "Petya", "Tomi", "admin"]
+        email_list = ["codecool.depth+szdenes@gmail.com", "codecool.depth+leszter@gmail.com",
+                      "codecool.depth+szpeter@gmail.com", "codecool.depth+vtamas@gmail.com", "admin"]
+        password_list = ["1234", "5678", "9111", "1213", "admin"]
+
+        for x in range(len(name_list)):
+            Admin.create(name=name_list[x], password=password_list[
+                x], email=email_list[x])
 
     @staticmethod
     def create_dummy_interview_slots_by_csv(interviewslot_table):
@@ -77,6 +89,21 @@ class ExampleDataCreator:
             InterviewSlot.create(start=datetime.strptime(slot[0], '%Y-%m-%d %H:%M'),
                                  end=datetime.strptime(slot[1], '%Y-%m-%d %H:%M'), reserved=False, mentor=mentor1,
                                  mentor2=mentor2)
+
+    @staticmethod
+    def create_user_login_data():
+        applicants = Applicant.select()
+        mentors = Mentor.select()
+        admins = Admin.select()
+        for applicant in applicants:
+            User.create(email=applicant.email, password=applicant.code,
+                        user_status=applicant.user_status)
+        for mentor in mentors:
+            User.create(email=mentor.email, password=mentor.password,
+                        user_status=mentor.user_status)
+        for admin in admins:
+            User.create(email=admin.email, password=admin.password,
+                        user_status=admin.user_status)
 
     @staticmethod
     def build_tables(tables):

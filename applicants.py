@@ -53,9 +53,10 @@ class ApplicantsData:
         message = """
         Hi {name_input},
         Your application process to Codecool has been started!
-        Your code is {code}, and the city you have been assigned to is {city}.
+        The city you have been assigned to is {city}.
+        Your application code and your login password to the site is {code}.
 
-        Good luck!
+        Good luck! :)
         """.format(name_input=name_input, code=application_code, city=applicant_school.name)
 
         application_email = Mail(recipient_list, message, subject)
@@ -97,7 +98,8 @@ class ApplicantsData:
     @staticmethod
     def email_about_interview_to_mentor(new_interview):
 
-        recipient_list = [new_interview.interviewslot.mentor.email, new_interview.interviewslot.mentor2.email]
+        recipient_list = [new_interview.interviewslot.mentor.email,
+                          new_interview.interviewslot.mentor2.email]
         subject = "You've been assigned to a new interview"
         type = "To mentor about interview data"
         mentor_name = new_interview.interviewslot.mentor.name
@@ -125,16 +127,20 @@ class ApplicantsData:
 
         new_applicant_city = City.select().where(City.name == city_input).get()
         applicant_school = new_applicant_city.related_school
-        application_code = ApplicantsData.random_app_code()
+        application_code = ApplicantsData.random_app_code("applicant")
 
         new_applicant = Applicant.create(name=name_input, city=new_applicant_city, school=applicant_school,
                                          status="new", code=application_code, email=email_input)
+
+        new_user = User.create(email=email_input, password=application_code,
+                               user_status=3)
 
         try:
             interview_slot = InterviewSlot.select().join(Mentor).where(InterviewSlot.reserved == False,
                                                                        Mentor.related_school == applicant_school).get()
 
-            new_interview = Interview.create(applicant=new_applicant, interviewslot=interview_slot)
+            new_interview = Interview.create(
+                applicant=new_applicant, interviewslot=interview_slot)
             interview_slot.reserved = True
             interview_slot.save()
 
@@ -145,12 +151,13 @@ class ApplicantsData:
 
         ApplicantsData.email_about_code_and_city_to_applicant(name_input, email_input, application_code,
                                                               applicant_school)
-        ApplicantsData.email_about_interview_to_applicant(name_input, email_input, new_interview)
+        ApplicantsData.email_about_interview_to_applicant(
+            name_input, email_input, new_interview)
 
         return [new_applicant, new_interview]
 
     @staticmethod
-    def random_app_code():
+    def random_app_code(user_type):
         digits = "0123456789"
         lowercase = "abcdefghijklmnopqrstuvwxyz"
         uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -162,14 +169,20 @@ class ApplicantsData:
         random.shuffle(charlist[0])
         rand_chars = "".join(charlist[0])
 
-        code_table = Applicant.select(Applicant.id)
-        code_list = []
-        for ids in code_table:
-            code_list.append(ids.id)
-
-        rand_code = str(len(code_list) + 1) + rand_chars
-
-        return rand_code
+        if user_type == "applicant":
+            code_table = Applicant.select(Applicant.id)
+            code_list = []
+            for ids in code_table:
+                code_list.append(ids.id)
+            rand_code = str(len(code_list) + 1) + rand_chars
+            return rand_code
+        elif user_type == "mentor":
+            code_table = Mentor.select(Mentor.id)
+            code_list = []
+            for ids in code_table:
+                code_list.append(ids.id)
+            rand_code = str(len(code_list) + 1) + rand_chars + "M"
+            return rand_code
 
     def add_question_to_database(self, code_input, question_input):
         self.results = []
@@ -182,12 +195,25 @@ class ApplicantsData:
 
         self.results = []
         self.tags = ['Question', 'Status', 'Answer']
-        self.query = Question.select(Question, Applicant).join(Applicant).where(Applicant.code == code_input)
+        self.query = Question.select(Question, Applicant).join(
+            Applicant).where(Applicant.code == code_input)
 
         for question in self.query:
             answers = Answer.select().where(Answer.question_id == question)
             if len(answers) == 0:
-                self.results.append([question.question, question.status, "no answer yet"])
+                self.results.append(
+                    [question.question, question.status, "no answer yet"])
             else:
                 for answer in answers:
-                    self.results.append([question.question, question.status, answer.answer])
+                    self.results.append(
+                        [question.question, question.status, answer.answer])
+
+    def get_applicant_personal_data(self, email):
+        self.results = []
+        self.tags = ['Name', 'Code' 'City', 'School', 'Status']
+        self.query = Applicant.select().where(Applicant.email == email)
+
+        for query_object in self.query:
+            self.results.append(
+                [query_object.name, query_object.code, query_object.city.name,
+                 query_object.school.name, query_object.status])
